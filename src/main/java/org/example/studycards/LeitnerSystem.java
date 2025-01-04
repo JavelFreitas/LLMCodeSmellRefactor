@@ -64,6 +64,14 @@ public class LeitnerSystem extends StudyMethod{
         return  response;
     }
 
+    public String getRandomCardWithMessage() {
+        String response = "";
+        response += getMethodName();
+        List<Box> boxes = getBoxes();
+        response += getRandomCard(boxes);
+        return response;
+    }
+
     public void addCardToBox(Integer id, Integer boxId) {
         this.boxes.get(boxId).addCard(id);
     }
