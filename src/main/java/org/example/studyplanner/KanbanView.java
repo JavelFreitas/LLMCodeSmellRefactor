@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class KanbanView {
     public enum State{
@@ -75,47 +76,32 @@ public class KanbanView {
     }
 
     public String kanbanView() throws Exception {
-        try{
-
-            if(kanban.isEmpty()){
+        try {
+            if (kanban.isEmpty()) {
                 throw new Exception("No material found");
             }
-            StringBuilder sb = new StringBuilder();
-            sb.append("[ Material ToDo: ");
-            sb.append(System.lineSeparator());
 
-            if(kanban.get(State.TODO).isEmpty()){
-                sb.append("No material found");
-            } else {
-                for(PlannerMaterial material : kanban.get(State.TODO)){
-                    sb.append(", ").append(material.toString());
-                }
-            }
-            sb.append(System.lineSeparator());
-            sb.append("Material in progress:");
-            sb.append(System.lineSeparator());
-            if(kanban.get(State.DOING).isEmpty()){
-                sb.append("No material found");
-            } else {
-                for(PlannerMaterial material : kanban.get(State.DOING)){
-                    sb.append(", ").append(material.toString());
-                }
-            }
-            sb.append(System.lineSeparator());
-            sb.append("Material completed:");
-            sb.append(System.lineSeparator());
-            if(kanban.get(State.DONE).isEmpty()){
-                sb.append("No material found");
-            } else {
-                for(PlannerMaterial material : kanban.get(State.DONE)){
-                    sb.append(", ").append(material.toString());
-                }
-            }
-            sb.append("]");
-            return sb.toString();
-        } catch (Exception e){
+            String result = "[ ";
+            result += getMaterialsByState(State.TODO, "Material ToDo:") + System.lineSeparator();
+            result += getMaterialsByState(State.DOING, "Material in progress:") + System.lineSeparator();
+            result += getMaterialsByState(State.DONE, "Material completed:") + System.lineSeparator();
+            result += "]";
+
+            return result;
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
+
+    private String getMaterialsByState(State state, String stateName) {
+        List<PlannerMaterial> materials = kanban.get(state);
+        return formatMaterials(stateName, materials);
+    }
+
+    private String formatMaterials(String stateName, List<PlannerMaterial> materials) {
+        return stateName + System.lineSeparator() +
+                (materials.isEmpty() ? "No material found" :
+                        materials.stream().map(Object::toString).collect(Collectors.joining(", ")));
     }
 
 }
