@@ -58,4 +58,13 @@ public class SearchLog {
     public void setLogName(String logName) {
         this.logName = logName;
     }
+
+    public void logSearch(String text) {
+        addSearchHistory(text);
+        incrementUsageCount();
+    }
+
+    private void incrementUsageCount() {
+        numUsages++;
+    }
 }
