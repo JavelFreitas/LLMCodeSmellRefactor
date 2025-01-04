@@ -29,28 +29,36 @@ public class TodoTracker {
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (ToDo toDo : toDos) {
-            String todoInfo = toDo.toString();
-            str.append(todoInfo);
+            str.append(toDo.toString());
             str.append("\n");
-            Integer id = toDo.getId();
-            List<LocalDateTime> todosDate = this.tracker.get(id);
-            if(todosDate == null){
-                str.append("No tracks found\n");
-            }else{
-                for (LocalDateTime ldt : todosDate) {
-                    String pattern = "yyyy-MM-dd HH:mm:ss";
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                    String formattedDate = formatter.format(ldt);
-                    str.append(formattedDate);
-                    str.append("\n");
-                }
-            }
+            str.append(getTrackInfo(toDo.getId()));
         }
         String response = str.toString();
         if(response.isEmpty()){
             return "No ToDos found";
         }
         return response;
+    }
+
+    private String getTrackInfo(Integer id) {
+        StringBuilder trackInfo = new StringBuilder();
+        List<LocalDateTime> todosDate = this.tracker.get(id);
+        if(todosDate == null){
+            trackInfo.append("No tracks found\n");
+        }else{
+            for (LocalDateTime ldt : todosDate) {
+                String formattedDate = formatDate(ldt);
+                trackInfo.append(formattedDate);
+                trackInfo.append("\n");
+            }
+        }
+        return trackInfo.toString();
+    }
+
+    private String formatDate(LocalDateTime ldt) {
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return formatter.format(ldt);
     }
 
     public void addToDoExecutionTime(Integer id){
