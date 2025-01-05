@@ -69,16 +69,19 @@ public class SearchLog {
         this.numUsages++;
     }
 
-    public List<String> handleSearch(String text) {
+    public List<String> handleRegistrySearch(String text) {
         List<String> results = new ArrayList<>();
         results.addAll(CardManager.getCardManager().searchInCards(text));
         results.addAll(HabitTracker.getHabitTracker().searchInHabits(text));
         results.addAll(TodoTracker.getInstance().searchInTodos(text));
-        results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
         results.addAll(StudyTaskManager.getStudyTaskManager().searchInRegistries(text));
         this.logSearch(text);
         results.add("\nLogged in: " + this.getLogName());
         return results;
+    }
+
+    public List<String> handleSearch(String text) {
+        return handleRegistrySearch(text);
     }
 
     public List<String> handleMaterialSearch(String text) {
