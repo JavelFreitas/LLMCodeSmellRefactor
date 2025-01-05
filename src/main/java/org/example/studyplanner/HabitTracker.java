@@ -111,4 +111,25 @@ public class HabitTracker {
         return habits;
     }
 
+
+    public String formatAllHabits() {
+        List<Habit> habits = getHabits(); // Operate directly on the list of habits
+        StringBuilder response = new StringBuilder();
+        for (Habit habit : habits) {
+            response.append(formatHabitWithRecords(habit));
+        }
+        return response.toString();
+    }
+
+    public String formatHabitWithRecords(Habit habit) {
+        StringBuilder response = new StringBuilder();
+        response.append("[ Habit: ").append(habit.getName()).append(". Records: ");
+        List<LocalDateTime> records = getHabitRecords(habit.getId());
+        for (LocalDateTime record : records) {
+            response.append(formatHabitDate(record)).append(", ");
+        }
+        response.append("]");
+        return response.toString();
+    }
+
 }
