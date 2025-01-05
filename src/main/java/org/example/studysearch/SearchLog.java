@@ -80,4 +80,12 @@ public class SearchLog {
         results.add("\nLogged in: " + this.getLogName());
         return results;
     }
+
+    public List<String> handleMaterialSearch(String text) {
+        List<String> results = new ArrayList<>();
+        results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
+        this.logSearch(text);
+        results.add("\nLogged in: " + this.getLogName());
+        return results;
+    }
 }
