@@ -14,6 +14,9 @@ public abstract class Reference {
     private int shareCount;
 
     public void setTitle(String title) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("O título não pode ser nulo ou em branco.");
+        }
         this.title = title;
     }
 
@@ -66,30 +69,16 @@ public abstract class Reference {
     }
 
     public void setRating(int rating) {
+        if (rating < 0 || rating > 20) {
+            throw new IllegalArgumentException("A classificação deve estar entre 0 e 20.");
+        }
         this.rating = rating;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public int getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
-    }
-
-    public int getDownloadCount() {
-        return downloadCount;
-    }
-
     public void setDownloadCount(int downloadCount) {
+        if (downloadCount < 0) {
+            throw new IllegalArgumentException("O número de downloads não pode ser negativo.");
+        }
         this.downloadCount = downloadCount;
     }
 
@@ -98,6 +87,67 @@ public abstract class Reference {
     }
 
     public void setShareCount(int shareCount) {
+        if (shareCount < 0) {
+            throw new IllegalArgumentException("O número de compartilhamentos não pode ser negativo.");
+        }
         this.shareCount = shareCount;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    private static void validate(String language, int viewCount, int downloadCount, int shareCount) {
+        if (language == null || language.isBlank()) {
+            throw new IllegalArgumentException("O idioma não pode ser nulo ou em branco.");
+        }
+        if (viewCount < 0) {
+            throw new IllegalArgumentException("O número de visualizações não pode ser negativo.");
+        }
+        if (downloadCount < 0) {
+            throw new IllegalArgumentException("O número de downloads não pode ser negativo.");
+        }
+        if (shareCount < 0) {
+            throw new IllegalArgumentException("O número de compartilhamentos não pode ser negativo.");
+        }
+    }
+
+    public void setLanguage(String language) {
+        if (language == null || language.isBlank()) {
+            throw new IllegalArgumentException("O idioma não pode ser nulo ou em branco.");
+        }
+        this.language = language;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        if (viewCount < 0) {
+            throw new IllegalArgumentException("O número de visualizações não pode ser negativo.");
+        }
+        this.viewCount = viewCount;
+    }
+
+    public int getDownloadCount() {
+        return downloadCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Reference{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", link='" + link + '\'' +
+                ", accessRights='" + accessRights + '\'' +
+                ", license='" + license + '\'' +
+                ", isDownloadable=" + isDownloadable +
+                ", rating=" + rating +
+                ", language='" + language + '\'' +
+                ", viewCount=" + viewCount +
+                ", downloadCount=" + downloadCount +
+                ", shareCount=" + shareCount +
+                '}';
     }
 }
