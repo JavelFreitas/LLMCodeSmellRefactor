@@ -43,6 +43,7 @@ class StudyCardsControllerTest {
     @Order(1)
     @DisplayName("Get Random Card From Box Test")
     void getRandomCardFromBox() {
+        //getRandomCardFromBox() had to be moved to solve featureEnvy smell by move method
         String response = studyCardsController.getRandomCardFromBox();
         if(response == null){
             fail();
