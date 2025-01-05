@@ -194,7 +194,7 @@ public class StudyPlannerController {
     private void handleViewTimeline() throws Exception {
         try{
             handleMethodHeader("Timeline view: ");
-            System.out.println(timelineView.habitDateViewAll(habitTracker));
+            System.out.println(habitTracker.habitDateViewAll());
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
