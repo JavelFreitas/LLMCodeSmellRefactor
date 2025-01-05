@@ -1,38 +1,62 @@
 package org.example.studysearch;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SearchLog {
-    private List<String> searchHistory;
-    private Map<String, Integer> searchCount;
+    private final List<String> searchHistory;
+    private final Map<String, Integer> searchCount;
     private boolean isLocked;
     private Integer numUsages;
     private String logName;
 
     public SearchLog(String logName) {
-        searchHistory = new ArrayList<>();
-        searchCount = new HashMap<>();
+        if (logName == null || logName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Log name cannot be empty");
+        }
+        this.searchHistory = new ArrayList<>();
+        this.searchCount = new HashMap<>();
         this.logName = logName;
-        numUsages = 0;
-        isLocked = false;
+        this.numUsages = 0;
+        this.isLocked = false;
     }
-    public void addSearchHistory(String searchHistory) {
-        this.searchHistory.add(searchHistory);
+
+    public void addSearchHistory(String searchTerm) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot add search to locked log");
+        }
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            throw new IllegalArgumentException("Search term cannot be empty");
+        }
+        searchHistory.add(searchTerm);
+        searchCount.merge(searchTerm, 1, Integer::sum);
     }
+
     public List<String> getSearchHistory() {
-        return searchHistory;
+        return Collections.unmodifiableList(searchHistory);
     }
+
     public void setSearchHistory(List<String> searchHistory) {
-        this.searchHistory = searchHistory;
+        if (isLocked) {
+            throw new IllegalStateException("Cannot modify locked log");
+        }
+        this.searchHistory.clear();
+        if (searchHistory != null) {
+            this.searchHistory.addAll(searchHistory);
+        }
     }
+
     public Map<String, Integer> getSearchCount() {
-        return searchCount;
+        return Collections.unmodifiableMap(searchCount);
     }
+
     public void setSearchCount(Map<String, Integer> searchCount) {
-        this.searchCount = searchCount;
+        if (isLocked) {
+            throw new IllegalStateException("Cannot modify locked log");
+        }
+        this.searchCount.clear();
+        if (searchCount != null) {
+            this.searchCount.putAll(searchCount);
+        }
     }
 
     public boolean isLocked() {
@@ -48,6 +72,9 @@ public class SearchLog {
     }
 
     public void setNumUsages(Integer numUsages) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot modify locked log");
+        }
         this.numUsages = numUsages;
     }
 
@@ -56,6 +83,23 @@ public class SearchLog {
     }
 
     public void setLogName(String logName) {
+        if (logName == null || logName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Log name cannot be empty");
+        }
         this.logName = logName;
+    }
+
+    // Added business methods
+    public int getSearchFrequency(String searchTerm) {
+        return searchCount.getOrDefault(searchTerm, 0);
+    }
+
+    public void clearHistory() {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot clear locked log");
+        }
+        searchHistory.clear();
+        searchCount.clear();
+        numUsages = 0;
     }
 }
