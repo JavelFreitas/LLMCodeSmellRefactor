@@ -13,91 +13,81 @@ public abstract class Reference {
     private int downloadCount;
     private int shareCount;
 
+    protected void validateTitle(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be empty");
+        }
+    }
+
+    protected void updateMetadata(String title, String description, String link) {
+        validateTitle(title);
+        this.title = title;
+        this.description = description;
+        this.link = link;
+    }
+
+    protected void updateAccessControl(String accessRights, String license, boolean isDownloadable) {
+        this.accessRights = accessRights;
+        this.license = license;
+        this.isDownloadable = isDownloadable;
+    }
+
+    protected void incrementEngagement() {
+        this.viewCount++;
+    }
+
+    protected void recordDownload() {
+        if (isDownloadable) {
+            this.downloadCount++;
+        }
+    }
+
+    protected void recordShare() {
+        this.shareCount++;
+    }
+
+    protected boolean isAccessible() {
+        return "Public".equals(accessRights);
+    }
+
+    protected void updateRating(int newRating) {
+        if (newRating < 0 || newRating > 5) {
+            throw new IllegalArgumentException("Rating must be between 0 and 5");
+        }
+        this.rating = newRating;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getTitle() {
-        return title;
-    }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public String getAccessRights() {
-        return accessRights;
-    }
-
-    public void setAccessRights(String accessRights) {
-        this.accessRights = accessRights;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
     }
 
     public boolean getIsDownloadable() {
         return isDownloadable;
     }
 
-    public void setDownloadable(boolean downloadable) {
-        isDownloadable = downloadable;
-    }
+    // Essential getters
+    public String getTitle() { return title; }
+    public String getDescription() { return description; }
+    public String getLink() { return link; }
+    public String getAccessRights() { return accessRights; }
+    public String getLicense() { return license; }
+    public boolean isDownloadable() { return isDownloadable; }
+    public int getRating() { return rating; }
+    public String getLanguage() { return language; }
+    public int getViewCount() { return viewCount; }
+    public int getDownloadCount() { return downloadCount; }
+    public int getShareCount() { return shareCount; }
 
-    public int getRating() {
-        return rating;
-    }
 
-    public void setRating(int rating) {
+    protected void setStats(int rating, String language, int viewCount, int shareCount) {
         this.rating = rating;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
         this.language = language;
-    }
-
-    public int getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
-    }
-
-    public int getDownloadCount() {
-        return downloadCount;
-    }
-
-    public void setDownloadCount(int downloadCount) {
-        this.downloadCount = downloadCount;
-    }
-
-    public int getShareCount() {
-        return shareCount;
-    }
-
-    public void setShareCount(int shareCount) {
         this.shareCount = shareCount;
     }
 }

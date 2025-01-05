@@ -6,33 +6,27 @@ public class VideoReference extends Reference {
     private String frameRate;
     private String videoFormat;
 
-    public VideoReference(String title, String description){
-        this.setTitle(title);
-        this.setDescription(description);
+    public VideoReference(String title, String description) {
+        updateMetadata(title, description, "");
     }
 
-    public VideoReference(boolean isAvailable, String title, String description, String resolution, String frameRate, String videoFormat, String accessRights){
+    public VideoReference(boolean isAvailable, String title, String description,
+                          String resolution, String frameRate, String videoFormat,
+                          String accessRights) {
+        updateMetadata(title, description, "");
         this.isAvailable = isAvailable;
         this.resolution = resolution;
         this.frameRate = frameRate;
         this.videoFormat = videoFormat;
-        this.setTitle(title);
-        this.setDescription(description);
-        this.setAccessRights(accessRights);
+        updateAccessControl(accessRights, "", false);
     }
 
-    public void editAvailability(boolean isAvailable, boolean isDownloadable){
+    public void editAvailability(boolean isAvailable, boolean isDownloadable) {
         this.isAvailable = isAvailable;
-        this.setDownloadable(isDownloadable);
+        updateAccessControl(getAccessRights(), getLicense(), isDownloadable);
     }
 
-    public boolean handleStreamAvailability(){
-        if(!isAvailable){
-            return false;
-        } else if(!this.getIsDownloadable()){
-            return false;
-        }
-        return true;
-
+    public boolean handleStreamAvailability() {
+        return isAvailable && isDownloadable();
     }
 }
