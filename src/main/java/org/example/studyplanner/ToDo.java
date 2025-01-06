@@ -28,7 +28,6 @@ public class ToDo implements PlannerMaterial {
         logChange("Todo created");
     }
 
-    // Comportamentos de negócio
     public void markAsComplete() {
         if (!isCompleted) {
             isCompleted = true;
