@@ -1,11 +1,5 @@
 package org.example.controllers;
 
-import org.example.studymaterial.AudioReference;
-import org.example.studymaterial.Reference;
-import org.example.studymaterial.TextReference;
-import org.example.studymaterial.VideoReference;
-import org.example.studyregistry.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +8,16 @@ import java.util.Map;
 
 import static org.example.controllers.MainController.getInput;
 import static org.example.controllers.MainController.validateInput;
+import org.example.studymaterial.AudioReference;
+import org.example.studymaterial.Reference;
+import org.example.studymaterial.TextReference;
+import org.example.studymaterial.VideoReference;
+import org.example.studyregistry.StudyGoal;
+import org.example.studyregistry.StudyMaterial;
+import org.example.studyregistry.StudyObjective;
+import org.example.studyregistry.StudyPlan;
+import org.example.studyregistry.StudyTaskManager;
+import org.example.studyregistry.Task;
 
 public class StudyRegistryController {
     StudyTaskManager studyTaskManager = StudyTaskManager.getStudyTaskManager();
@@ -210,6 +214,6 @@ public class StudyRegistryController {
                 5 - add study plan
                 6 - set up week
                 7 - get week responsibilities
-               """);
+                """);
     }
 }
