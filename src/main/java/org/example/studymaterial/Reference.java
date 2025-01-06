@@ -107,7 +107,6 @@ public abstract class Reference {
         return shareCount;
     }
 
-    // Setters - mantidos públicos para compatibilidade com testes, mas com validação
     public void setTitle(String title) {
         if (title != null) {
             this.title = title;
@@ -167,10 +166,8 @@ public abstract class Reference {
     }
 
     protected void notifyUpdate() {
-        // Template method para notificar mudanças
     }
 
-    // Métodos de negócio adicionais
     public String getMetadata() {
         return String.format("%s (%s) - %s - Rating: %d/5",
                 title,
