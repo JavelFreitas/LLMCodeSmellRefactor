@@ -1,10 +1,10 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-06T20:31:05.649-03:00",
+  "timestamp": "2025-01-07T20:48:59.550-03:00",
   "files": [
     {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studymaterial\\AudioReference.java",
+      "filename": "./src/main/java/org/example/studymaterial/AudioReference.java",
       "violations": [
         {
           "beginline": 33,
@@ -20,7 +20,7 @@
       ]
     },
     {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyplanner\\HabitTracker.java",
+      "filename": "./src/main/java/org/example/studyplanner/HabitTracker.java",
       "violations": [
         {
           "beginline": 57,
@@ -36,23 +36,7 @@
       ]
     },
     {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyplanner\\KanbanView.java",
-      "violations": [
-        {
-          "beginline": 77,
-          "begincolumn": 19,
-          "endline": 77,
-          "endcolumn": 29,
-          "description": "The method \u0027kanbanView()\u0027 has a NCSS line count of 31.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
-        }
-      ]
-    },
-    {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyplanner\\TodoTracker.java",
+      "filename": "./src/main/java/org/example/studyplanner/TodoTracker.java",
       "violations": [
         {
           "beginline": 29,
@@ -68,7 +52,7 @@
       ]
     },
     {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyregistry\\StudyGoal.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyGoal.java",
       "violations": [
         {
           "beginline": 29,
@@ -84,7 +68,7 @@
       ]
     },
     {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyregistry\\StudyMaterial.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyMaterial.java",
       "violations": [
         {
           "beginline": 61,
@@ -100,7 +84,7 @@
       ]
     },
     {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyregistry\\StudyObjective.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyObjective.java",
       "violations": [
         {
           "beginline": 85,
@@ -116,7 +100,7 @@
       ]
     },
     {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyregistry\\StudyPlan.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyPlan.java",
       "violations": [
         {
           "beginline": 40,
@@ -132,7 +116,7 @@
       ]
     },
     {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyregistry\\StudyTaskManager.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyTaskManager.java",
       "violations": [
         {
           "beginline": 30,
