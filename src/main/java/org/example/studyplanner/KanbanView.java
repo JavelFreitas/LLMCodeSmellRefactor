@@ -74,46 +74,67 @@ public class KanbanView {
         }
     }
 
-    public String kanbanView() throws Exception {
-        try{
+    private String formatMaterialsForState(State state, String headerText) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(headerText);
+        sb.append(System.lineSeparator());
 
-            if(kanban.isEmpty()){
-                throw new Exception("No material found");
+        if(kanban.get(state).isEmpty()) {
+            sb.append("No material found");
+        } else {
+            for(PlannerMaterial material : kanban.get(state)) {
+                sb.append(", ").append(material.toString());
             }
+        }
+        sb.append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    private void validateKanban() throws Exception {
+        if(kanban.isEmpty()) {
+            throw new Exception("No material found");
+        }
+    }
+
+
+
+    private String buildSectionHeader(String headerText) {
+        return headerText + System.lineSeparator();
+    }
+
+    private String formatMaterialList(List<PlannerMaterial> materials) {
+        if(materials.isEmpty()) {
+            return "No material found";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for(PlannerMaterial material : materials) {
+            sb.append(", ").append(material.toString());
+        }
+        return sb.toString();
+    }
+
+    private String formatKanbanSection(State state, String headerText) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(buildSectionHeader(headerText));
+        sb.append(formatMaterialList(kanban.get(state)));
+        sb.append(System.lineSeparator());
+        return sb.toString();
+    }
+
+    public String kanbanView() throws Exception {
+        try {
+            validateKanban();
+
             StringBuilder sb = new StringBuilder();
             sb.append("[ Material ToDo: ");
-            sb.append(System.lineSeparator());
-
-            if(kanban.get(State.TODO).isEmpty()){
-                sb.append("No material found");
-            } else {
-                for(PlannerMaterial material : kanban.get(State.TODO)){
-                    sb.append(", ").append(material.toString());
-                }
-            }
-            sb.append(System.lineSeparator());
-            sb.append("Material in progress:");
-            sb.append(System.lineSeparator());
-            if(kanban.get(State.DOING).isEmpty()){
-                sb.append("No material found");
-            } else {
-                for(PlannerMaterial material : kanban.get(State.DOING)){
-                    sb.append(", ").append(material.toString());
-                }
-            }
-            sb.append(System.lineSeparator());
-            sb.append("Material completed:");
-            sb.append(System.lineSeparator());
-            if(kanban.get(State.DONE).isEmpty()){
-                sb.append("No material found");
-            } else {
-                for(PlannerMaterial material : kanban.get(State.DONE)){
-                    sb.append(", ").append(material.toString());
-                }
-            }
+            sb.append(formatKanbanSection(State.TODO, ""));
+            sb.append(formatKanbanSection(State.DOING, "Material in progress:"));
+            sb.append(formatKanbanSection(State.DONE, "Material completed:"));
             sb.append("]");
+
             return sb.toString();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
