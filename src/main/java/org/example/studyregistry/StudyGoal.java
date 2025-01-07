@@ -26,31 +26,45 @@ public class StudyGoal extends Registry{
         this.isCompleted = completed;
     }
 
-    public String setGoalSummary(){
+    public String setGoalSummary() {
         StringBuilder summary = new StringBuilder();
         summary.append("Goal Summary:\n").append("\n\n");
-        if(this.isActive){
+
+        appendGoalStatus(summary);
+        appendRequirements(summary);
+        appendPlanAndObjective(summary);
+
+        this.summary = summary.toString();
+        return summary.toString();
+    }
+
+    private void appendGoalStatus(StringBuilder summary) {
+        if (this.isActive) {
             summary.append("Active Goal:\n").append(goal).append("\n\n");
         }
-        if(this.isCompleted){
+        if (this.isCompleted) {
             summary.append("Completed Goal:\n").append(goal).append("\n\n");
         }
-        if(this.goalRequirements != null){
+    }
+
+    private void appendRequirements(StringBuilder summary) {
+        if (this.goalRequirements != null) {
             summary.append("Requirements:\n");
-            for(String requirement : this.goalRequirements){
+            for (String requirement : this.goalRequirements) {
                 summary.append(requirement).append(", ");
             }
         }
-        if(this.studyPlan != null){
+    }
+
+    private void appendPlanAndObjective(StringBuilder summary) {
+        if (this.studyPlan != null) {
             summary.append("Plan:\n");
             summary.append(this.studyPlan.toString());
         }
-        if(this.studyObjective != null){
+        if (this.studyObjective != null) {
             summary.append("Objective:\n");
             summary.append(this.studyObjective.toString());
         }
-        this.summary = summary.toString();
-        return summary.toString();
     }
 
     public void addRequirement(String requirement){
