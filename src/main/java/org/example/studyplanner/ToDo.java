@@ -28,6 +28,15 @@ public class ToDo implements PlannerMaterial {
         logChange("Todo created");
     }
 
+    public void appendToDoInfo(StringBuilder str) {
+        str.append(this.toString()).append("\n");
+    }
+
+    public boolean containsSearchTerm(String searchTerm) {
+        return title.toLowerCase().contains(searchTerm) ||
+                description.toLowerCase().contains(searchTerm);
+    }
+
     public void markAsComplete() {
         if (!isCompleted) {
             isCompleted = true;
@@ -156,7 +165,7 @@ public class ToDo implements PlannerMaterial {
 
     @Override
     public String toString() {
-            return MessageFormat.format("[(Priority:{3}) ToDo {0}: {1}, {2}]",
+        return MessageFormat.format("[(Priority:{3}) ToDo {0}: {1}, {2}]",
                 id,
                 title,
                 description,
