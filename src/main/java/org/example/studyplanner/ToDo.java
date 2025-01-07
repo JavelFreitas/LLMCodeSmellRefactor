@@ -2,7 +2,7 @@ package org.example.studyplanner;
 
 import java.text.MessageFormat;
 
-public class ToDo implements PlannerMaterial{
+public class ToDo implements PlannerMaterial {
     private Integer id;
     private String title;
     private String description;
@@ -15,11 +15,35 @@ public class ToDo implements PlannerMaterial{
         this.priority = priority;
     }
 
-    @Override
-    public String toString() {
-        return MessageFormat.format("[(Priority:{3}) ToDo {0}: {1}, {2}]", id, title, description, priority);
+    // Encapsulated logic: Extract method to check if the task is high priority
+    public boolean isHighPriority() {
+        return priority >= 8; // Arbitrary threshold for high priority
     }
 
+    // Encapsulated logic: Extract method for concise task summary
+    public String getSummary() {
+        return title + ": " + (description.length() > 20 ? description.substring(0, 20) + "..." : description);
+    }
+
+    // Encapsulated logic: Extract method for priority label
+    public String getPriorityLabel() {
+        return switch (priority) {
+            case 1 -> "Low";
+            case 2, 3, 4 -> "Medium";
+            case 5, 6, 7 -> "High";
+            default -> "Critical";
+        };
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format(
+                "[(Priority:{3} - {4}) ToDo {0}: {1}, {2}]",
+                id, title, description, priority, getPriorityLabel()
+        );
+    }
+
+    // Getters and Setters
     public int getId() {
         return id;
     }
