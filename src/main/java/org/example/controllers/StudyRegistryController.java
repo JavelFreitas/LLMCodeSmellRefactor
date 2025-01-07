@@ -48,15 +48,50 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(task);
     }
 
-    private void handleSetObjective(StudyObjective objective){
+    private void handleSetObjective(StudyObjective objective) {
         handleMethodHeader("(Study Objective Edit)");
-        System.out.println("Type the following info: Integer id, Integer priority " +
-                "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
-                "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
-                "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+
+        RegistryInfo registryInfo = getRegistryInfo();
+        TextualInfo textualInfo = getTextualInfo();
+        TimeInfo timeInfo = getTimeInfo();
+
+        objective.handleSetObjective(registryInfo, textualInfo, timeInfo);
+    }
+
+    private RegistryInfo getRegistryInfo() {
+        System.out.println("Enter Registry Info:");
+        System.out.println("id, name, priority, isActive:");
+        return new RegistryInfo(
+                Integer.parseInt(getInput()),
+                getInput(),
+                Integer.parseInt(getInput()),
+                Boolean.parseBoolean(getInput())
+        );
+    }
+
+    private TextualInfo getTextualInfo() {
+        System.out.println("Enter Textual Info:");
+        System.out.println("title, description, topic, objectiveInOneLine, objectiveFullDescription, motivation:");
+        return new TextualInfo.Builder()
+                .withTitle(getInput())
+                .withDescription(getInput())
+                .withTopic(getInput())
+                .withObjectiveInOneLine(getInput())
+                .withObjectiveFullDescription(getInput())
+                .withMotivation(getInput())
+                .build();
+    }
+
+    private TimeInfo getTimeInfo() {
+        System.out.println("Enter Time Info:");
+        System.out.println("practicedDays, day, month, year, duration:");
+        return new TimeInfo(
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Double.parseDouble(getInput())
+        );
     }
 
     private StudyObjective getStudyObjectiveInfo(){
