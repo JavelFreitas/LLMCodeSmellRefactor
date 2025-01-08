@@ -38,7 +38,7 @@ public class ToDo implements PlannerMaterial {
     @Override
     public String toString() {
         return MessageFormat.format(
-                "[(Priority:{3} - {4}) ToDo {0}: {1}, {2}]",
+                "[(Priority:{3}) ToDo {0}: {1}, {2}]",
                 id, title, description, priority, getPriorityLabel()
         );
     }

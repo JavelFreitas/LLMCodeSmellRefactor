@@ -4,6 +4,8 @@ import org.example.studymaterial.AudioReference;
 import org.example.studymaterial.Reference;
 import org.example.studymaterial.TextReference;
 import org.example.studymaterial.VideoReference;
+import org.example.studymaterial.dtos.AudioMetadata;
+import org.example.studymaterial.dtos.AudioStatistics;
 import org.example.studyregistry.*;
 
 import java.time.LocalDateTime;
@@ -109,15 +111,24 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(goal);
     }
 
-    private void editAudio(AudioReference audioReference){
+    private void editAudio(AudioReference audioReference) {
         handleMethodHeader("(Audio Edit)");
-        System.out.println("Type the following info:  AudioReference. AudioQuality audioQuality, boolean isDownloadable, " +
-                "String title, String description, String link, String accessRights, String license, String language, int rating, " +
-                "int viewCount, int shareCount \n");
-        AudioReference.AudioQuality quality =AudioReference.audioQualityAdapter(getInput());
-        audioReference.editAudio(quality, Boolean.parseBoolean(getInput()), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()));
+        System.out.println("Type the following info: AudioQuality, isDownloadable, title, description, link, accessRights, license, language, rating, viewCount, shareCount \n");
+
+        AudioReference.AudioQuality quality = AudioReference.audioQualityAdapter(getInput());
+        boolean isDownloadable = Boolean.parseBoolean(getInput());
+
+        AudioMetadata metadata = new AudioMetadata(
+                getInput(), getInput(), getInput(), getInput(), getInput(), getInput()
+        );
+
+        AudioStatistics statistics = new AudioStatistics(
+                Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput())
+        );
+
+        audioReference.editAudio(quality, isDownloadable, metadata, statistics);
     }
+
 
     private AudioReference addAudioReference(){
         handleMethodHeader("(Audio Reference Creation)");
