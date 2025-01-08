@@ -69,7 +69,6 @@ public class HabitTracker {
         return addHabit(stringProperties.get(0), stringProperties.get(1), intProperties.get(0), intProperties.get(1), intProperties.get(2), intProperties.get(3), intProperties.get(4), intProperties.get(5), intProperties.get(6), intProperties.get(7), isConcluded);
     }
 
-
     public int addHabit(String name, String motivation) {
 
         Habit habit = new Habit(name, motivation, this.nextId);
@@ -111,4 +110,24 @@ public class HabitTracker {
         return habits;
     }
 
+    public String formatHabitRecords(Habit habit) {
+        List<LocalDateTime> records = getHabitRecords(habit.getId());
+        StringBuilder recordsBuilder = new StringBuilder();
+        for (LocalDateTime record : records) {
+            recordsBuilder.append(formatHabitDate(record)).append(", ");
+        }
+        return recordsBuilder.toString();
+    }
+
+    public String getAllHabitDetails() {
+        StringBuilder response = new StringBuilder();
+        for (Habit habit : getHabits()) {
+            response.append("[ Habit: ")
+                    .append(habit.getName())
+                    .append(". Records: ")
+                    .append(formatHabitRecords(habit))
+                    .append("]");
+        }
+        return response.toString();
+    }
 }
