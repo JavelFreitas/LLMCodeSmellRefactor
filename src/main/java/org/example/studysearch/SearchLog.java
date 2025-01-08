@@ -1,38 +1,56 @@
 package org.example.studysearch;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SearchLog {
-    private List<String> searchHistory;
-    private Map<String, Integer> searchCount;
+    private final List<String> searchHistory;
+    private final Map<String, Integer> searchCount;
     private boolean isLocked;
-    private Integer numUsages;
-    private String logName;
+    private int numUsages;
+    private final String logName;
 
     public SearchLog(String logName) {
-        searchHistory = new ArrayList<>();
-        searchCount = new HashMap<>();
+        if (logName == null || logName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Log name cannot be null or empty");
+        }
+        this.searchHistory = new ArrayList<>();
+        this.searchCount = new HashMap<>();
         this.logName = logName;
-        numUsages = 0;
-        isLocked = false;
+        this.numUsages = 0;
+        this.isLocked = false;
     }
-    public void addSearchHistory(String searchHistory) {
-        this.searchHistory.add(searchHistory);
+
+    // Método mantido para compatibilidade com os testes
+    public void addSearchHistory(String searchTerm) {
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            throw new IllegalArgumentException("Search term cannot be null or empty");
+        }
+        searchHistory.add(searchTerm);
     }
+
+    public void addSearch(String searchTerm) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot add search when log is locked");
+        }
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            throw new IllegalArgumentException("Search term cannot be null or empty");
+        }
+
+        searchHistory.add(searchTerm);
+        searchCount.merge(searchTerm, 1, Integer::sum);
+        numUsages++;
+    }
+
     public List<String> getSearchHistory() {
-        return searchHistory;
+        return Collections.unmodifiableList(searchHistory);
     }
-    public void setSearchHistory(List<String> searchHistory) {
-        this.searchHistory = searchHistory;
-    }
-    public Map<String, Integer> getSearchCount() {
-        return searchCount;
-    }
-    public void setSearchCount(Map<String, Integer> searchCount) {
-        this.searchCount = searchCount;
+
+    public int getSearchTermCount(String term) {
+        return searchCount.getOrDefault(term, 0);
     }
 
     public boolean isLocked() {
@@ -43,19 +61,16 @@ public class SearchLog {
         isLocked = locked;
     }
 
-    public Integer getNumUsages() {
+    public int getNumUsages() {
         return numUsages;
     }
 
-    public void setNumUsages(Integer numUsages) {
+    // Método mantido para compatibilidade com o código existente
+    public void setNumUsages(int numUsages) {
         this.numUsages = numUsages;
     }
 
     public String getLogName() {
         return logName;
-    }
-
-    public void setLogName(String logName) {
-        this.logName = logName;
     }
 }
