@@ -111,4 +111,21 @@ public class HabitTracker {
         return habits;
     }
 
+    // HabitTracker.java
+// Adicionar novo método
+    public String getFormattedTimelineView() {
+        StringBuilder response = new StringBuilder();
+        for(Habit habit : habits){
+            response.append("[ Habit: ")
+                    .append(habit.getName())
+                    .append(". Records: ");
+            List<LocalDateTime> records = getHabitRecords(habit.getId());
+            for(LocalDateTime record : records){
+                response.append(formatHabitDate(record)).append(", ");
+            }
+            response.append("]");
+        }
+        return response.toString();
+    }
+
 }
