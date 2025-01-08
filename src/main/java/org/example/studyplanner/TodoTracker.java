@@ -29,28 +29,35 @@ public class TodoTracker {
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (ToDo toDo : toDos) {
-            String todoInfo = toDo.toString();
-            str.append(todoInfo);
-            str.append("\n");
-            Integer id = toDo.getId();
-            List<LocalDateTime> todosDate = this.tracker.get(id);
-            if(todosDate == null){
-                str.append("No tracks found\n");
-            }else{
-                for (LocalDateTime ldt : todosDate) {
-                    String pattern = "yyyy-MM-dd HH:mm:ss";
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                    String formattedDate = formatter.format(ldt);
-                    str.append(formattedDate);
-                    str.append("\n");
-                }
-            }
+            str.append(formatToDoInfo(toDo));
+            str.append(formatExecutionTimes(toDo.getId()));
         }
         String response = str.toString();
-        if(response.isEmpty()){
-            return "No ToDos found";
+        return response.isEmpty() ? "No ToDos found" : response;
+    }
+
+    private String formatToDoInfo(ToDo toDo) {
+        StringBuilder info = new StringBuilder();
+        info.append(toDo.toString());
+        info.append("\n");
+        return info.toString();
+    }
+
+    private String formatExecutionTimes(Integer id) {
+        StringBuilder times = new StringBuilder();
+        List<LocalDateTime> todosDate = this.tracker.get(id);
+        if (todosDate == null) {
+            times.append("No tracks found\n");
+        } else {
+            todosDate.forEach(ldt -> times.append(formatLocalDateTime(ldt)));
         }
-        return response;
+        return times.toString();
+    }
+
+    private String formatLocalDateTime(LocalDateTime ldt) {
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return formatter.format(ldt) + "\n";
     }
 
     public void addToDoExecutionTime(Integer id){
