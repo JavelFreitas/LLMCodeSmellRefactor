@@ -56,4 +56,9 @@ public class AudioReference extends Reference {
          this.setLink(link);
      }
 
+    @Override
+    public boolean isValidForCounting() {
+        return true; // Áudios são sempre válidos para contagem
+    }
+
 }

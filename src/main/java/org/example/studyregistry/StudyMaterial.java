@@ -59,28 +59,27 @@ public class StudyMaterial{
     }
 
     public Map<String, Integer> getReferenceCountMap(){
+        Map<String, Integer> response = initializeCountMap();
+        countAllReferences(response);
+        setReferenceCount(response);
+        return response;
+    }
+
+    private Map<String, Integer> initializeCountMap() {
         Map<String, Integer> response = new HashMap<>();
         response.put("Audio References", 0);
         response.put("Video References", 0);
         response.put("Text References", 0);
+        return response;
+    }
+
+    private void countAllReferences(Map<String, Integer> response) {
         for (Reference reference : references) {
-            if (reference.getClass() == AudioReference.class) {
-                Integer audioCount = response.get("Audio References");
-                response.put("Audio References", audioCount + 1);
-            } else if (reference.getClass() == VideoReference.class) {
-                if(((VideoReference) reference).handleStreamAvailability()){
-                    Integer videoCount = response.get("Video References");
-                    response.put("Video References", videoCount + 1);
-                }
-            } else if (reference.getClass() == TextReference.class){
-                if(((TextReference) reference).handleTextAccess()){
-                    Integer textCount = response.get("Text References");
-                    response.put("Text References", textCount + 1);
-                }
+            if (reference.isValidForCounting()) {
+                String key = reference.getReferenceTypeName();
+                response.put(key, response.get(key) + 1);
             }
         }
-        setReferenceCount(response);
-        return response;
     }
 
 }

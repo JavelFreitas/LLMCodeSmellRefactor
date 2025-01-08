@@ -1,6 +1,6 @@
 package org.example.studymaterial;
 
-public class Reference {
+public abstract class Reference {
     private ReferenceMetadata metadata;
     private ReferenceEngagement engagement;
     protected String title;
@@ -139,6 +139,12 @@ public class Reference {
 
     public String getLicense() {
         return license;
+    }
+
+    public abstract boolean isValidForCounting();
+    
+    public String getReferenceTypeName() {
+        return this.getClass().getSimpleName().replace("Reference", " References");
     }
 }
 

@@ -29,4 +29,13 @@ public class VideoReference extends Reference {
     public boolean handleStreamAvailability() {
         return isAvailable && isDownloadable();
     }
+
+    @Override
+    public boolean isValidForCounting() {
+        return handleStreamAvailability();
+    }
+
+    public boolean shouldBeCountedAsReference() {
+        return handleStreamAvailability();
+    }
 }
