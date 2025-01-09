@@ -7,6 +7,7 @@ import org.example.studymaterial.VideoReference;
 import org.example.studymaterial.dtos.AudioMetadata;
 import org.example.studymaterial.dtos.AudioStatistics;
 import org.example.studyregistry.*;
+import org.example.studyregistry.dtos.StudyObjectiveDetails;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -52,17 +53,34 @@ public class StudyRegistryController {
         Task task = getStudyTaskInfo();
         studyTaskManager.addRegistry(task);
     }
-
-    private void handleSetObjective(StudyObjective objective){
+    private void handleSetObjective(StudyObjective objective) {
         handleMethodHeader("(Study Objective Edit)");
-        System.out.println("Type the following info: Integer id, Integer priority " +
-                "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
-                "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
-                "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+        System.out.println("Type the following info: Integer id, Integer priority, Integer practicedDays, int day, int month, int year, " +
+                "String name, String title, String description, String topic, String objectiveInOneLine, String objectiveFullDescription, " +
+                "String motivation, Double duration, boolean isActive\n");
+
+        // Using the Builder pattern to construct the StudyObjectiveDetails object
+        StudyObjectiveDetails objectiveDetails = new StudyObjectiveDetails.Builder()
+                .withId(Integer.parseInt(getInput()))
+                .withPriority(Integer.parseInt(getInput()))
+                .withPracticedDays(Integer.parseInt(getInput()))
+                // Using withDateTime() method to set day, month, and year
+                .withDateTime(Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput())) // day, month, year
+                .withName(getInput())
+                .withTitle(getInput())
+                .withDescription(getInput())
+                .withTopic(getInput())
+                .withObjectiveInOneLine(getInput())
+                .withObjectiveFullDescription(getInput())
+                .withMotivation(getInput())
+                .withDuration(Double.parseDouble(getInput()))
+                .withIsActive(Boolean.parseBoolean(getInput()))
+                .build();
+
+        // Pass the constructed objective details to the handleSetObjective method of the StudyObjective
+        objective.handleSetObjective(objectiveDetails);
     }
+
 
     private StudyObjective getStudyObjectiveInfo(){
         handleMethodHeader("(Study Objective Creation)");
