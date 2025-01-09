@@ -19,23 +19,43 @@ public class GeneralSearch implements Search<String> {
         return handleSearch(text);
     }
 
-    public SearchLog getSearchLog(){
+    public SearchLog getSearchLog() {
         return searchLog;
     }
 
-    private List<String> handleSearch(String text){
+    private List<String> handleSearch(String text) {
         List<String> results = new ArrayList<>();
-        results.addAll(CardManager.getCardManager().searchInCards(text));
-        results.addAll(HabitTracker.getHabitTracker().searchInHabits(text));
-        results.addAll(TodoTracker.getInstance().searchInTodos(text));
-        results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
-        results.addAll(StudyTaskManager.getStudyTaskManager().searchInRegistries(text));
+
+        results.addAll(searchInCards(text));
+        results.addAll(searchInHabits(text));
+        results.addAll(searchInTodos(text));
+        results.addAll(searchInMaterials(text));
+        results.addAll(searchInRegistries(text));
+
         this.searchLog.addSearchHistory(text);
         this.searchLog.setNumUsages(this.searchLog.getNumUsages() + 1);
         results.add("\nLogged in: " + this.searchLog.getLogName());
+
         return results;
     }
 
+    private List<String> searchInCards(String text) {
+        return CardManager.getCardManager().searchInCards(text);
+    }
 
+    private List<String> searchInHabits(String text) {
+        return HabitTracker.getHabitTracker().searchInHabits(text);
+    }
 
+    private List<String> searchInTodos(String text) {
+        return TodoTracker.getInstance().searchInTodos(text);
+    }
+
+    private List<String> searchInMaterials(String text) {
+        return StudyMaterial.getStudyMaterial().searchInMaterials(text);
+    }
+
+    private List<String> searchInRegistries(String text) {
+        return StudyTaskManager.getStudyTaskManager().searchInRegistries(text);
+    }
 }
