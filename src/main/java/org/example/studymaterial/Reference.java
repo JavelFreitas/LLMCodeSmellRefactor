@@ -1,5 +1,7 @@
 package org.example.studymaterial;
 
+import java.util.Map;
+
 public abstract class Reference {
     private String title;
     private String description;
@@ -16,6 +18,19 @@ public abstract class Reference {
     protected void validateTitle(String title) {
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("Title cannot be empty");
+        }
+    }
+
+    public abstract boolean isCountable();
+
+    public String getReferenceTypeName() {
+        return this.getClass().getSimpleName().replace("Reference", " References");
+    }
+
+    public void incrementCount(Map<String, Integer> countMap) {
+        if (isCountable()) {
+            String typeName = getReferenceTypeName();
+            countMap.put(typeName, countMap.get(typeName) + 1);
         }
     }
 

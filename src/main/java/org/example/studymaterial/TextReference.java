@@ -11,6 +11,11 @@ public class TextReference extends Reference {
         updateAccessControl(accessRights, "", false);
     }
 
+    @Override
+    public boolean isCountable() {
+        return handleTextAccess();
+    }
+
     public void editAccess(String accessRights, String format, int wordCount) {
         updateAccessControl(accessRights, "", false);
         this.format = format;

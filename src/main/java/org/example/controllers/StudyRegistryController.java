@@ -4,10 +4,7 @@ import org.example.studymaterial.*;
 import org.example.studyregistry.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.example.controllers.MainController.getInput;
 import static org.example.controllers.MainController.validateInput;
@@ -230,12 +227,63 @@ public class StudyRegistryController {
         System.out.println("Study Plan Added");
     }
 
-    private void getWeekInfo(){
-        System.out.println("(Study Task Manager Week Set Up) Type the following info: String planName, String objectiveTitle, " +
-                "String objectiveDescription, String materialTopic, String materialFormat, String goal, String reminderTitle, " +
-                "String reminderDescription, String mainTaskTitle, String mainHabit, String mainCardStudy");
-        studyTaskManager.setUpWeek(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), getInput());
+    public enum WeekInfoFields {
+        PLAN_NAME("Plan Name"),
+        OBJECTIVE_TITLE("Objective Title"),
+        OBJECTIVE_DESCRIPTION("Objective Description"),
+        MATERIAL_TOPIC("Material Topic"),
+        MATERIAL_FORMAT("Material Format"),
+        GOAL("Goal"),
+        REMINDER_TITLE("Reminder Title"),
+        REMINDER_DESCRIPTION("Reminder Description"),
+        MAIN_TASK_TITLE("Main Task Title"),
+        MAIN_HABIT("Main Habit"),
+        MAIN_CARD_STUDY("Main Card Study");
+
+        private final String displayName;
+
+        WeekInfoFields(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+    }
+
+    private void getWeekInfo() {
+        System.out.println("Study Task Manager Week Setup");
+        System.out.println("Please enter the following information:");
+
+        Map<WeekInfoFields, String> inputs = new EnumMap<>(WeekInfoFields.class);
+        for (WeekInfoFields field : WeekInfoFields.values()) {
+            inputs.put(field, promptForInput(field.getDisplayName()));
+        }
+
+        WeekInfo weekInfo = new WeekInfo(
+                inputs.get(WeekInfoFields.PLAN_NAME),
+                inputs.get(WeekInfoFields.OBJECTIVE_TITLE),
+                inputs.get(WeekInfoFields.OBJECTIVE_DESCRIPTION),
+                inputs.get(WeekInfoFields.MATERIAL_TOPIC),
+                inputs.get(WeekInfoFields.MATERIAL_FORMAT),
+                inputs.get(WeekInfoFields.GOAL),
+                inputs.get(WeekInfoFields.REMINDER_TITLE),
+                inputs.get(WeekInfoFields.REMINDER_DESCRIPTION),
+                inputs.get(WeekInfoFields.MAIN_TASK_TITLE),
+                inputs.get(WeekInfoFields.MAIN_HABIT),
+                inputs.get(WeekInfoFields.MAIN_CARD_STUDY)
+        );
+
+        studyTaskManager.setUpWeek(weekInfo);
+    }
+
+    private String promptForInput(String fieldName) {
+        String input;
+        do {
+            System.out.print(fieldName + ": ");
+            input = getInput().trim();
+        } while (input.isEmpty());
+        return input;
     }
 
     private void handleSetUpWeek(){

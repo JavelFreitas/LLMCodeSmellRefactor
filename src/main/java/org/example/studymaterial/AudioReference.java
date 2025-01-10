@@ -15,6 +15,11 @@ public class AudioReference extends Reference {
         return new Builder();
     }
 
+    @Override
+    public boolean isCountable() {
+        return true;
+    }
+
     public static class Builder {
         private AudioQuality audioQuality;
         private boolean isDownloadable;

@@ -21,6 +21,11 @@ public class VideoReference extends Reference {
         updateAccessControl(accessRights, "", false);
     }
 
+    @Override
+    public boolean isCountable() {
+        return handleStreamAvailability();
+    }
+
     public void editAvailability(boolean isAvailable, boolean isDownloadable) {
         this.isAvailable = isAvailable;
         updateAccessControl(getAccessRights(), getLicense(), isDownloadable);

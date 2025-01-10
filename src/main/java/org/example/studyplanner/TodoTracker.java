@@ -40,10 +40,7 @@ public class TodoTracker {
     }
 
     private String buildTodoWithTrackingInfo(ToDo toDo) {
-        StringBuilder str = new StringBuilder();
-        str.append(toDo.toString()).append("\n");
-        str.append(getTrackingInfo(toDo.getId()));
-        return str.toString();
+        return toDo.getFormattedTodoWithTracking(tracker.get(toDo.getId()));
     }
 
     private String getTrackingInfo(Integer id) {

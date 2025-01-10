@@ -93,11 +93,7 @@ public class LeitnerSystem extends StudyMethod {
         }
     }
 
-    private void validateCardInBox(Box box, Integer cardId) throws Exception {
-        if (box.hasCard(cardId)) {
-            throw new Exception("No card Found");
-        }
-    }
+
 
     private int getTargetBoxIndex(Integer currentBox, boolean isUpgrade) {
         return isUpgrade ?
@@ -116,7 +112,7 @@ public class LeitnerSystem extends StudyMethod {
     private void moveCard(Integer cardId, Integer boxId, boolean isUpgrade) throws Exception {
         validateBoxId(boxId);
         Box sourceBox = boxes.get(boxId);
-        validateCardInBox(sourceBox, cardId);
+        sourceBox.validateCard(cardId);
 
         sourceBox.removeCard(cardId);
         int targetBoxIndex = getTargetBoxIndex(boxId, isUpgrade);

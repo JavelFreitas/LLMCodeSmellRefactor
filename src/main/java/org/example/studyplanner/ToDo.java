@@ -1,6 +1,9 @@
 package org.example.studyplanner;
 
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class ToDo implements PlannerMaterial {
     private Integer id;
@@ -33,6 +36,21 @@ public class ToDo implements PlannerMaterial {
             throw new IllegalArgumentException("Title cannot be empty");
         }
         this.title = newTitle;
+    }
+
+    public String getFormattedTodoWithTracking(List<LocalDateTime> trackingDates) {
+        StringBuilder str = new StringBuilder();
+        str.append(this.toString()).append("\n");
+
+        if (trackingDates == null || trackingDates.isEmpty()) {
+            return str.append("No tracks found\n").toString();
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        for (LocalDateTime date : trackingDates) {
+            str.append(formatter.format(date)).append("\n");
+        }
+        return str.toString();
     }
 
     public void updateDescription(String newDescription) {
