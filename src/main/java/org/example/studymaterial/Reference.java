@@ -167,7 +167,7 @@ public abstract class Reference {
 
     // Additional Behavior: Evaluate overall performance based on interactions and rating
     public String evaluatePerformance() {
-        String performance = isHighlyRated() ? "Highly Rated" : "Needs Improvement";   
+        String performance = isHighlyRated() ? "Highly Rated" : "Needs Improvement";
         return String.format(
                 "Performance Evaluation:\n%s\nPopularity Score: %.2f",
                 performance, calculatePopularity()

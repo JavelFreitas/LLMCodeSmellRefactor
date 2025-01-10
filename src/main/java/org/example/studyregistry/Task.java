@@ -75,8 +75,31 @@ public class Task extends Registry {
      * @param date        New due date of the task.
      */
     public void updateDetails(String title, String description, LocalDateTime date) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("Title cannot be null or empty.");
+        }
+        if (description == null || description.isBlank()) {
+            throw new IllegalArgumentException("Description cannot be null or empty.");
+        }
+        if (date == null || date.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Date cannot be null or in the past.");
+        }
+
         this.title = title;
         this.description = description;
         this.date = date;
+    }
+
+    /**
+     * Checks if the task matches a specific keyword in its title or description.
+     * @param keyword Keyword to search for.
+     * @return true if the keyword is found in the title or description.
+     */
+    public boolean matchesKeyword(String keyword) {
+        if (keyword == null || keyword.isBlank()) {
+            throw new IllegalArgumentException("Keyword cannot be null or empty.");
+        }
+        return title.toLowerCase().contains(keyword.toLowerCase()) ||
+                description.toLowerCase().contains(keyword.toLowerCase());
     }
 }
