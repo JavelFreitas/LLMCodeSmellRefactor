@@ -102,4 +102,14 @@ public class SearchLog {
         searchCount.clear();
         numUsages = 0;
     }
+
+
+    public void logSearch(String searchTerm, List<String> results) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot add search to locked log");
+        }
+        addSearchHistory(searchTerm);
+        setNumUsages(getNumUsages() + 1);
+        results.add("\nLogged in: " + getLogName());
+    }
 }
