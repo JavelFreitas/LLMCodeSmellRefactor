@@ -110,13 +110,25 @@ public class StudyRegistryController {
     }
 
     private void editAudio(AudioReference audioReference){
-        handleMethodHeader("(Audio Edit)");
-        System.out.println("Type the following info:  AudioReference. AudioQuality audioQuality, boolean isDownloadable, " +
-                "String title, String description, String link, String accessRights, String license, String language, int rating, " +
-                "int viewCount, int shareCount \n");
-        AudioReference.AudioQuality quality =AudioReference.audioQualityAdapter(getInput());
-        audioReference.editAudio(quality, Boolean.parseBoolean(getInput()), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()));
+        AudioReference.AudioQuality quality = AudioReference.audioQualityAdapter(getInput());
+        boolean isDownloadable = Boolean.parseBoolean(getInput());
+
+        AudioReference.AudioMetadata metadata = new AudioReference.AudioMetadata(
+            getInput(),  // title
+            getInput(),  // description
+            getInput(),  // link
+            getInput(),  // accessRights
+            getInput(),  // license
+            getInput()   // language
+        );
+
+        AudioReference.AudioStats stats = new AudioReference.AudioStats(
+            Integer.parseInt(getInput()),  // rating
+            Integer.parseInt(getInput()),  // viewCount
+            Integer.parseInt(getInput())   // shareCount
+        );
+
+        audioReference.editAudio(quality, isDownloadable, metadata, stats);
     }
 
     private AudioReference addAudioReference(){
