@@ -103,4 +103,16 @@ public class SearchLog {
         results.add("\nLogged in: " + this.logName);
         return results;
     }
+
+    public List<String> performMaterialSearch(String text) {
+        if (isLocked) {
+            throw new IllegalStateException("Search log is locked. Cannot perform search.");
+        }
+        List<String> results = new ArrayList<>();
+        results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
+        this.addSearchHistory(text);
+        this.numUsages++;
+        results.add("\nLogged in: " + this.logName);
+        return results;
+    }
 }
