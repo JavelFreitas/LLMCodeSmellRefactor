@@ -12,18 +12,19 @@ import java.util.List;
 public class GeneralSearch implements Search<String> {
     private SearchLog searchLog = new SearchLog("General Search");
 
-    public GeneralSearch() {}
+    public GeneralSearch() {
+    }
 
     @Override
     public List<String> search(String text) {
         return handleSearch(text);
     }
 
-    public SearchLog getSearchLog(){
+    public SearchLog getSearchLog() {
         return searchLog;
     }
 
-    private List<String> handleSearch(String text){
+    private List<String> handleSearch(String text) {
         List<String> results = new ArrayList<>();
         results.addAll(CardManager.getCardManager().searchInCards(text));
         results.addAll(HabitTracker.getHabitTracker().searchInHabits(text));
@@ -35,7 +36,4 @@ public class GeneralSearch implements Search<String> {
         results.add("\nLogged in: " + this.searchLog.getLogName());
         return results;
     }
-
-
-
 }
