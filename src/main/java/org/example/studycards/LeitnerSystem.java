@@ -117,4 +117,12 @@ public class LeitnerSystem extends StudyMethod {
         refBox.removeCard(cardId);
         boxes.get(Math.max(boxId - 1, 0)).addCard(cardId);
     }
+
+    public String getRandomCardFromBox() {
+        StringBuilder response = new StringBuilder();
+        response.append(this.getMethodName());
+        List<Box> boxes = this.getBoxes();
+        response.append(this.getRandomCard(boxes));
+        return response.toString();
+    }
 }
