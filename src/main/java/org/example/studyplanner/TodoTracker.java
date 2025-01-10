@@ -4,13 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-
 public class TodoTracker {
     private List<ToDo> toDos = new ArrayList<>();
     private Map<Integer, List<LocalDateTime>> tracker;
     private Integer nextId;
     private static TodoTracker instance;
-
 
     private TodoTracker() {
         this.tracker = new HashMap<>();
@@ -29,18 +27,11 @@ public class TodoTracker {
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (ToDo toDo : toDos) {
-            str.append(formatToDoInfo(toDo));
+            str.append(toDo.formatInfo()); // Use the new method in ToDo
             str.append(formatExecutionTimes(toDo.getId()));
         }
         String response = str.toString();
         return response.isEmpty() ? "No ToDos found" : response;
-    }
-
-    private String formatToDoInfo(ToDo toDo) {
-        StringBuilder info = new StringBuilder();
-        info.append(toDo.toString());
-        info.append("\n");
-        return info.toString();
     }
 
     private String formatExecutionTimes(Integer id) {
@@ -60,7 +51,7 @@ public class TodoTracker {
         return formatter.format(ldt) + "\n";
     }
 
-    public void addToDoExecutionTime(Integer id){
+    public void addToDoExecutionTime(Integer id) {
         List<LocalDateTime> et = tracker.computeIfAbsent(id, k -> new ArrayList<>());
         LocalDateTime now = LocalDateTime.now();
         et.add(now);
@@ -105,6 +96,4 @@ public class TodoTracker {
         }
         return todos;
     }
-
-
 }

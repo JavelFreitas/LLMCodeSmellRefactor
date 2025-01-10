@@ -14,7 +14,7 @@ public class ToDo implements PlannerMaterial {
         this.title = title;
         this.description = description;
         this.priority = priority;
-        this.isCompleted = false; // New behavior: a task can be marked as completed
+        this.isCompleted = false;
     }
 
     @Override
@@ -54,17 +54,14 @@ public class ToDo implements PlannerMaterial {
         this.priority = priority;
     }
 
-    // New behavior: mark the task as completed
     public void markAsCompleted() {
         this.isCompleted = true;
     }
 
-    // New behavior: reset the task to not completed
     public void resetCompletion() {
         this.isCompleted = false;
     }
 
-    // New behavior: update priority with checks
     public void updatePriority(int newPriority) {
         if (newPriority < 0) {
             throw new IllegalArgumentException("Priority cannot be negative");
@@ -72,8 +69,12 @@ public class ToDo implements PlannerMaterial {
         this.priority = newPriority;
     }
 
-    // New behavior: returns a short summary of the task
     public String getSummary() {
         return String.format("Task: %s, Priority: %d", title, priority);
+    }
+
+    // Moved method
+    public String formatInfo() {
+        return this.toString() + "\n";
     }
 }
