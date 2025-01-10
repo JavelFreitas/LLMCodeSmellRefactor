@@ -13,49 +13,72 @@ public class SearchLog {
     private String logName;
 
     public SearchLog(String logName) {
-        searchHistory = new ArrayList<>();
-        searchCount = new HashMap<>();
+        this.searchHistory = new ArrayList<>();
+        this.searchCount = new HashMap<>();
         this.logName = logName;
-        numUsages = 0;
-        isLocked = false;
+        this.numUsages = 0;
+        this.isLocked = false;
     }
-    public void addSearchHistory(String searchHistory) {
-        this.searchHistory.add(searchHistory);
+
+    // Add a search term to the history and increment its count
+    public void logSearch(String searchTerm) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot log searches when the log is locked.");
+        }
+        searchHistory.add(searchTerm);
+        searchCount.put(searchTerm, searchCount.getOrDefault(searchTerm, 0) + 1);
     }
+
+    // Add search history without incrementing search count (legacy support)
+    public void addSearchHistory(String searchTerm) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot add to search history when the log is locked.");
+        }
+        searchHistory.add(searchTerm);
+    }
+
+    // Get the most searched term
+    public String getMostSearchedTerm() {
+        return searchCount.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+    }
+
+    // Lock or unlock the log
+    public void toggleLock() {
+        this.isLocked = !this.isLocked;
+    }
+
+    // Get the number of searches for a specific term
+    public int getSearchCountForTerm(String term) {
+        return searchCount.getOrDefault(term, 0);
+    }
+
+    // Increment usage count (used in other classes)
+    public void incrementUsage() {
+        this.numUsages++;
+    }
+
     public List<String> getSearchHistory() {
-        return searchHistory;
-    }
-    public void setSearchHistory(List<String> searchHistory) {
-        this.searchHistory = searchHistory;
-    }
-    public Map<String, Integer> getSearchCount() {
-        return searchCount;
-    }
-    public void setSearchCount(Map<String, Integer> searchCount) {
-        this.searchCount = searchCount;
-    }
-
-    public boolean isLocked() {
-        return isLocked;
-    }
-
-    public void setLocked(boolean locked) {
-        isLocked = locked;
-    }
-
-    public Integer getNumUsages() {
-        return numUsages;
-    }
-
-    public void setNumUsages(Integer numUsages) {
-        this.numUsages = numUsages;
+        return new ArrayList<>(searchHistory); // Return a copy for immutability
     }
 
     public String getLogName() {
         return logName;
     }
 
-    public void setLogName(String logName) {
-        this.logName = logName;
+    public boolean isLocked() {
+        return isLocked;
     }
+
+    public Integer getNumUsages() {
+        return numUsages;
+    }
+
+    public void setNumUsages(int numUsages) {
+        this.numUsages = numUsages;
+    }
+
 }
