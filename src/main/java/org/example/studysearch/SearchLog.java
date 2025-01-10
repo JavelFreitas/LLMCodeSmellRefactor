@@ -115,4 +115,20 @@ public class SearchLog {
         results.add("\nLogged in: " + this.logName);
         return results;
     }
+
+    public List<String> performGeneralSearch(String text) {
+        if (isLocked) {
+            throw new IllegalStateException("Search log is locked. Cannot perform search.");
+        }
+        List<String> results = new ArrayList<>();
+        results.addAll(CardManager.getCardManager().searchInCards(text));
+        results.addAll(HabitTracker.getHabitTracker().searchInHabits(text));
+        results.addAll(TodoTracker.getInstance().searchInTodos(text));
+        results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
+        results.addAll(StudyTaskManager.getStudyTaskManager().searchInRegistries(text));
+        this.addSearchHistory(text);
+        this.numUsages++;
+        results.add("\nLogged in: " + this.logName);
+        return results;
+    }
 }
