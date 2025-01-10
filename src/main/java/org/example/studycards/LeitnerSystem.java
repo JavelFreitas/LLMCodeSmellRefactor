@@ -118,4 +118,11 @@ public class LeitnerSystem extends StudyMethod {
         int targetBoxIndex = getTargetBoxIndex(boxId, isUpgrade);
         boxes.get(targetBoxIndex).addCard(cardId);
     }
+
+    public String getRandomCardFromBoxFormatted() {
+        String response = "";
+        response += getMethodName();
+        response += getRandomCard(getBoxes());
+        return response;
+    }
 }
