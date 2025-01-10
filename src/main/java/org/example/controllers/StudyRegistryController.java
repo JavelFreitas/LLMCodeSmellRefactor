@@ -4,6 +4,7 @@ import org.example.studymaterial.AudioReference;
 import org.example.studymaterial.Reference;
 import org.example.studymaterial.TextReference;
 import org.example.studymaterial.VideoReference;
+import org.example.studymaterial.AudioReference.AudioParameters;
 import org.example.studyregistry.*;
 
 import java.time.LocalDateTime;
@@ -115,8 +116,11 @@ public class StudyRegistryController {
                 "String title, String description, String link, String accessRights, String license, String language, int rating, " +
                 "int viewCount, int shareCount \n");
         AudioReference.AudioQuality quality =AudioReference.audioQualityAdapter(getInput());
-        audioReference.editAudio(quality, Boolean.parseBoolean(getInput()), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()));
+        AudioParameters params = new AudioParameters.Builder().audioQuality(quality).isDownloadable(Boolean.parseBoolean(getInput()))
+                .title(getInput()).description(getInput()).link(getInput()).accessRights(getInput()).license(getInput())
+                .language(getInput()).rating(Integer.parseInt(getInput())).viewCount(Integer.parseInt(getInput()))
+                .shareCount(Integer.parseInt(getInput())).build();
+        audioReference.editAudio(params);
     }
 
     private AudioReference addAudioReference(){
