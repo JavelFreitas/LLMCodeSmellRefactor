@@ -1,7 +1,7 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-10T10:28:44.302-03:00",
+  "timestamp": "2025-01-10T15:49:38.641-03:00",
   "files": [
     {
       "filename": ".\\src\\main\\java\\org\\example\\studycards\\LeitnerSystem.java",
@@ -36,22 +36,6 @@
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\Reference.java",
-      "violations": [
-        {
-          "beginline": 17,
-          "begincolumn": 12,
-          "endline": 17,
-          "endcolumn": 21,
-          "description": "The constructor \u0027Reference(String, String, String, String, String, boolean, int, String)\u0027 has a NCSS line count of 12.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
-        }
-      ]
-    },
-    {
       "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\HabitTracker.java",
       "violations": [
         {
@@ -80,22 +64,6 @@
           "ruleset": "Design",
           "priority": 3,
           "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\ToDo.java",
-      "violations": [
-        {
-          "beginline": 5,
-          "begincolumn": 8,
-          "endline": 5,
-          "endcolumn": 13,
-          "description": "The class \u0027ToDo\u0027 is suspected to be a Data Class (WOC\u003d11.111%, NOPA\u003d0, NOAM\u003d8, WMC\u003d10)",
-          "rule": "DataClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
@@ -203,7 +171,7 @@
           "begincolumn": 8,
           "endline": 5,
           "endcolumn": 13,
-          "description": "The class \u0027Task\u0027 is suspected to be a Data Class (WOC\u003d0.000%, NOPA\u003d0, NOAM\u003d8, WMC\u003d9)",
+          "description": "The class \u0027Task\u0027 is suspected to be a Data Class (WOC\u003d27.273%, NOPA\u003d0, NOAM\u003d8, WMC\u003d12)",
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
