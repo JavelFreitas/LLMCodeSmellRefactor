@@ -112,4 +112,5 @@ public class SearchLog {
         setNumUsages(getNumUsages() + 1);
         results.add("\nLogged in: " + getLogName());
     }
+
 }
