@@ -3,7 +3,11 @@ package org.example.studyplanner;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class HabitTracker {
     private List<Habit> habits;
@@ -109,6 +113,22 @@ public class HabitTracker {
             }
         }
         return habits;
+    }
+
+    public String timelineview(){
+        StringBuilder response = new StringBuilder();
+        for(Habit habit : habits){
+            response.append("[ Habit: ")
+                    .append(habit.getName())
+                    .append(". Records: ");
+            List<LocalDateTime> records = this.getHabitRecords(habit.getId());
+            for(LocalDateTime record : records){
+                response.append(this.formatHabitDate(record)).append(", ");
+            }
+            response.append("]");
+        }
+
+        return response.toString();
     }
 
 }
