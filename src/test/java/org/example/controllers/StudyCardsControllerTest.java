@@ -43,7 +43,7 @@ class StudyCardsControllerTest {
     @Order(1)
     @DisplayName("Get Random Card From Box Test")
     void getRandomCardFromBox() {
-        String response = studyCardsController.getRandomCardFromBox();
+        String response = leitnerSystem.getRandomCardFromBox();
         if(response == null){
             fail();
         }
