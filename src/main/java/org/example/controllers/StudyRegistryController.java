@@ -101,11 +101,13 @@ public class StudyRegistryController {
                         +
                         "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
                         "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
-        LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT,
-                createdAT.plusDays(Long.parseLong(getInput())));
+
+        StepProperties properties = new StepProperties.Builder().firstStep(getInput()).resetStudyMechanism(getInput())
+                .consistentStep(getInput()).seasonalSteps(getInput()).basicSteps(getInput())
+                .mainObjectiveTitle(getInput()).mainGoalTitle(getInput()).mainMaterialTopic(getInput())
+                .mainTask(getInput()).build();
+
+        studyPlan.assignSteps(properties);
     }
 
     private StudyGoal getStudyGoalInfo() {
