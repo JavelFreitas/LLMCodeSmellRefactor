@@ -54,10 +54,10 @@ public class HabitTracker {
         return this.tracker.keySet().stream().toList();
     }
 
-    public int addHabit(String name, String motivation, Integer dailyMinutesDedication, Integer dailyHoursDedication, Integer year, Integer month, Integer day, Integer hour, Integer minute, Integer seconds, Boolean isConcluded) {
-        LocalTime lt = LocalTime.of(dailyHoursDedication, dailyMinutesDedication);
-        LocalDateTime startDate = LocalDateTime.of(year, month, day, hour, minute, seconds);
-        Habit habit = new Habit(name, motivation, lt, this.nextId, startDate, isConcluded);
+    public int addHabit(HabitParameters params) {
+        LocalTime lt = LocalTime.of(params.getDailyHoursDedication(), params.getDailyMinutesDedication());
+        LocalDateTime startDate = LocalDateTime.of(params.getYear(), params.getMonth(), params.getDay(), params.getHour(), params.getMinute(), params.getSeconds());
+        Habit habit = new Habit(params.getName(), params.getMotivation(), lt, this.nextId, startDate, params.getIsConcluded());
         this.habits.add(habit);
         int response = nextId;
         this.tracker.put(nextId, new ArrayList<>());
@@ -65,8 +65,16 @@ public class HabitTracker {
         return response;
     }
 
-    public int handleAddHabitAdapter(List<String> stringProperties, List<Integer> intProperties, boolean isConcluded){
-        return addHabit(stringProperties.get(0), stringProperties.get(1), intProperties.get(0), intProperties.get(1), intProperties.get(2), intProperties.get(3), intProperties.get(4), intProperties.get(5), intProperties.get(6), intProperties.get(7), isConcluded);
+     public int handleAddHabitAdapter(List<String> stringProperties, List<Integer> intProperties, boolean isConcluded){
+        HabitParameters params = new HabitParameters(
+            stringProperties.get(0), stringProperties.get(1),
+            intProperties.get(0), intProperties.get(1),
+            intProperties.get(2), intProperties.get(3),
+            intProperties.get(4), intProperties.get(5),
+            intProperties.get(6), intProperties.get(7),
+            isConcluded
+        );
+        return addHabit(params);
     }
 
 
@@ -126,6 +134,48 @@ public class HabitTracker {
             response.append("]");
         }
         return response.toString();
+    }
+
+    public static class HabitParameters {
+        private String name;
+        private String motivation;
+        private Integer dailyMinutesDedication;
+        private Integer dailyHoursDedication;
+        private Integer year;
+        private Integer month;
+        private Integer day;
+        private Integer hour;
+        private Integer minute;
+        private Integer seconds;
+        private Boolean isConcluded;
+
+        // Constructor
+        public HabitParameters(String name, String motivation, Integer dailyMinutesDedication, Integer dailyHoursDedication, Integer year, Integer month, Integer day, Integer hour, Integer minute, Integer seconds, Boolean isConcluded) {
+            this.name = name;
+            this.motivation = motivation;
+            this.dailyMinutesDedication = dailyMinutesDedication;
+            this.dailyHoursDedication = dailyHoursDedication;
+            this.year = year;
+            this.month = month;
+            this.day = day;
+            this.hour = hour;
+            this.minute = minute;
+            this.seconds = seconds;
+            this.isConcluded = isConcluded;
+        }
+
+        // Getters
+        public String getName() { return name; }
+        public String getMotivation() { return motivation; }
+        public Integer getDailyMinutesDedication() { return dailyMinutesDedication; }
+        public Integer getDailyHoursDedication() { return dailyHoursDedication; }
+        public Integer getYear() { return year; }
+        public Integer getMonth() { return month; }
+        public Integer getDay() { return day; }
+        public Integer getHour() { return hour; }
+        public Integer getMinute() { return minute; }
+        public Integer getSeconds() { return seconds; }
+        public Boolean getIsConcluded() { return isConcluded; }
     }
 
 }
