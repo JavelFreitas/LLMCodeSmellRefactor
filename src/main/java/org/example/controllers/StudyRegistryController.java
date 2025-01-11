@@ -119,9 +119,49 @@ public class StudyRegistryController {
                 "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
                 "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
                 "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
-        LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
+
+        try {
+            // Coleta dos inputs do usuário
+            String firstStep = getInput();
+            String resetStudyMechanism = getInput();
+            String consistentStep = getInput();
+            String seasonalSteps = getInput();
+            String basicSteps = getInput();
+            String mainObjectiveTitle = getInput();
+            String mainGoalTitle = getInput();
+            String mainMaterialTopic = getInput();
+            String mainTask = getInput();
+            Integer numberOfSteps = Integer.parseInt(getInput());
+            boolean isImportant = Boolean.parseBoolean(getInput());
+            LocalDateTime createdAT = LocalDateTime.now();
+            Long daysToAdd = Long.parseLong(getInput());
+            LocalDateTime endDate = createdAT.plusDays(daysToAdd);
+
+            // Criação da instância de AssignStepsParameters
+            AssignStepsParameters params = new AssignStepsParameters(
+                    firstStep,
+                    resetStudyMechanism,
+                    consistentStep,
+                    seasonalSteps,
+                    basicSteps,
+                    mainObjectiveTitle,
+                    mainGoalTitle,
+                    mainMaterialTopic,
+                    mainTask,
+                    numberOfSteps,
+                    isImportant,
+                    createdAT,
+                    endDate
+            );
+
+            // Passagem do objeto de parâmetros para assignSteps
+            studyPlan.assignSteps(params);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Erro na conversão de tipos: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro na configuração dos passos do plano de estudo: " + e.getMessage());
+        }
     }
 
     private StudyGoal getStudyGoalInfo(){
