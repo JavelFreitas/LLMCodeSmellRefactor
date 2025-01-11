@@ -199,9 +199,21 @@ public class StudyRegistryController {
                         "String objectiveDescription, String materialTopic, String materialFormat, String goal, String reminderTitle, "
                         +
                         "String reminderDescription, String mainTaskTitle, String mainHabit, String mainCardStudy");
-        studyTaskManager.setUpWeek(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(),
-                getInput(), getInput(), getInput());
+
+        WeekSetup.Builder weekSetup = new WeekSetup.Builder()
+                .planName(getInput())
+                .objectiveTitle(getInput())
+                .objectiveDescription(getInput())
+                .materialTopic(getInput())
+                .materialFormat(getInput())
+                .goal(getInput())
+                .reminderTitle(getInput())
+                .reminderDescription(getInput())
+                .mainTaskTitle(getInput())
+                .mainHabit(getInput())
+                .mainCardStudy(getInput());
+
+        studyTaskManager.setUpWeek(weekSetup.build());
     }
 
     private void handleSetUpWeek() {
