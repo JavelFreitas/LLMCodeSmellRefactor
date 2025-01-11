@@ -29,4 +29,8 @@ public class Card {
         setQuestion(question);
         setAnswer(answer);
     }
+
+    public boolean isCorrectAnswer(String userAnswer) {
+        return answer.equalsIgnoreCase(userAnswer);
+    }
 }
