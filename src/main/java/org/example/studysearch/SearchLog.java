@@ -75,6 +75,11 @@ public class SearchLog {
         logSearch(text);
         return "\nLogged in: " + getLogName();
     }
+    public String updateAndGetName(String text) {
+        addSearchHistory(text);
+        setNumUsages(getNumUsages() + 1);
+        return getLogName();
+    }
 
 
 }

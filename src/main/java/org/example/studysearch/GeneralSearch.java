@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeneralSearch implements Search<String> {
-    private final SearchLog searchLog = new SearchLog("General Search");
+    private SearchLog searchLog = new SearchLog("General Search");
 
     public GeneralSearch() {}
 
@@ -19,7 +19,7 @@ public class GeneralSearch implements Search<String> {
         return handleSearch(text);
     }
 
-    public SearchLog getSearchLog() {
+    public SearchLog getSearchLog(){
         return searchLog;
     }
 
@@ -31,10 +31,8 @@ public class GeneralSearch implements Search<String> {
         results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
         results.addAll(StudyTaskManager.getStudyTaskManager().searchInRegistries(text));
 
-        // Delegate to SearchLog for logging
-        searchLog.logSearch(text);
-
-        results.add("\nLogged in: " + searchLog.getLogName());
+        results.add("\nLogged in: " + searchLog.updateAndGetName(text));
         return results;
     }
 }
+
