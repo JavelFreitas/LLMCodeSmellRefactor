@@ -86,4 +86,16 @@ public class SearchLog {
         results.add("\nLogged in: " + this.getLogName());
         return results;
     }
+
+    public List<String> handleRegistrySearch(String text) {
+        List<String> results = new ArrayList<>();
+        results.addAll(CardManager.getCardManager().searchInCards(text));
+        results.addAll(HabitTracker.getHabitTracker().searchInHabits(text));
+        results.addAll(TodoTracker.getInstance().searchInTodos(text));
+        results.addAll(StudyTaskManager.getStudyTaskManager().searchInRegistries(text));
+        this.addSearchHistory(text);
+        this.setNumUsages(this.getNumUsages() + 1);
+        results.add("\nLogged in: " + this.getLogName());
+        return results;
+    }
 }
