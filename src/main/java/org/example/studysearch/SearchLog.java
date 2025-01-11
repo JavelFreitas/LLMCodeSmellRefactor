@@ -68,7 +68,13 @@ public class SearchLog {
         this.logName = logName;
     }
     public void logSearch(String text) {
-        searchHistory.add(text); // Adicionar ao histórico
-        numUsages++; // Incrementar contador de usos
+        addSearchHistory(text);
+        setNumUsages(getNumUsages() + 1);
     }
+    public String generateLogEntry(String text) {
+        logSearch(text);
+        return "\nLogged in: " + getLogName();
+    }
+
+
 }

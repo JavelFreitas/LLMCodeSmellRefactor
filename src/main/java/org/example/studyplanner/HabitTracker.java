@@ -124,5 +124,8 @@ public class HabitTracker {
         }
         return response.toString();
     }
+    public List<String> handleSearch(String text) {
+        return searchInHabits(text); // Delegar a busca ao método já existente
+    }
 
 }

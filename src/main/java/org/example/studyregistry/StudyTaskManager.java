@@ -61,5 +61,8 @@ public class StudyTaskManager {
         }
         return response;
     }
+    public List<String> handleSearch(String text) {
+        return searchInRegistries(text); // Delegar a busca ao método já existente
+    }
 
 }

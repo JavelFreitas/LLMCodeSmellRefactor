@@ -98,6 +98,9 @@ public class TodoTracker {
         }
         return todos;
     }
+    public List<String> handleSearch(String text) {
+        return searchInTodos(text); // Delegar a busca ao método já existente
+    }
 
 
 }
