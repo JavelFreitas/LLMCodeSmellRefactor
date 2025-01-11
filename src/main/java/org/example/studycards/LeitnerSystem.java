@@ -94,10 +94,8 @@ public class LeitnerSystem extends StudyMethod{
     }
 
     private String buildResponse(Integer randomCard, Card card) {
-        String response = "[" + randomCard + "] ";
-        response += "The random question was: " + card.getQuestion() + " | ";
-        response += "The answer is: " + card.getAnswer();
-        return response;
+        // Utilize the card's buildResponseString method
+        return card.buildResponseString(randomCard);
     }
 
     public void addCardToBox(Integer id, Integer boxId) {

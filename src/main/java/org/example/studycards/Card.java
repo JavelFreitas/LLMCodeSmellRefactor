@@ -9,6 +9,10 @@ public class Card {
         this.answer = answer;
     }
 
+    public String buildResponseString(int cardId) {
+        return "[" + cardId + "] " + "The random question was: " + question + " | " + "The answer is: " + answer;
+    }
+
     public String getQuestion() {
         return question;
     }
