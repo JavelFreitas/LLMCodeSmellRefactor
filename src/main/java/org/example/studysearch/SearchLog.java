@@ -98,4 +98,10 @@ public class SearchLog {
     public void setLogName(String logName) {
         this.logName = logName;
     }
+
+    // New method to log and return log details in one step
+    public String logSearch(String text) {
+        addSearchHistory(text);
+        return "\nLogged in: " + getLogName();
+    }
 }

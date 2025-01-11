@@ -24,8 +24,7 @@ public class MaterialSearch implements Search<String>{
     private List<String> handleMaterialSearch(String text){
         List<String> results = new ArrayList<>();
         results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
-        this.searchLog.addSearchHistory(text);
-        results.add("\nLogged in: " + this.searchLog.getLogName());
+        results.add(searchLog.logSearch(text));  // Delegates logging to SearchLog
         return results;
     }
 
