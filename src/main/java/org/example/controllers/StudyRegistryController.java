@@ -51,16 +51,37 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(task);
     }
 
+    // In StudyRegistryController class
     private void handleSetObjective(StudyObjective objective){
         handleMethodHeader("(Study Objective Edit)");
         System.out.println("Type the following info: Integer id, Integer priority " +
                 "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
                 "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
                 "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+
+        // Create DTO from inputs
+        StudyObjectiveDTO dto = new StudyObjectiveDTO(
+                Integer.parseInt(getInput()), // id
+                Integer.parseInt(getInput()), // priority
+                Integer.parseInt(getInput()), // practicedDays
+                Integer.parseInt(getInput()), // day
+                Integer.parseInt(getInput()), // month
+                Integer.parseInt(getInput()), // year
+                getInput(),                   // name
+                getInput(),                   // title
+                getInput(),                   // description
+                getInput(),                   // topic
+                getInput(),                   // objectiveInOneLine
+                getInput(),                   // objectiveFullDescription
+                getInput(),                   // motivation
+                Double.parseDouble(getInput()), // duration
+                Boolean.parseBoolean(getInput()) // isActive
+        );
+
+        // Pass DTO to the objective's handleSetObjective method
+        objective.handleSetObjective(dto);
     }
+
 
     private StudyObjective getStudyObjectiveInfo(){
         handleMethodHeader("(Study Objective Creation)");
@@ -68,10 +89,13 @@ public class StudyRegistryController {
         String title = getInput();
         String description = getInput();
         StudyObjective studyObjective = new StudyObjective(title, description);
+
+        // Create DTO from inputs
         handleSetObjective(studyObjective);
         studyTaskManager.addRegistry(studyObjective);
         return studyObjective;
     }
+
 
     private StudyPlan getStudyPlanInfo(){
         handleMethodHeader("(Study Plan Creation)");
