@@ -83,15 +83,67 @@ public class StudyRegistryController {
         return plan;
     }
 
-    private void handleSetSteps(StudyPlan studyPlan){
+    private void handleSetSteps(StudyPlan studyPlan) {
         handleMethodHeader("(Study Plan Edit)");
-        System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
-                "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
-                "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
-                "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
-        LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
+        StepDetails details = buildStepDetails();
+        studyPlan.assignSteps(details);
+    }
+
+    private StepDetails buildStepDetails() {
+        String[] basicStepInputs = collectBasicSteps();
+        String[] mainStepInputs = collectMainSteps();
+        int numberOfSteps = collectNumberOfSteps();
+        boolean isImportant = collectImportance();
+        long daysToEnd = collectDaysToEnd();
+
+        return createStepDetails(basicStepInputs, mainStepInputs, numberOfSteps, isImportant, daysToEnd);
+    }
+
+
+    private String[] collectBasicSteps() {
+        System.out.println("""
+        Type the following basic step details: 
+        String firstStep, String resetStudyMechanism, String consistentStep, 
+        String seasonalSteps, String basicSteps
+        """);
+        return new String[]{getInput(), getInput(), getInput(), getInput(), getInput()};
+    }
+
+    private String[] collectMainSteps() {
+        System.out.println("""
+        Type the following main step details: 
+        String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, String mainTask
+        """);
+        return new String[]{getInput(), getInput(), getInput(), getInput()};
+    }
+
+    private int collectNumberOfSteps() {
+        System.out.println("Type the number of steps:");
+        return Integer.parseInt(getInput());
+    }
+
+    private boolean collectImportance() {
+        System.out.println("Is this step important? (true/false):");
+        return Boolean.parseBoolean(getInput());
+    }
+
+    private long collectDaysToEnd() {
+        System.out.println("Enter the number of days until the end date:");
+        return Long.parseLong(getInput());
+    }
+
+    private StepDetails createStepDetails(
+            String[] basicStepInputs, String[] mainStepInputs,
+            int numberOfSteps, boolean isImportant, long daysToEnd
+    ) {
+        LocalDateTime createdAt = LocalDateTime.now();
+        LocalDateTime endDate = createdAt.plusDays(daysToEnd);
+
+        return new StepDetails(
+                basicStepInputs[0], basicStepInputs[1], basicStepInputs[2], basicStepInputs[3], basicStepInputs[4],
+                mainStepInputs[0], mainStepInputs[1], mainStepInputs[2], mainStepInputs[3],
+                numberOfSteps, isImportant, createdAt, endDate
+        );
     }
 
     private StudyGoal getStudyGoalInfo(){
