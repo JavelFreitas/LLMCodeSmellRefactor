@@ -77,4 +77,13 @@ public class SearchLog {
         results.add("\nLogged in: " + this.getLogName());
         return results;
     }
+
+    private List<String> handleMaterialSearch(String text){
+        List<String> results = new ArrayList<>();
+        results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
+        this.addSearchHistory(text);
+        this.setNumUsages(this.getNumUsages() + 1);
+        results.add("\nLogged in: " + this.getLogName());
+        return results;
+    }
 }
