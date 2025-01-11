@@ -1,11 +1,18 @@
 package org.example.studysearch;
 
+import org.example.studycards.CardManager;
+import org.example.studyplanner.HabitTracker;
+import org.example.studyplanner.TodoTracker;
+import org.example.studyregistry.StudyMaterial;
+import org.example.studyregistry.StudyTaskManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SearchLog {
+
     private List<String> searchHistory;
     private Map<String, Integer> searchCount;
     private boolean isLocked;
@@ -20,71 +27,75 @@ public class SearchLog {
         isLocked = false;
     }
 
-    // Adds a search term to the history and increments its count
-    public void addSearchHistory(String searchTerm) {
-        if (isLocked) {
-            throw new IllegalStateException("SearchLog is locked. Cannot modify it.");
-        }
+    // Move the logic from the 'GeneralSearch' class here
+    public List<String> handleSearch(String text,
+                                     CardManager cardManager,
+                                     HabitTracker habitTracker,
+                                     TodoTracker todoTracker,
+                                     StudyMaterial studyMaterial,
+                                     StudyTaskManager studyTaskManager) {
 
-        searchHistory.add(searchTerm);
-        incrementSearchCount(searchTerm);
-        incrementUsage();
+        List<String> results = new ArrayList<>();
+        results.addAll(cardManager.searchInCards(text));
+        results.addAll(habitTracker.searchInHabits(text));
+        results.addAll(todoTracker.searchInTodos(text));
+        results.addAll(studyMaterial.searchInMaterials(text));
+        results.addAll(studyTaskManager.searchInRegistries(text));
+
+        // Log the search query and update the history
+        this.addSearchHistory(text);
+
+        // Add additional result to indicate the log name
+        results.add("\nLogged in: " + this.logName);
+
+        return results;
     }
 
-    // Retrieves the most frequently searched term
-    public String getMostFrequentSearch() {
-        return searchCount.entrySet()
-                .stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse(null);
+    // This method is responsible for adding a search query to history and updating usage count
+    public void addSearchHistory(String searchQuery) {
+        this.searchHistory.add(searchQuery);
+        this.searchCount.put(searchQuery, this.searchCount.getOrDefault(searchQuery, 0) + 1);
+        this.numUsages++;
     }
 
-    // Increments the count for a search term
-    private void incrementSearchCount(String searchTerm) {
-        searchCount.put(searchTerm, searchCount.getOrDefault(searchTerm, 0) + 1);
-    }
-
-    // Increments the number of usages
-    private void incrementUsage() {
-        numUsages++;
-    }
-
+    // Getter and setter methods for search history and other fields
     public List<String> getSearchHistory() {
-        return new ArrayList<>(searchHistory); // Return a defensive copy
+        return searchHistory;
+    }
+
+    public void setSearchHistory(List<String> searchHistory) {
+        this.searchHistory = searchHistory;
     }
 
     public Map<String, Integer> getSearchCount() {
-        return new HashMap<>(searchCount); // Return a defensive copy
+        return searchCount;
+    }
+
+    public void setSearchCount(Map<String, Integer> searchCount) {
+        this.searchCount = searchCount;
     }
 
     public boolean isLocked() {
         return isLocked;
     }
 
-    public void lock() {
-        isLocked = true;
-    }
-
-    public void unlock() {
-        isLocked = false;
+    public void setLocked(boolean locked) {
+        isLocked = locked;
     }
 
     public Integer getNumUsages() {
         return numUsages;
     }
 
+    public void setNumUsages(Integer numUsages) {
+        this.numUsages = numUsages;
+    }
+
     public String getLogName() {
         return logName;
     }
 
-    public void resetLog() {
-        if (isLocked) {
-            throw new IllegalStateException("SearchLog is locked. Cannot reset.");
-        }
-
-        searchHistory.clear();
-        searchCount.clear();
-        numUsages = 0;
+    public void setLogName(String logName) {
+        this.logName = logName;
     }
 }

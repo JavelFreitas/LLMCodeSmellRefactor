@@ -16,25 +16,16 @@ public class GeneralSearch implements Search<String> {
 
     @Override
     public List<String> search(String text) {
-        return handleSearch(text);
-    }
+
+        return searchLog.handleSearch(text,
+                CardManager.getCardManager(),
+                HabitTracker.getHabitTracker(),
+                TodoTracker.getInstance(),
+                StudyMaterial.getStudyMaterial(),
+                StudyTaskManager.getStudyTaskManager());    }
 
     public SearchLog getSearchLog(){
         return searchLog;
     }
-
-    private List<String> handleSearch(String text){
-        List<String> results = new ArrayList<>();
-        results.addAll(CardManager.getCardManager().searchInCards(text));
-        results.addAll(HabitTracker.getHabitTracker().searchInHabits(text));
-        results.addAll(TodoTracker.getInstance().searchInTodos(text));
-        results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
-        results.addAll(StudyTaskManager.getStudyTaskManager().searchInRegistries(text));
-        this.searchLog.addSearchHistory(text);
-        results.add("\nLogged in: " + this.searchLog.getLogName());
-        return results;
-    }
-
-
 
 }
