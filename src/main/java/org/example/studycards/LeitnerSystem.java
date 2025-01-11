@@ -41,27 +41,63 @@ public class LeitnerSystem extends StudyMethod{
         return boxes;
     }
 
-    public String getRandomCard(List<Box> otherBoxes){
-        if(otherBoxes == null){
+//    public String getRandomCard(List<Box> otherBoxes){
+//        if(otherBoxes == null){
+//            return null;
+//        }
+//        if(otherBoxes.isEmpty()){
+//            return null;
+//        }
+//        Box allBoxes = new Box();
+//        for(Box box : otherBoxes){
+//            allBoxes.addCards(box.getCards());
+//        }
+//        Integer randomCard = allBoxes.getRandomCard();
+//        if(randomCard == null){
+//            return "No card found";
+//        }
+//        CardManager manager = CardManager.getCardManager();
+//        Card card = manager.getCard(randomCard);
+//        String response = "["+ randomCard + "] ";
+//        response += "The random question was: " + card.getQuestion() + " | ";
+//        response += "The answer is: " + card.getAnswer();
+//        return  response;
+//    }
+
+    public String getRandomCard(List<Box> otherBoxes) {
+        if (otherBoxes == null || otherBoxes.isEmpty()) {
             return null;
         }
-        if(otherBoxes.isEmpty()){
-            return null;
-        }
-        Box allBoxes = new Box();
-        for(Box box : otherBoxes){
-            allBoxes.addCards(box.getCards());
-        }
+
+        Box allBoxes = getAllCardsFromBoxes(otherBoxes);
         Integer randomCard = allBoxes.getRandomCard();
-        if(randomCard == null){
+
+        if (randomCard == null) {
             return "No card found";
         }
+
+        Card card = getCardFromManager(randomCard);
+        return buildResponse(randomCard, card);
+    }
+
+    private Box getAllCardsFromBoxes(List<Box> otherBoxes) {
+        Box allBoxes = new Box();
+        for (Box box : otherBoxes) {
+            allBoxes.addCards(box.getCards());
+        }
+        return allBoxes;
+    }
+
+    private Card getCardFromManager(Integer randomCard) {
         CardManager manager = CardManager.getCardManager();
-        Card card = manager.getCard(randomCard);
-        String response = "["+ randomCard + "] ";
+        return manager.getCard(randomCard);
+    }
+
+    private String buildResponse(Integer randomCard, Card card) {
+        String response = "[" + randomCard + "] ";
         response += "The random question was: " + card.getQuestion() + " | ";
         response += "The answer is: " + card.getAnswer();
-        return  response;
+        return response;
     }
 
     public void addCardToBox(Integer id, Integer boxId) {
