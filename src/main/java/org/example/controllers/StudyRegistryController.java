@@ -9,6 +9,7 @@ import org.example.studymaterial.dtos.AudioStatistics;
 import org.example.studyregistry.*;
 import org.example.studyregistry.dtos.StepAssignment;
 import org.example.studyregistry.dtos.StudyObjectiveDetails;
+import org.example.studyregistry.dtos.WeekSetupInfo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -219,12 +220,16 @@ public class StudyRegistryController {
         System.out.println("Study Plan Added");
     }
 
-    private void getWeekInfo(){
+    private void getWeekInfo() {
         System.out.println("(Study Task Manager Week Set Up) Type the following info: String planName, String objectiveTitle, " +
                 "String objectiveDescription, String materialTopic, String materialFormat, String goal, String reminderTitle, " +
                 "String reminderDescription, String mainTaskTitle, String mainHabit, String mainCardStudy");
-        studyTaskManager.setUpWeek(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), getInput());
+
+        WeekSetupInfo weekSetupInfo = new WeekSetupInfo(
+                getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
+                getInput(), getInput(), getInput()
+        );
+        studyTaskManager.setUpWeek(weekSetupInfo);
     }
 
     private void handleSetUpWeek(){
