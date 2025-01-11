@@ -133,4 +133,19 @@ public class HabitTracker {
         return habits;
     }
 
+    public String habitDateViewAll() {
+        StringBuilder response = new StringBuilder();
+        for (Habit habit : this.habits) {
+            response.append("[ Habit: ")
+                    .append(habit.getName())
+                    .append(". Records: ");
+
+            List<LocalDateTime> records = getHabitRecords(habit.getId());
+            for (LocalDateTime record : records) {
+                response.append(formatHabitDate(record)).append(", ");
+            }
+            response.append("]");
+        }
+        return response.toString();
+    }
 }

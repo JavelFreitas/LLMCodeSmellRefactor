@@ -58,7 +58,7 @@ class TimelineViewTest {
     @Order(1)
     @DisplayName("Habit Date View All Registry Test")
     void habitDateViewAllRegistry() {
-        String response = timelineView.habitDateViewAll(habitTracker);
+        String response = timelineView.viewAllHabitRecords(habitTracker);
 
         verifyRegistryFormat(response);
     }
@@ -68,7 +68,7 @@ class TimelineViewTest {
     @DisplayName("Habit Date View All Date Hour Test")
     void habitDateViewAllDateHour() {
         LocalDateTime now = LocalDateTime.now();
-        String response = timelineView.habitDateViewAll(habitTracker);
+        String response = timelineView.viewAllHabitRecords(habitTracker);
 
         verifyDateHour(response, now);
     }
@@ -77,7 +77,7 @@ class TimelineViewTest {
     @Order(3)
     @DisplayName("Habit Date View All Habit Names Test")
     void habitDateViewAllHabitNames() {
-        String response = timelineView.habitDateViewAll(habitTracker);
+        String response = timelineView.viewAllHabitRecords(habitTracker);
 
         verifyHabitNames(response);
     }
