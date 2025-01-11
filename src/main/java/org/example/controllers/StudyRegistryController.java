@@ -53,13 +53,43 @@ public class StudyRegistryController {
 
     private void handleSetObjective(StudyObjective objective){
         handleMethodHeader("(Study Objective Edit)");
-        System.out.println("Type the following info: Integer id, Integer priority " +
-                "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
-                "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
-                "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+        System.out.println("Type the following info: Integer id, Integer priority, " +
+                "Integer practicedDays, int day, int month, int year, String purpose, String description, " +
+                "String primaryEndpoint, String secondaryEndpoint, String inclusion, String exclusion, " +
+                "String motivation, Double duration, boolean isActive  \n");
+
+        List<Integer> intProperties = new ArrayList<>();
+        List<String> stringProperties = new ArrayList<>();
+
+        try {
+            intProperties.add(Integer.parseInt(getInput()));
+
+            intProperties.add(Integer.parseInt(getInput()));
+
+            intProperties.add(Integer.parseInt(getInput()));
+            intProperties.add(Integer.parseInt(getInput()));
+            intProperties.add(Integer.parseInt(getInput()));
+            intProperties.add(Integer.parseInt(getInput()));
+            stringProperties.add(getInput());
+            stringProperties.add(getInput());
+            stringProperties.add(getInput());
+            stringProperties.add(getInput());
+            stringProperties.add(getInput());
+            stringProperties.add(getInput());
+            String motivation = getInput();
+            Double duration = Double.parseDouble(getInput());
+            boolean isActive = Boolean.parseBoolean(getInput());
+
+            int id = objective.handleSetObjectiveAdapter(intProperties, stringProperties, duration, isActive);
+
+            if (id != -1){
+                System.out.println("Study Objective updated successfully. ID: " + id);
+            }
+
+            objective.handleSetTextualInfo(null, null, null, null, null, motivation);
+        } catch (NumberFormatException e) {
+            System.out.println("Error converting input: " + e.getMessage());
+        }
     }
 
     private StudyObjective getStudyObjectiveInfo(){
