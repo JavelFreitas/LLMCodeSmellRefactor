@@ -23,7 +23,7 @@ public class HabitTracker {
         return instance;
     }
 
-    private HabitTracker(){
+    private HabitTracker() {
         this.habits = new ArrayList<>();
         this.tracker = new HashMap<>();
         this.nextId = 1;
@@ -38,7 +38,7 @@ public class HabitTracker {
         return "Habits: " + response.toString();
     }
 
-    public Habit getHabitById(Integer id){
+    public Habit getHabitById(Integer id) {
         return this.habits.stream()
                 .filter(habit -> Objects.equals(habit.getId(), id))
                 .findFirst().orElse(null);
@@ -48,31 +48,34 @@ public class HabitTracker {
         return this.habits;
     }
 
-    public String formatHabitDate(LocalDateTime date){
+    public String formatHabitDate(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
         return date.format(formatter);
     }
 
-    public List<Integer> getTrackerKeys(){
+    public List<Integer> getTrackerKeys() {
         return this.tracker.keySet().stream().toList();
     }
 
-    public int addHabit(String name, String motivation, Integer dailyMinutesDedication, Integer dailyHoursDedication, Integer year, Integer month, Integer day, Integer hour, Integer minute, Integer seconds, Boolean isConcluded) {
-        LocalTime lt = LocalTime.of(dailyHoursDedication, dailyMinutesDedication);
-        LocalDateTime startDate = LocalDateTime.of(year, month, day, hour, minute, seconds);
-        Habit habit = new Habit(name, motivation, lt, this.nextId, startDate, isConcluded);
+    public int addHabit(HabitBuilder builder) {
+        Habit habit = builder.build(this.nextId);
         this.habits.add(habit);
-        int response = nextId;
         this.tracker.put(nextId, new ArrayList<>());
-        this.nextId++;
-        return response;
+        return nextId++;
     }
 
-    public int handleAddHabitAdapter(List<String> stringProperties, List<Integer> intProperties, boolean isConcluded){
-        return addHabit(stringProperties.get(0), stringProperties.get(1), intProperties.get(0), intProperties.get(1), intProperties.get(2), intProperties.get(3), intProperties.get(4), intProperties.get(5), intProperties.get(6), intProperties.get(7), isConcluded);
-    }
+    public int handleAddHabitAdapter(List<String> stringProperties, List<Integer> intProperties, boolean isConcluded) {
+        HabitBuilder builder = new HabitBuilder()
+                .withName(stringProperties.get(0))
+                .withMotivation(stringProperties.get(1))
+                .withDailyTime(intProperties.get(1), intProperties.get(0))
+                .withStartDate(intProperties.get(2), intProperties.get(3), intProperties.get(4))
+                .withStartTime(intProperties.get(5), intProperties.get(6), intProperties.get(7))
+                .setConcluded(isConcluded);
 
+        return addHabit(builder);
+    }
 
     public int addHabit(String name, String motivation) {
 
@@ -84,7 +87,7 @@ public class HabitTracker {
         return response;
     }
 
-    public void addHabitRecord(Integer id){
+    public void addHabitRecord(Integer id) {
         tracker.get(id).add(LocalDateTime.now());
     }
 
@@ -105,10 +108,11 @@ public class HabitTracker {
         return this.tracker.get(id);
     }
 
-    public List<String> searchInHabits(String search){
+    public List<String> searchInHabits(String search) {
         List<String> habits = new ArrayList<>();
         for (Habit habit : this.habits) {
-            if (habit.getName().toLowerCase().contains(search.toLowerCase()) || habit.getMotivation().toLowerCase().contains(search.toLowerCase())) {
+            if (habit.getName().toLowerCase().contains(search.toLowerCase())
+                    || habit.getMotivation().toLowerCase().contains(search.toLowerCase())) {
                 habits.add(habit.toString());
             }
         }
