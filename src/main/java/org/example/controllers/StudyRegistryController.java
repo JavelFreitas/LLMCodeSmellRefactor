@@ -7,6 +7,7 @@ import org.example.studymaterial.VideoReference;
 import org.example.studymaterial.dtos.AudioMetadata;
 import org.example.studymaterial.dtos.AudioStatistics;
 import org.example.studyregistry.*;
+import org.example.studyregistry.dtos.StepAssignment;
 import org.example.studyregistry.dtos.StudyObjectiveDetails;
 
 import java.time.LocalDateTime;
@@ -103,16 +104,35 @@ public class StudyRegistryController {
         return plan;
     }
 
-    private void handleSetSteps(StudyPlan studyPlan){
+    private void handleSetSteps(StudyPlan studyPlan) {
         handleMethodHeader("(Study Plan Edit)");
+
+        displayStepInstructions();
+        StepAssignment stepAssignment = gatherStepAssignment();
+        studyPlan.assignSteps(stepAssignment);
+    }
+
+    private void displayStepInstructions() {
         System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
                 "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
-                "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
+                "String mainTask, @NotNull Integer numberOfSteps, boolean isImportant. " +
                 "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
-        LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
     }
+
+    private StepAssignment gatherStepAssignment() {
+        List<String> steps = new ArrayList<>();
+        for (int i = 0; i < 9; i++) { // Assuming 9 string inputs
+            steps.add(getInput());
+        }
+
+        Integer numberOfSteps = Integer.parseInt(getInput());
+        boolean isImportant = Boolean.parseBoolean(getInput());
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime endDate = startDate.plusDays(Long.parseLong(getInput()));
+
+        return new StepAssignment(steps, numberOfSteps, isImportant, startDate, endDate);
+    }
+
 
     private StudyGoal getStudyGoalInfo(){
         handleMethodHeader("(Study Goal Creation)");
