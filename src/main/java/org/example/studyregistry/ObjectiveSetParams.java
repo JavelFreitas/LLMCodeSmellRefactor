@@ -1,5 +1,7 @@
 package org.example.studyregistry;
 
+import java.util.List;
+
 public class ObjectiveSetParams {
     private Long id;
     private Integer priority;
@@ -17,6 +19,25 @@ public class ObjectiveSetParams {
     private Double duration;
     private boolean isActive;
 
+    public static ObjectiveSetParams fromProperties(List<Integer> intProperties, List<String> stringProperties, Double duration, boolean isActive) {
+        Long id = Long.valueOf(intProperties.get(0));
+        Integer priority = intProperties.get(1);
+        Integer practicedDays = intProperties.get(2);
+        int day = intProperties.get(3);
+        int month = intProperties.get(4);
+        int year = intProperties.get(5);
+
+        String name = stringProperties.get(0);
+        String title = stringProperties.get(1);
+        String description = stringProperties.get(2);
+        String topic = stringProperties.get(3);
+        String objectiveInOneLine = stringProperties.get(4);
+        String objectiveFullDescription = stringProperties.get(5);
+        String motivation = stringProperties.get(6);
+
+        return new ObjectiveSetParams(id, priority, practicedDays, day, month, year, name, title, description, topic, objectiveInOneLine, objectiveFullDescription, motivation, duration, isActive);
+    }
+    
     public ObjectiveSetParams(Long id, Integer priority, Integer practicedDays, int day, int month, int year,
                               String name, String title, String description, String topic,
                               String objectiveInOneLine, String objectiveFullDescription,

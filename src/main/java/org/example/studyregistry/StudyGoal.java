@@ -53,7 +53,7 @@ public class StudyGoal extends Registry {
         if (studyObjective != null) {
             summary.append("Study Objective:\n")
                    .append(studyObjective.getName()).append("\n")
-                   .append(studyObjective.getDescription()).append("\n\n");
+                   .append(studyObjective.getCoreDetails().getDescription()).append("\n\n");
         }
     }
 

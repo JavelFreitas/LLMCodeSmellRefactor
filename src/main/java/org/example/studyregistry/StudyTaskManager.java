@@ -50,19 +50,20 @@ public class StudyTaskManager {
             throw new IllegalArgumentException("A lista de propriedades deve conter pelo menos 11 elementos.");
         }
 
-        WeekSetupParameters params = new WeekSetupParameters(
-            stringProperties.get(0), // planName
-            stringProperties.get(1), // objectiveTitle
-            stringProperties.get(2), // objectiveDescription
-            stringProperties.get(3), // materialTopic
-            stringProperties.get(4), // materialFormat
-            stringProperties.get(5), // goal
-            stringProperties.get(6), // reminderTitle
-            stringProperties.get(7), // reminderDescription
-            stringProperties.get(8), // mainTaskTitle
-            stringProperties.get(9), // mainHabit
-            stringProperties.get(10) // mainCardStudy
-        );
+
+        WeekSetupParameters params = new WeekSetupParameters.Builder()
+                .withPlanName(stringProperties.get(0))
+                .withObjectiveTitle(stringProperties.get(1))
+                .withObjectiveDescription(stringProperties.get(2))
+                .withMaterialTopic( stringProperties.get(3))
+                .withMaterialFormat( stringProperties.get(4))
+                .withGoal( stringProperties.get(5))
+                .withReminderTitle( stringProperties.get(6))
+                .withReminderDescription( stringProperties.get(7))
+                .withMainTaskTitle( stringProperties.get(8))
+                .withMainHabit( stringProperties.get(9))
+                .withMainCardStudy( stringProperties.get(10))
+                .build();
 
         setUpWeek(params);
     }
