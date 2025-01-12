@@ -83,12 +83,6 @@ public class TodoTracker {
         toDos.removeIf(toDo -> toDo.getId() == id);
     }
 
-    public List<ToDo> sortTodosByPriority() {
-        List<ToDo> sortedToDos = new ArrayList<>(toDos);
-        sortedToDos.sort(Comparator.comparingInt(ToDo::getPriority));
-        return sortedToDos;
-    }
-
     public List<String> searchInTodos(String search) {
         List<String> todos = new ArrayList<>();
         for (ToDo toDo : toDos) {
@@ -97,6 +91,11 @@ public class TodoTracker {
             }
         }
         return todos;
+    }
+    public List<ToDo> sortTodosByPriority() {
+        List<ToDo> sortedToDos = new ArrayList<>(toDos);
+        sortedToDos.sort(Comparator.comparingInt(ToDo::getPriority));
+        return sortedToDos;
     }
     public List<String> handleSearch(String text) {
         return searchInTodos(text); // Delegar a busca ao método já existente
