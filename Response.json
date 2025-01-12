@@ -1,24 +1,8 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-11T19:56:47.996-03:00",
+  "timestamp": "2025-01-11T21:05:15.139-03:00",
   "files": [
-    {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyregistry\\StudyObjective.java",
-      "violations": [
-        {
-          "beginline": 85,
-          "begincolumn": 35,
-          "endline": 85,
-          "endcolumn": 293,
-          "description": "Avoid long parameter lists.",
-          "rule": "ExcessiveParameterList",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
-        }
-      ]
-    },
     {
       "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyregistry\\StudyPlan.java",
       "violations": [

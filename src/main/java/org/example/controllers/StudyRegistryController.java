@@ -5,6 +5,11 @@ import org.example.studymaterial.Reference;
 import org.example.studymaterial.TextReference;
 import org.example.studymaterial.VideoReference;
 import org.example.studyregistry.*;
+import org.example.studyregistry.StudyObjective.RegistryDetails;
+import org.example.studyregistry.StudyObjective.TextualInfo;
+import org.example.studyregistry.StudyObjective.TimeDetails;;
+
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -51,16 +56,44 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(task);
     }
 
-    private void handleSetObjective(StudyObjective objective){
-        handleMethodHeader("(Study Objective Edit)");
-        System.out.println("Type the following info: Integer id, Integer priority " +
-                "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
-                "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
-                "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
-    }
+    private void handleSetObjective(StudyObjective objective) {
+    handleMethodHeader("(Study Objective Edit)");
+    RegistryDetails registryDetails = getRegistryDetailsFromInput();
+    TextualInfo textualInfo = getTextualInfoFromInput();
+    TimeDetails timeDetails = getTimeDetailsFromInput();
+
+    objective.handleSetObjective(registryDetails, textualInfo, timeDetails);
+}
+private TextualInfo getTextualInfoFromInput() {
+    System.out.println("Type the following info for Textual Info: title, description, topic, objectiveInOneLine, objectiveFullDescription, motivation\n");
+    String title = getInput();
+    String description = getInput();
+    String topic = getInput();
+    String objectiveInOneLine = getInput();
+    String objectiveFullDescription = getInput();
+    String motivation = getInput();
+    return new StudyObjective.TextualInfo(title, description, topic, objectiveInOneLine, objectiveFullDescription, motivation);
+}
+private TimeDetails getTimeDetailsFromInput() {
+    System.out.println("Type the following info for Time Details: practicedDays, day, month, year, duration\n");
+    int practicedDays = Integer.parseInt(getInput());
+    int day = Integer.parseInt(getInput());
+    int month = Integer.parseInt(getInput());
+    int year = Integer.parseInt(getInput());
+    double duration = Double.parseDouble(getInput());
+    return new TimeDetails(practicedDays, day, month, year, duration);
+}
+
+
+private RegistryDetails getRegistryDetailsFromInput() {
+    System.out.println("Type the following info for Registry Details: id, name, priority, isActive\n");
+    int id = Integer.parseInt(getInput());
+    String name = getInput();
+    int priority = Integer.parseInt(getInput());
+    boolean isActive = Boolean.parseBoolean(getInput());
+    return new StudyObjective.RegistryDetails(id, name, priority, isActive);
+}
+
 
     private StudyObjective getStudyObjectiveInfo(){
         handleMethodHeader("(Study Objective Creation)");
