@@ -41,28 +41,44 @@ public class LeitnerSystem extends StudyMethod{
         return boxes;
     }
 
-    public String getRandomCard(List<Box> otherBoxes){
-        if(otherBoxes == null){
+    public String getRandomCard(List<Box> otherBoxes) {
+        if (isNullOrEmpty(otherBoxes)) {
             return null;
         }
-        if(otherBoxes.isEmpty()){
-            return null;
-        }
-        Box allBoxes = new Box();
-        for(Box box : otherBoxes){
-            allBoxes.addCards(box.getCards());
-        }
+
+        Box allBoxes = mergeAllBoxes(otherBoxes);
         Integer randomCard = allBoxes.getRandomCard();
-        if(randomCard == null){
+
+        if (randomCard == null) {
             return "No card found";
         }
+
+        return generateResponse(randomCard);
+    }
+
+    private boolean isNullOrEmpty(List<Box> otherBoxes) {
+        return otherBoxes == null || otherBoxes.isEmpty();
+    }
+
+    private Box mergeAllBoxes(List<Box> otherBoxes) {
+        Box allBoxes = new Box();
+        for (Box box : otherBoxes) {
+            allBoxes.addCards(box.getCards());
+        }
+        return allBoxes;
+    }
+
+    private String generateResponse(Integer randomCard) {
         CardManager manager = CardManager.getCardManager();
         Card card = manager.getCard(randomCard);
-        String response = "["+ randomCard + "] ";
+
+        String response = "[" + randomCard + "] ";
         response += "The random question was: " + card.getQuestion() + " | ";
         response += "The answer is: " + card.getAnswer();
-        return  response;
+
+        return response;
     }
+
 
     public void addCardToBox(Integer id, Integer boxId) {
         this.boxes.get(boxId).addCard(id);
