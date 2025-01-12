@@ -1,37 +1,21 @@
 {
   "formatVersion": 0,
-  "pmdVersion": "7.0.0",
-  "timestamp": "2024-12-17T14:59:53.300-03:00",
+  "pmdVersion": "7.9.0",
+  "timestamp": "2025-01-11T16:04:35.528-02:00",
   "files": [
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studycards\\Card.java",
+      "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\AudioAttributes.java",
       "violations": [
         {
           "beginline": 3,
           "begincolumn": 8,
           "endline": 3,
           "endcolumn": 13,
-          "description": "The class \u0027Card\u0027 is suspected to be a Data Class (WOC\u003d20.000%, NOPA\u003d0, NOAM\u003d4, WMC\u003d6)",
+          "description": "The class \u0027AudioAttributes\u0027 is suspected to be a Data Class (WOC\u003d20.000%, NOPA\u003d0, NOAM\u003d8, WMC\u003d12)",
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studycards\\LeitnerSystem.java",
-      "violations": [
-        {
-          "beginline": 44,
-          "begincolumn": 19,
-          "endline": 44,
-          "endcolumn": 32,
-          "description": "The method \u0027getRandomCard(List\u003cBox\u003e)\u0027 has a NCSS line count of 17.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
@@ -39,127 +23,47 @@
       "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\AudioReference.java",
       "violations": [
         {
-          "beginline": 33,
-          "begincolumn": 27,
-          "endline": 33,
-          "endcolumn": 223,
+          "beginline": 36,
+          "begincolumn": 26,
+          "endline": 36,
+          "endcolumn": 221,
           "description": "Avoid long parameter lists.",
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\Reference.java",
+      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\HabitDetails.java",
+      "violations": [
+        {
+          "beginline": 6,
+          "begincolumn": 8,
+          "endline": 6,
+          "endcolumn": 13,
+          "description": "The class \u0027HabitDetails\u0027 is suspected to be a Data Class (WOC\u003d20.000%, NOPA\u003d0, NOAM\u003d8, WMC\u003d11)",
+          "rule": "DataClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
+        }
+      ]
+    },
+    {
+      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\ObjectiveDetails.java",
       "violations": [
         {
           "beginline": 3,
-          "begincolumn": 17,
-          "endline": 3,
-          "endcolumn": 22,
-          "description": "The class \u0027Reference\u0027 is suspected to be a Data Class (WOC\u003d4.545%, NOPA\u003d0, NOAM\u003d21, WMC\u003d22)",
-          "rule": "DataClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\HabitTracker.java",
-      "violations": [
-        {
-          "beginline": 57,
-          "begincolumn": 24,
-          "endline": 57,
-          "endcolumn": 228,
-          "description": "Avoid long parameter lists.",
-          "rule": "ExcessiveParameterList",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\KanbanView.java",
-      "violations": [
-        {
-          "beginline": 77,
-          "begincolumn": 19,
-          "endline": 77,
-          "endcolumn": 29,
-          "description": "The method \u0027kanbanView()\u0027 has a NCSS line count of 31.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\ToDo.java",
-      "violations": [
-        {
-          "beginline": 5,
           "begincolumn": 8,
-          "endline": 5,
+          "endline": 3,
           "endcolumn": 13,
-          "description": "The class \u0027ToDo\u0027 is suspected to be a Data Class (WOC\u003d11.111%, NOPA\u003d0, NOAM\u003d8, WMC\u003d10)",
+          "description": "The class \u0027ObjectiveDetails\u0027 is suspected to be a Data Class (WOC\u003d0.000%, NOPA\u003d0, NOAM\u003d4, WMC\u003d5)",
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\TodoTracker.java",
-      "violations": [
-        {
-          "beginline": 29,
-          "begincolumn": 19,
-          "endline": 29,
-          "endcolumn": 27,
-          "description": "The method \u0027toString()\u0027 has a NCSS line count of 21.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyGoal.java",
-      "violations": [
-        {
-          "beginline": 29,
-          "begincolumn": 19,
-          "endline": 29,
-          "endcolumn": 33,
-          "description": "The method \u0027setGoalSummary()\u0027 has a NCSS line count of 19.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyMaterial.java",
-      "violations": [
-        {
-          "beginline": 61,
-          "begincolumn": 33,
-          "endline": 61,
-          "endcolumn": 53,
-          "description": "The method \u0027getReferenceCountMap()\u0027 has a NCSS line count of 21.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
@@ -167,79 +71,69 @@
       "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyObjective.java",
       "violations": [
         {
-          "beginline": 85,
+          "beginline": 79,
           "begincolumn": 35,
-          "endline": 85,
-          "endcolumn": 293,
+          "endline": 79,
+          "endcolumn": 226,
           "description": "Avoid long parameter lists.",
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyPlan.java",
+      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyPlanProperties.java",
       "violations": [
         {
-          "beginline": 40,
-          "begincolumn": 28,
-          "endline": 42,
-          "endcolumn": 137,
-          "description": "Avoid long parameter lists.",
-          "rule": "ExcessiveParameterList",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyTaskManager.java",
-      "violations": [
-        {
-          "beginline": 30,
-          "begincolumn": 26,
-          "endline": 32,
-          "endcolumn": 88,
-          "description": "Avoid long parameter lists.",
-          "rule": "ExcessiveParameterList",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\Task.java",
-      "violations": [
-        {
-          "beginline": 5,
+          "beginline": 3,
           "begincolumn": 8,
-          "endline": 5,
+          "endline": 3,
           "endcolumn": 13,
-          "description": "The class \u0027Task\u0027 is suspected to be a Data Class (WOC\u003d0.000%, NOPA\u003d0, NOAM\u003d8, WMC\u003d9)",
+          "description": "The class \u0027StudyPlanProperties\u0027 is suspected to be a Data Class (WOC\u003d0.000%, NOPA\u003d0, NOAM\u003d18, WMC\u003d19)",
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studysearch\\SearchLog.java",
+      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\WeekSetupData.java",
       "violations": [
         {
-          "beginline": 8,
+          "beginline": 3,
           "begincolumn": 8,
-          "endline": 8,
+          "endline": 3,
           "endcolumn": 13,
-          "description": "The class \u0027SearchLog\u0027 is suspected to be a Data Class (WOC\u003d27.273%, NOPA\u003d0, NOAM\u003d8, WMC\u003d12)",
+          "description": "The class \u0027WeekSetupData\u0027 is suspected to be a Data Class (WOC\u003d0.000%, NOPA\u003d11, NOAM\u003d11, WMC\u003d12)",
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
+        },
+        {
+          "beginline": 16,
+          "begincolumn": 12,
+          "endline": 16,
+          "endcolumn": 25,
+          "description": "The constructor \u0027WeekSetupData(String, String, String, String, String, String, String, String, String, String, String)\u0027 has a NCSS line count of 12.",
+          "rule": "NcssCount",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
+        },
+        {
+          "beginline": 16,
+          "begincolumn": 25,
+          "endline": 18,
+          "endcolumn": 87,
+          "description": "Avoid long parameter lists.",
+          "rule": "ExcessiveParameterList",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     }
