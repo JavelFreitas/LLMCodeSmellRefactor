@@ -1,7 +1,5 @@
 package org.example.controllers;
 
-import org.example.studycards.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +7,11 @@ import java.util.Map;
 
 import static org.example.controllers.MainController.getInput;
 import static org.example.controllers.MainController.validateInput;
+import org.example.studycards.Box;
+import org.example.studycards.Card;
+import org.example.studycards.CardManager;
+import org.example.studycards.FlashCard;
+import org.example.studycards.LeitnerSystem;
 
 public class StudyCardsController {
     private FlashCard flashCard = new FlashCard("FlashCard");
