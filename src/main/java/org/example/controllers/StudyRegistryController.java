@@ -11,6 +11,11 @@ import org.example.studyregistry.StudyObjective.TimeDetails;
 import org.example.studyregistry.StudyPlan.StepConfiguration;
 import org.example.studyregistry.StudyPlan.StepDetails;
 import org.example.studyregistry.StudyPlan.StepMetadata;
+import org.example.studyregistry.StudyTaskManager.ObjectiveDetails;
+import org.example.studyregistry.StudyTaskManager.MaterialDetails;
+import org.example.studyregistry.StudyTaskManager.WeekPlan;
+import org.example.studyregistry.StudyTaskManager.ReminderDetails;;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -253,13 +258,66 @@ private RegistryDetails getRegistryDetailsFromInput() {
         System.out.println("Study Plan Added");
     }
 
-    private void getWeekInfo(){
-        System.out.println("(Study Task Manager Week Set Up) Type the following info: String planName, String objectiveTitle, " +
-                "String objectiveDescription, String materialTopic, String materialFormat, String goal, String reminderTitle, " +
-                "String reminderDescription, String mainTaskTitle, String mainHabit, String mainCardStudy");
-        studyTaskManager.setUpWeek(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), getInput());
+    private void getWeekInfo() {
+        System.out.println("(Study Task Manager Week Set Up)");
+    
+        // Coleta informações para criar o WeekPlan
+        String planName = getPlanNameFromInput();
+        ObjectiveDetails objectiveDetails = getObjectiveDetailsFromInput();
+        MaterialDetails materialDetails = getMaterialDetailsFromInput();
+        ReminderDetails reminderDetails = getReminderDetailsFromInput();
+        String mainTaskTitle = getMainTaskTitleFromInput();
+        String mainHabit = getMainHabitFromInput();
+        String mainCardStudy = getMainCardStudyFromInput();
+    
+        // Cria o WeekPlan
+        WeekPlan weekPlan = new WeekPlan(planName, objectiveDetails, materialDetails, reminderDetails, mainTaskTitle, mainHabit, mainCardStudy);
+    
+        // Configura a semana no StudyTaskManager
+        studyTaskManager.setUpWeek(weekPlan);
     }
+    
+    private String getPlanNameFromInput() {
+        System.out.println("Enter the Plan Name:");
+        return getInput();
+    }
+    
+    private ObjectiveDetails getObjectiveDetailsFromInput() {
+        System.out.println("Enter the Objective Details: title and description");
+        String objectiveTitle = getInput();
+        String objectiveDescription = getInput();
+        return new ObjectiveDetails(objectiveTitle, objectiveDescription);
+    }
+    
+    private MaterialDetails getMaterialDetailsFromInput() {
+        System.out.println("Enter the Material Details: topic and format");
+        String materialTopic = getInput();
+        String materialFormat = getInput();
+        return new MaterialDetails(materialTopic, materialFormat);
+    }
+    
+    private ReminderDetails getReminderDetailsFromInput() {
+        System.out.println("Enter the Reminder Details: title and description");
+        String reminderTitle = getInput();
+        String reminderDescription = getInput();
+        return new ReminderDetails(reminderTitle, reminderDescription);
+    }
+    
+    private String getMainTaskTitleFromInput() {
+        System.out.println("Enter the Main Task Title:");
+        return getInput();
+    }
+    
+    private String getMainHabitFromInput() {
+        System.out.println("Enter the Main Habit:");
+        return getInput();
+    }
+    
+    private String getMainCardStudyFromInput() {
+        System.out.println("Enter the Main Card Study:");
+        return getInput();
+    }
+    
 
     private void handleSetUpWeek(){
         getWeekInfo();

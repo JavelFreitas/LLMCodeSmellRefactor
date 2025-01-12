@@ -1,47 +1,8 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-11T21:49:33.718-03:00",
-  "files": [
-    {
-      "filename": "C:\\Users\\leste\\Smells\\LLMCodeSmellRefactor\\src\\main\\java\\org\\example\\studyregistry\\StudyTaskManager.java",
-      "violations": [
-        {
-          "beginline": 65,
-          "begincolumn": 1,
-          "endline": 65,
-          "endcolumn": 6,
-          "description": "The class \u0027WeekPlan\u0027 is suspected to be a Data Class (WOC\u003d0.000%, NOPA\u003d0, NOAM\u003d11, WMC\u003d12)",
-          "rule": "DataClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
-        },
-        {
-          "beginline": 78,
-          "begincolumn": 12,
-          "endline": 78,
-          "endcolumn": 20,
-          "description": "The constructor \u0027WeekPlan(String, String, String, String, String, String, String, String, String, String, String)\u0027 has a NCSS line count of 12.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
-        },
-        {
-          "beginline": 78,
-          "begincolumn": 20,
-          "endline": 80,
-          "endcolumn": 82,
-          "description": "Avoid long parameter lists.",
-          "rule": "ExcessiveParameterList",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
-        }
-      ]
-    }
-  ],
+  "timestamp": "2025-01-11T22:17:04.143-03:00",
+  "files": [],
   "suppressedViolations": [],
   "processingErrors": [],
   "configurationErrors": []
