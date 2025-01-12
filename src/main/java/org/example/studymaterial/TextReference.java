@@ -29,4 +29,13 @@ public class TextReference extends Reference{
         return true;
     }
 
+    public boolean shouldBeCountedAsReference() {
+        return handleTextAccess();
+    }
+
+    @Override
+    public boolean isValidForCounting() {
+        return handleTextAccess();
+    }
+
 }

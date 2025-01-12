@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class SearchLogTest {
-    SearchLog searchLog = null;
+    private SearchLog searchLog;
 
     @BeforeEach
     void setUp() {
@@ -23,7 +23,7 @@ class SearchLogTest {
         this.searchLog.addSearchHistory("Test History");
         List<String> history = this.searchLog.getSearchHistory();
         assertEquals(history.size(), 1);
-        assertEquals("Test History", history.getFirst());
+        assertEquals("Test History", history.get(0));
     }
 
     @Test
@@ -36,6 +36,6 @@ class SearchLogTest {
         this.searchLog.addSearchHistory("Test History");
         history = this.searchLog.getSearchHistory();
         assertEquals(history.size(), 1);
-        assertEquals("Test History", history.getFirst());
+        assertEquals("Test History", history.get(0));
     }
 }
