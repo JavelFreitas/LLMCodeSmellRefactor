@@ -13,20 +13,32 @@ public class Card {
         return question;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
     public String getAnswer() {
         return answer;
     }
 
-    public void setAnswer(String answer) {
+    private void updateCardData(String question, String answer) {
+        this.question = question;
         this.answer = answer;
     }
 
+    public void setQuestion(String question) {
+        updateCardData(question, this.answer);
+    }
+
+    public void setAnswer(String answer) {
+        updateCardData(this.question, answer);
+    }
+
     public void edit(String question, String answer) {
-        setQuestion(question);
-        setAnswer(answer);
+        updateCardData(question, answer);
+    }
+
+    public boolean isQuestionAnswerMatch(String guess) {
+        return guess.equalsIgnoreCase(answer);
+    }
+
+    public String getCardSummary() {
+        return "Question: " + question + ", Answer: " + answer;
     }
 }
