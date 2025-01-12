@@ -37,16 +37,52 @@ public class StudyPlan extends Registry{
         steps.add(toAdd);
     }
 
-    public void assignSteps(String firstStep, String resetStudyMechanism, String consistentStep, String seasonalSteps,
-                            String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic,
-                            String mainTask, Integer numberOfSteps, boolean isImportant, LocalDateTime startDate, LocalDateTime endDate) {
+    // Define a Record to replace the Parameter Object
+    public record StudyPlanParameters(
+            String firstStep,
+            String resetStudyMechanism,
+            String consistentStep,
+            String seasonalSteps,
+            String basicSteps,
+            String mainObjectiveTitle,
+            String mainGoalTitle,
+            String mainMaterialTopic,
+            String mainTask,
+            Integer numberOfSteps,
+            boolean isImportant,
+            LocalDateTime startDate,
+            LocalDateTime endDate
+    ) {}
+
+    public void assignSteps(StudyPlanParameters parameters) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-        this.steps = new ArrayList<>(Arrays.asList(firstStep, resetStudyMechanism, consistentStep, seasonalSteps, basicSteps, "Number of steps: " + numberOfSteps.toString(), "Is it important to you? " + isImportant, startDate.format(formatter), endDate.format(formatter), mainObjectiveTitle, mainGoalTitle, mainMaterialTopic, mainTask));
+        this.steps = new ArrayList<>(Arrays.asList(
+                parameters.firstStep(),
+                parameters.resetStudyMechanism(),
+                parameters.consistentStep(),
+                parameters.seasonalSteps(),
+                parameters.basicSteps(),
+                "Number of steps: " + parameters.numberOfSteps(),
+                "Is it important to you? " + parameters.isImportant(),
+                parameters.startDate().format(formatter),
+                parameters.endDate().format(formatter),
+                parameters.mainObjectiveTitle(),
+                parameters.mainGoalTitle(),
+                parameters.mainMaterialTopic(),
+                parameters.mainTask()
+        ));
     }
 
-    public void handleAssignSteps(List<String> stringProperties, Integer numberOfSteps, boolean isImportant, LocalDateTime startDate, LocalDateTime endDate){
-        assignSteps(stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3), stringProperties.get(4), stringProperties.get(5), stringProperties.get(6), stringProperties.get(7), stringProperties.get(8), numberOfSteps, isImportant, startDate, endDate);
-    }
+    // HandleAssignSteps remains mostly unchanged, but uses the Record
+    public void handleAssignSteps(List<String> stringProperties, Integer numberOfSteps,
+                                  boolean isImportant, LocalDateTime startDate, LocalDateTime endDate) {
+        StudyPlanParameters params = new StudyPlanParameters(
+                stringProperties.get(0), stringProperties.get(1), stringProperties.get(2),
+                stringProperties.get(3), stringProperties.get(4), stringProperties.get(5),
+                stringProperties.get(6), stringProperties.get(7), stringProperties.get(8),
+                numberOfSteps, isImportant, startDate, endDate);
 
+        assignSteps(params);
+    }
 }

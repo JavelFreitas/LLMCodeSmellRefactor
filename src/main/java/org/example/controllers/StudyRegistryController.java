@@ -83,16 +83,36 @@ public class StudyRegistryController {
         return plan;
     }
 
-    private void handleSetSteps(StudyPlan studyPlan){
+    private void handleSetSteps(StudyPlan studyPlan) {
         handleMethodHeader("(Study Plan Edit)");
         System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
                 "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
-                "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
+                "String mainTask, @NotNull Integer numberOfSteps, boolean isImportant. " +
                 "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
-        LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
+
+        LocalDateTime now = LocalDateTime.now();
+
+        // Criação de um objeto StudyPlanParameters com os valores fornecidos pelo usuário
+        StudyPlan.StudyPlanParameters params = new StudyPlan.StudyPlanParameters(
+                getInput(), // firstStep
+                getInput(), // resetStudyMechanism
+                getInput(), // consistentStep
+                getInput(), // seasonalSteps
+                getInput(), // basicSteps
+                getInput(), // mainObjectiveTitle
+                getInput(), // mainGoalTitle
+                getInput(), // mainMaterialTopic
+                getInput(), // mainTask
+                Integer.parseInt(getInput()), // numberOfSteps
+                Boolean.parseBoolean(getInput()), // isImportant
+                now, // startDate
+                now.plusDays(Integer.parseInt(getInput())) // endDate
+        );
+
+        // Passa o objeto params para o método assignSteps
+        studyPlan.assignSteps(params);
     }
+
 
     private StudyGoal getStudyGoalInfo(){
         handleMethodHeader("(Study Goal Creation)");
