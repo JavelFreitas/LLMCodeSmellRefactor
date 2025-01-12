@@ -109,15 +109,30 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(goal);
     }
 
-    private void editAudio(AudioReference audioReference){
+    private void editAudio(AudioReference audioReference) {
         handleMethodHeader("(Audio Edit)");
-        System.out.println("Type the following info:  AudioReference. AudioQuality audioQuality, boolean isDownloadable, " +
-                "String title, String description, String link, String accessRights, String license, String language, int rating, " +
-                "int viewCount, int shareCount \n");
-        AudioReference.AudioQuality quality =AudioReference.audioQualityAdapter(getInput());
-        audioReference.editAudio(quality, Boolean.parseBoolean(getInput()), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()));
+        System.out.println("Type the following info: AudioReference. AudioQuality (LOW, MEDIUM, HIGH, VERY_HIGH), boolean isDownloadable, "
+                + "String title, String description, String link, String accessRights, String license, String language, "
+                + "int rating, int viewCount, int shareCount\n");
+
+        // Collect inputs to create the AudioBuilder
+        AudioReference.AudioBuilder builder = new AudioReference.AudioBuilder()
+                .setAudioQuality(AudioReference.audioQualityAdapter(getInput()))
+                .setDownloadable(Boolean.parseBoolean(getInput()))
+                .setTitle(getInput())
+                .setDescription(getInput())
+                .setLink(getInput())
+                .setAccessRights(getInput())
+                .setLicense(getInput())
+                .setLanguage(getInput())
+                .setRating(Integer.parseInt(getInput()))
+                .setViewCount(Integer.parseInt(getInput()))
+                .setShareCount(Integer.parseInt(getInput()));
+
+        // Apply changes using the builder
+        audioReference.editAudio(builder);
     }
+
 
     private AudioReference addAudioReference(){
         handleMethodHeader("(Audio Reference Creation)");
