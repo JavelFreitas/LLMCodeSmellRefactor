@@ -27,19 +27,17 @@ public class StudyTaskManager {
         return weekResponsibilities;
     }
 
-    public void setUpWeek(String planName, String objectiveTitle, String objectiveDescription, String materialTopic,
-                          String materialFormat, String goal, String reminderTitle, String reminderDescription,
-                          String mainTaskTitle, String mainHabit, String mainCardStudy){
+    public void setUpWeek(WeekPlan weekPlan){
         this.weekResponsibilities = new ArrayList<>();
-        this.weekResponsibilities.addAll(Arrays.asList(planName, objectiveTitle, objectiveDescription, materialTopic, materialFormat, goal, reminderTitle, reminderDescription, mainTaskTitle, mainHabit, mainCardStudy));
+        this.weekResponsibilities.addAll(Arrays.asList(weekPlan.getPlanName(), weekPlan.getObjectiveTitle(), weekPlan.getObjectiveDescription(), weekPlan.getMaterialTopic(), weekPlan.getMaterialFormat(), weekPlan.getGoal(), weekPlan.getReminderTitle(), weekPlan.getReminderDescription(), weekPlan.getMainTaskTitle(), weekPlan.getMainHabit(), weekPlan.getMainCardStudy()));
     }
 
     public void handleSetUpWeek(List<String> stringProperties){
-        setUpWeek(stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3),
+        WeekPlan weekPlan = new WeekPlan(stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3),
                 stringProperties.get(4), stringProperties.get(5), stringProperties.get(6), stringProperties.get(7),
                 stringProperties.get(8), stringProperties.get(9), stringProperties.get(10));
+        setUpWeek(weekPlan);
     }
-
 
     public void addRegistry(Registry registry){
         registryList.add(registry);
@@ -62,4 +60,47 @@ public class StudyTaskManager {
         return response;
     }
 
+}
+
+class WeekPlan {
+    private String planName;
+    private String objectiveTitle;
+    private String objectiveDescription;
+    private String materialTopic;
+    private String materialFormat;
+    private String goal;
+    private String reminderTitle;
+    private String reminderDescription;
+    private String mainTaskTitle;
+    private String mainHabit;
+    private String mainCardStudy;
+
+    public WeekPlan(String planName, String objectiveTitle, String objectiveDescription, String materialTopic,
+                    String materialFormat, String goal, String reminderTitle, String reminderDescription,
+                    String mainTaskTitle, String mainHabit, String mainCardStudy) {
+        this.planName = planName;
+        this.objectiveTitle = objectiveTitle;
+        this.objectiveDescription = objectiveDescription;
+        this.materialTopic = materialTopic;
+        this.materialFormat = materialFormat;
+        this.goal = goal;
+        this.reminderTitle = reminderTitle;
+        this.reminderDescription = reminderDescription;
+        this.mainTaskTitle = mainTaskTitle;
+        this.mainHabit = mainHabit;
+        this.mainCardStudy = mainCardStudy;
+    }
+
+    // Getters for all fields
+    public String getPlanName() { return planName; }
+    public String getObjectiveTitle() { return objectiveTitle; }
+    public String getObjectiveDescription() { return objectiveDescription; }
+    public String getMaterialTopic() { return materialTopic; }
+    public String getMaterialFormat() { return materialFormat; }
+    public String getGoal() { return goal; }
+    public String getReminderTitle() { return reminderTitle; }
+    public String getReminderDescription() { return reminderDescription; }
+    public String getMainTaskTitle() { return mainTaskTitle; }
+    public String getMainHabit() { return mainHabit; }
+    public String getMainCardStudy() { return mainCardStudy; }
 }

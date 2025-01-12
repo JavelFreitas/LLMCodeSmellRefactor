@@ -7,9 +7,10 @@ import org.example.studymaterial.VideoReference;
 import org.example.studyregistry.*;
 import org.example.studyregistry.StudyObjective.RegistryDetails;
 import org.example.studyregistry.StudyObjective.TextualInfo;
-import org.example.studyregistry.StudyObjective.TimeDetails;;
-
-
+import org.example.studyregistry.StudyObjective.TimeDetails;
+import org.example.studyregistry.StudyPlan.StepConfiguration;
+import org.example.studyregistry.StudyPlan.StepDetails;
+import org.example.studyregistry.StudyPlan.StepMetadata;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -115,17 +116,45 @@ private RegistryDetails getRegistryDetailsFromInput() {
         studyTaskManager.addRegistry(plan);
         return plan;
     }
-
-    private void handleSetSteps(StudyPlan studyPlan){
+    private void handleSetSteps(StudyPlan studyPlan) {
         handleMethodHeader("(Study Plan Edit)");
-        System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
-                "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
-                "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
-                "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
-        LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
+    
+        // Coletar informações para configuração e metadados
+        List<String> stringProperties = collectStringProperties();
+        StepMetadata metadata = collectStepMetadata();
+    
+        // Construir StepDetails e atribuir os passos
+        StepDetails details = buildStepDetails(stringProperties, metadata);
+        studyPlan.assignSteps(details);
     }
+    
+    private List<String> collectStringProperties() {
+        System.out.println("Type the following info for Step Configuration: firstStep, resetStudyMechanism, consistentStep, seasonalSteps, basicSteps, mainObjectiveTitle, mainGoalTitle, mainMaterialTopic, mainTask");
+        List<String> stringProperties = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            stringProperties.add(getInput());
+        }
+        return stringProperties;
+    }
+    
+    private StepMetadata collectStepMetadata() {
+        System.out.println("Type the following info for Step Metadata: numberOfSteps, isImportant, days to complete");
+        int numberOfSteps = Integer.parseInt(getInput());
+        boolean isImportant = Boolean.parseBoolean(getInput());
+        int daysToComplete = Integer.parseInt(getInput());
+    
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime endDate = startDate.plusDays(daysToComplete);
+    
+        return new StepMetadata(numberOfSteps, isImportant, startDate, endDate);
+    }
+    
+    private StepDetails buildStepDetails(List<String> stringProperties, StepMetadata metadata) {
+        StepConfiguration configuration = StepConfiguration.buildFromProperties(stringProperties);
+        return new StepDetails(configuration, metadata);
+    }
+    
+
 
     private StudyGoal getStudyGoalInfo(){
         handleMethodHeader("(Study Goal Creation)");
