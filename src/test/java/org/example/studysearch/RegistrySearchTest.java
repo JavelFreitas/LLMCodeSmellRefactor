@@ -22,11 +22,31 @@ class RegistrySearchTest {
         cardManager.addCard("Test", "RegistrySearchTestCard2 Test");
     }
 
-    static void addHabits(){
+    static void addHabits() {
         List<Integer> ids = new ArrayList<>();
-        habitTracker.addHabit("RegistrySearchTestHabit Test", "Test");
-        habitTracker.addHabit("Test", "RegistrySearchTestHabit2 Test");
+
+        // Adding the first habit using HabitBuilder
+        int id1 = habitTracker.addHabit(
+                new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                        .withName("RegistrySearchTestHabit Test")
+                        .withMotivation("Test")
+                        .withIsConcluded(false)
+        );
+        ids.add(id1);
+
+        // Adding the second habit using HabitBuilder
+        int id2 = habitTracker.addHabit(
+                new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                        .withName("Test")
+                        .withMotivation("RegistrySearchTestHabit2 Test")
+                        .withIsConcluded(false)
+        );
+        ids.add(id2);
+
+        // Output habit IDs for verification
+        System.out.println("Added Habit IDs: " + ids);
     }
+
 
     static void addToDo(){
         todoTracker.addToDo("RegistrySearchTestToDo Test", "Test", 2);

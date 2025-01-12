@@ -47,11 +47,31 @@ class GeneralSearchTest {
         cardManager.addCard("Test", "GeneralSearchTestCard2 Test");
     }
 
-    static void addHabits(){
+    static void addHabits() {
         List<Integer> ids = new ArrayList<>();
-        habitTracker.addHabit("GeneralSearchTestHabit Test", "Test");
-        habitTracker.addHabit("Test", "GeneralSearchTestHabit2 Test");
+
+        // Adding the first habit using HabitBuilder
+        int id1 = habitTracker.addHabit(
+                new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                        .withName("GeneralSearchTestHabit Test")
+                        .withMotivation("Test")
+                        .withIsConcluded(false)
+        );
+        ids.add(id1);
+
+        // Adding the second habit using HabitBuilder
+        int id2 = habitTracker.addHabit(
+                new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                        .withName("Test")
+                        .withMotivation("GeneralSearchTestHabit2 Test")
+                        .withIsConcluded(false)
+        );
+        ids.add(id2);
+
+        // Output habit IDs for verification
+        System.out.println("Added Habit IDs: " + ids);
     }
+
 
     static void addToDo(){
         todoTracker.addToDo("GeneralSearchTestToDo Test", "Test", 2);
