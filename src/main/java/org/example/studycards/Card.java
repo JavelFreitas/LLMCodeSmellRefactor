@@ -15,7 +15,7 @@ public class Card {
         return question;
     }
 
-    private void setQuestion(String question) {
+    void setQuestion(String question) {
         if (question == null || question.trim().isEmpty()) {
             throw new IllegalArgumentException("Question cannot be null or empty");
         }
@@ -26,7 +26,7 @@ public class Card {
         return answer;
     }
 
-    private void setAnswer(String answer) {
+    void setAnswer(String answer) {
         if (answer == null || answer.trim().isEmpty()) {
             throw new IllegalArgumentException("Answer cannot be null or empty");
         }
