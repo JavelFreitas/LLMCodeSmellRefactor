@@ -145,23 +145,39 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(goal);
     }
 
-    private void editAudio(AudioReference audioReference){
+    private void editAudio(AudioReference audioReference) {
         handleMethodHeader("(Audio Edit)");
-        System.out.println("Type the following info:  AudioReference. AudioQuality audioQuality, boolean isDownloadable, " +
-                "String title, String description, String link, String accessRights, String license, String language, int rating, " +
-                "int viewCount, int shareCount \n");
-        AudioReference.AudioQuality quality =AudioReference.audioQualityAdapter(getInput());
-        audioReference.editAudio(quality, Boolean.parseBoolean(getInput()), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()));
+        System.out.println("Type the following info: AudioQuality (LOW, MEDIUM, HIGH, VERY_HIGH), isDownloadable (true/false), "
+                + "title, description, link, accessRights, license, language, rating (0-5), viewCount, shareCount\n");
+
+        // Cria um objeto AudioReferenceEditParams com os dados fornecidos
+        var params = new AudioReference.AudioReferenceEditParams(
+                AudioReference.audioQualityAdapter(getInput()),  // AudioQuality
+                Boolean.parseBoolean(getInput()),               // isDownloadable
+                getInput(),                                     // title
+                getInput(),                                     // description
+                getInput(),                                     // link
+                getInput(),                                     // accessRights
+                getInput(),                                     // license
+                getInput(),                                     // language
+                Integer.parseInt(getInput()),                   // rating
+                Integer.parseInt(getInput()),                   // viewCount
+                Integer.parseInt(getInput())                    // shareCount
+        );
+
+        // Chama o método editAudio com o objeto params
+        audioReference.editAudio(params);
     }
 
-    private AudioReference addAudioReference(){
+
+    private AudioReference addAudioReference() {
         handleMethodHeader("(Audio Reference Creation)");
-        System.out.println("Type the following info: Audio Quality ( LOW | MEDIUM | HIGH | VERY_HIGH) \n");
+        System.out.println("Type the following info: Audio Quality (LOW, MEDIUM, HIGH, VERY_HIGH)\n");
         AudioReference audioReference = new AudioReference(AudioReference.audioQualityAdapter(getInput()));
         editAudio(audioReference);
         return audioReference;
     }
+
 
     private VideoReference addVideoReference(){
         handleMethodHeader("(Video Reference Creation)");
