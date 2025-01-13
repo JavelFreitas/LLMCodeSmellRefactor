@@ -1,7 +1,7 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-13T11:29:12.590-03:00",
+  "timestamp": "2025-01-13T11:41:04.006-03:00",
   "files": [
     {
       "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\AudioReference.java",
@@ -84,13 +84,35 @@
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyTaskManager.java",
+      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\WeekPlan.java",
       "violations": [
         {
-          "beginline": 30,
-          "begincolumn": 26,
-          "endline": 32,
-          "endcolumn": 88,
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 3,
+          "endcolumn": 13,
+          "description": "The class \u0027WeekPlan\u0027 is suspected to be a Data Class (WOC\u003d0.000%, NOPA\u003d0, NOAM\u003d11, WMC\u003d12)",
+          "rule": "DataClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
+        },
+        {
+          "beginline": 16,
+          "begincolumn": 16,
+          "endline": 16,
+          "endcolumn": 24,
+          "description": "The constructor \u0027WeekPlan(String, String, String, String, String, String, String, String, String, String, String)\u0027 has a NCSS line count of 12.",
+          "rule": "NcssCount",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
+        },
+        {
+          "beginline": 16,
+          "begincolumn": 24,
+          "endline": 18,
+          "endcolumn": 86,
           "description": "Avoid long parameter lists.",
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",

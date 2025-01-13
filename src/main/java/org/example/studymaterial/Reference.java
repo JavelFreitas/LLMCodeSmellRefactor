@@ -93,14 +93,12 @@ public abstract class Reference {
     }
 
     public void setRating(int rating) {
-        // Ajustando o valor de rating para estar no intervalo 0-5
         if (rating < 0) {
-            this.rating = 0;  // Se o rating for menor que 0, define 0
+            this.rating = 0;
         } else {
-            this.rating = rating;  // Caso contrário, mantém o valor
+            this.rating = rating;
         }
     }
-    // Encapsulamento do campo language
     public String getLanguage() {
         return language;
     }
@@ -113,7 +111,6 @@ public abstract class Reference {
         }
     }
 
-    // Encapsulamento do campo viewCount
     public int getViewCount() {
         return viewCount;
     }
@@ -126,7 +123,6 @@ public abstract class Reference {
         }
     }
 
-    // Encapsulamento do campo downloadCount
     public int getDownloadCount() {
         return downloadCount;
     }
@@ -139,7 +135,6 @@ public abstract class Reference {
         }
     }
 
-    // Encapsulamento do campo shareCount
     public int getShareCount() {
         return shareCount;
     }
