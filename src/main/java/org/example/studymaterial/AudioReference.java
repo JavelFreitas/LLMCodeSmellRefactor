@@ -261,4 +261,9 @@ public class AudioReference extends Reference {
         this.setLink(link);
     }
 
+    @Override
+    public boolean shouldBeCounted() {
+        return true;
+    }
+
 }

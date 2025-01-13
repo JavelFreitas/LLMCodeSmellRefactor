@@ -1,3 +1,4 @@
+
 package org.example.studymaterial;
 
 public abstract class Reference {
@@ -12,6 +13,87 @@ public abstract class Reference {
     private int viewCount;
     private int downloadCount;
     private int shareCount;
+
+    // Validation methods
+    protected void validateMetadata() {
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be empty");
+        }
+        if (link == null || link.isEmpty()) {
+            throw new IllegalArgumentException("Link cannot be empty");
+        }
+    }
+
+    protected boolean isValidRating(int rating) {
+        return rating >= 0 && rating <= 5;
+    }
+
+    // Content management methods
+    public void updateContent(String title, String description, String link) {
+        setTitle(title);
+        setDescription(description);
+        setLink(link);
+        validateMetadata();
+    }
+
+    public void updateAccessControl(String accessRights, String license, boolean downloadable) {
+        this.accessRights = accessRights;
+        this.license = license;
+        this.isDownloadable = downloadable;
+    }
+
+    // Search and metadata functionality
+    public boolean matchesSearch(String searchText) {
+        if (searchText == null || searchText.isEmpty()) {
+            return false;
+        }
+        String content = getSearchableContent();
+        return content.toLowerCase().contains(searchText.toLowerCase());
+    }
+
+    private String getSearchableContent() {
+        StringBuilder content = new StringBuilder();
+        if (title != null)
+            content.append(title);
+        if (description != null)
+            content.append(" ").append(description);
+        return content.toString();
+    }
+
+    public String getTypeCountKey() {
+        if (this instanceof AudioReference)
+            return "Audio References";
+        if (this instanceof VideoReference)
+            return "Video References";
+        if (this instanceof TextReference)
+            return "Text References";
+        return "";
+    }
+
+    // Engagement tracking
+    public void trackView() {
+        this.viewCount++;
+    }
+
+    public void trackDownload() {
+        this.downloadCount++;
+        this.viewCount++;
+    }
+
+    public void trackShare() {
+        this.shareCount++;
+    }
+
+    public double getEngagementScore() {
+        return (viewCount * 0.4) + (rating * 0.4) + (shareCount * 0.2);
+    }
+
+    public boolean isPopular() {
+        return viewCount > 1000 && rating >= 4;
+    }
+
+    // Abstract method for subclasses
+    public abstract boolean shouldBeCounted();
 
     public void setTitle(String title) {
         this.title = title;
