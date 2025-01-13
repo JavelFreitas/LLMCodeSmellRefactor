@@ -42,26 +42,40 @@ public class LeitnerSystem extends StudyMethod{
     }
 
     public String getRandomCard(List<Box> otherBoxes){
-        if(otherBoxes == null){
+        if (isBoxListInvalid(otherBoxes)) {
             return null;
         }
-        if(otherBoxes.isEmpty()){
-            return null;
-        }
-        Box allBoxes = new Box();
-        for(Box box : otherBoxes){
-            allBoxes.addCards(box.getCards());
-        }
-        Integer randomCard = allBoxes.getRandomCard();
-        if(randomCard == null){
+
+        Box allCardsBox = mergeBoxes(otherBoxes);
+        Integer randomCardId = allCardsBox.getRandomCard();
+
+        if (randomCardId == null) {
             return "No card found";
         }
+
+        return buildCardResponse(randomCardId);
+    }
+
+    private boolean isBoxListInvalid(List<Box> otherBoxes) {
+        return otherBoxes == null || otherBoxes.isEmpty();
+    }
+
+    private Box mergeBoxes(List<Box> otherBoxes) {
+        Box allCardsBox = new Box();
+        for (Box box : otherBoxes) {
+            allCardsBox.addCards(box.getCards());
+        }
+        return allCardsBox;
+    }
+
+    private String buildCardResponse(Integer cardId) {
         CardManager manager = CardManager.getCardManager();
-        Card card = manager.getCard(randomCard);
-        String response = "["+ randomCard + "] ";
+        Card card = manager.getCard(cardId);
+
+        String response = "[" + cardId + "] ";
         response += "The random question was: " + card.getQuestion() + " | ";
         response += "The answer is: " + card.getAnswer();
-        return  response;
+        return response;
     }
 
     public void addCardToBox(Integer id, Integer boxId) {
@@ -78,7 +92,7 @@ public class LeitnerSystem extends StudyMethod{
     }
 
     public void boxIdValidation(Integer boxId) throws Exception {
-        if(boxId == null || boxId > (boxes.size()-1) || boxId <= 0){
+        if (boxId == null || boxId > (boxes.size() - 1) || boxId <= 0) {
             throw new Exception("Invalid box ID");
         }
     }
@@ -87,7 +101,7 @@ public class LeitnerSystem extends StudyMethod{
         boxIdValidation(boxId);
 
         Box refBox = boxes.get(boxId);
-        if(refBox.hasCard(cardId)){
+        if (refBox.hasCard(cardId)) {
             throw new Exception("No card Found");
         }
         refBox.removeCard(cardId);
@@ -98,7 +112,7 @@ public class LeitnerSystem extends StudyMethod{
         boxIdValidation(boxId);
 
         Box refBox = boxes.get(boxId);
-        if(refBox.hasCard(cardId)){
+        if (refBox.hasCard(cardId)) {
             throw new Exception("No card Found");
         }
         refBox.removeCard(cardId);
