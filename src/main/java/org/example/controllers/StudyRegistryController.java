@@ -96,16 +96,36 @@ public class StudyRegistryController {
         return plan;
     }
 
-    private void handleSetSteps(StudyPlan studyPlan){
+    private void handleSetSteps(StudyPlan studyPlan) {
         handleMethodHeader("(Study Plan Edit)");
         System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
                 "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
-                "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
+                "String mainTask, @NotNull Integer numberOfSteps, boolean isImportant. " +
                 "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
+
         LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
+        LocalDateTime endDate = createdAT.plusDays(Long.parseLong(getInput())); // Lê o número de dias para calcular o endDate
+
+        // Criação do Builder para encapsular os parâmetros
+        StudyPlan.AssignStepsBuilder builder = new StudyPlan.AssignStepsBuilder()
+                .setFirstStep(getInput())
+                .setResetStudyMechanism(getInput())
+                .setConsistentStep(getInput())
+                .setSeasonalSteps(getInput())
+                .setBasicSteps(getInput())
+                .setMainObjectiveTitle(getInput())
+                .setMainGoalTitle(getInput())
+                .setMainMaterialTopic(getInput())
+                .setMainTask(getInput())
+                .setNumberOfSteps(Integer.parseInt(getInput()))
+                .setIsImportant(Boolean.parseBoolean(getInput()))
+                .setStartDate(createdAT)
+                .setEndDate(endDate);
+
+        // Chamada ao método assignSteps com o builder
+        studyPlan.assignSteps(builder);
     }
+
 
     private StudyGoal getStudyGoalInfo(){
         handleMethodHeader("(Study Goal Creation)");
