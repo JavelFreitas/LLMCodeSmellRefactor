@@ -2,6 +2,7 @@ package org.example.studyregistry;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class StudyGoal extends Registry{
@@ -26,32 +27,50 @@ public class StudyGoal extends Registry{
         this.isCompleted = completed;
     }
 
-    public String setGoalSummary(){
+    public String setGoalSummary() {
         StringBuilder summary = new StringBuilder();
-        summary.append("Goal Summary:\n").append("\n\n");
-        if(this.isActive){
-            summary.append("Active Goal:\n").append(goal).append("\n\n");
-        }
-        if(this.isCompleted){
-            summary.append("Completed Goal:\n").append(goal).append("\n\n");
-        }
-        if(this.goalRequirements != null){
-            summary.append("Requirements:\n");
-            for(String requirement : this.goalRequirements){
-                summary.append(requirement).append(", ");
-            }
-        }
-        if(this.studyPlan != null){
-            summary.append("Plan:\n");
-            summary.append(this.studyPlan.toString());
-        }
-        if(this.studyObjective != null){
-            summary.append("Objective:\n");
-            summary.append(this.studyObjective.toString());
-        }
+        appendHeader(summary, "Goal Summary:");
+
+        appendConditionalSection(summary, this.isActive, "Active Goal:", goal);
+        appendConditionalSection(summary, this.isCompleted, "Completed Goal:", goal);
+        appendCollectionIfNotNull(summary, "Requirements:", this.goalRequirements);
+        appendObjectIfNotNull(summary, "Plan:", this.studyPlan);
+        appendObjectIfNotNull(summary, "Objective:", this.studyObjective);
+
         this.summary = summary.toString();
         return summary.toString();
     }
+
+    private void appendHeader(StringBuilder summary, String header) {
+        summary.append(header).append("\n\n");
+    }
+
+    private void appendConditionalSection(StringBuilder summary, boolean condition, String title, Object content) {
+        if (condition) {
+            appendSection(summary, title, content.toString());
+        }
+    }
+
+    private void appendCollectionIfNotNull(StringBuilder summary, String title, Collection<String> collection) {
+        if (collection != null) {
+            summary.append(title).append("\n");
+            for (String item : collection) {
+                summary.append(item).append(", ");
+            }
+            summary.append("\n");
+        }
+    }
+
+    private void appendObjectIfNotNull(StringBuilder summary, String title, Object obj) {
+        if (obj != null) {
+            appendSection(summary, title, obj.toString());
+        }
+    }
+
+    private void appendSection(StringBuilder summary, String title, String content) {
+        summary.append(title).append("\n").append(content).append("\n\n");
+    }
+
 
     public void addRequirement(String requirement){
         this.goalRequirements.add(requirement);

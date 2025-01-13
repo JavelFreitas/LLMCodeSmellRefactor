@@ -6,6 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 public class SearchLog {
+
+    public String logSearchAndReturnMessage(String text) {
+        this.addSearchHistory(text);
+        this.setNumUsages(this.getNumUsages() + 1);
+        return "Logged in: " + this.getLogName();
+    }
+    public String logSearch(String text) {
+        this.addSearchHistory(text);
+        this.setNumUsages(this.getNumUsages() + 1);
+        return "Logged in: " + this.getLogName();
+    }
     private List<String> searchHistory;
     private Map<String, Integer> searchCount;
     private boolean isLocked;
