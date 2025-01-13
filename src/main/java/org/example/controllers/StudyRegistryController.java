@@ -218,12 +218,29 @@ public class StudyRegistryController {
         System.out.println("Study Plan Added");
     }
 
-    private void getWeekInfo(){
-        System.out.println("(Study Task Manager Week Set Up) Type the following info: String planName, String objectiveTitle, " +
-                "String objectiveDescription, String materialTopic, String materialFormat, String goal, String reminderTitle, " +
-                "String reminderDescription, String mainTaskTitle, String mainHabit, String mainCardStudy");
-        studyTaskManager.setUpWeek(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), getInput());
+    private void getWeekInfo() {
+        System.out.println("(Study Task Manager Week Set Up) Please provide the following info:");
+
+        StudyTaskManager.WeekSetup.Builder builder = new StudyTaskManager.WeekSetup.Builder()
+                .setPlanName(promptUser("Plan Name"))
+                .setObjectiveTitle(promptUser("Objective Title"))
+                .setObjectiveDescription(promptUser("Objective Description"))
+                .setMaterialTopic(promptUser("Material Topic"))
+                .setMaterialFormat(promptUser("Material Format"))
+                .setGoal(promptUser("Goal"))
+                .setReminderTitle(promptUser("Reminder Title"))
+                .setReminderDescription(promptUser("Reminder Description"))
+                .setMainTaskTitle(promptUser("Main Task Title"))
+                .setMainHabit(promptUser("Main Habit"))
+                .setMainCardStudy(promptUser("Main Card Study"));
+
+        StudyTaskManager.WeekSetup weekSetup = builder.build();
+        studyTaskManager.setUpWeek(weekSetup);
+    }
+
+    private String promptUser(String prompt) {
+        System.out.println(prompt + ":");
+        return getInput();
     }
 
     private void handleSetUpWeek(){
