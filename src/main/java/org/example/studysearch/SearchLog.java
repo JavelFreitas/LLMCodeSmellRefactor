@@ -58,4 +58,8 @@ public class SearchLog {
     public void setLogName(String logName) {
         this.logName = logName;
     }
+
+    public boolean hasSearchTerm(String searchTerm) {
+        return searchHistory.contains(searchTerm);
+    }
 }
