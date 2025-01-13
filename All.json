@@ -1,7 +1,7 @@
 {
   "formatVersion": 0,
-  "pmdVersion": "7.0.0",
-  "timestamp": "2024-12-17T14:59:53.300-03:00",
+  "pmdVersion": "7.9.0",
+  "timestamp": "2025-01-13T03:18:55.680-03:00",
   "files": [
     {
       "filename": ".\\src\\main\\java\\org\\example\\studycards\\Card.java",
@@ -15,7 +15,7 @@
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
@@ -31,7 +31,7 @@
           "rule": "NcssCount",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
         }
       ]
     },
@@ -47,7 +47,7 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
@@ -63,7 +63,7 @@
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
@@ -79,7 +79,7 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
@@ -95,7 +95,7 @@
           "rule": "NcssCount",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
         }
       ]
     },
@@ -111,7 +111,7 @@
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
@@ -127,7 +127,7 @@
           "rule": "NcssCount",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
         }
       ]
     },
@@ -143,23 +143,7 @@
           "rule": "NcssCount",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyMaterial.java",
-      "violations": [
-        {
-          "beginline": 61,
-          "begincolumn": 33,
-          "endline": 61,
-          "endcolumn": 53,
-          "description": "The method \u0027getReferenceCountMap()\u0027 has a NCSS line count of 21.",
-          "rule": "NcssCount",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
         }
       ]
     },
@@ -175,7 +159,7 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
@@ -191,7 +175,7 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
@@ -207,7 +191,7 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
@@ -223,23 +207,7 @@
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studysearch\\SearchLog.java",
-      "violations": [
-        {
-          "beginline": 8,
-          "begincolumn": 8,
-          "endline": 8,
-          "endcolumn": 13,
-          "description": "The class \u0027SearchLog\u0027 is suspected to be a Data Class (WOC\u003d27.273%, NOPA\u003d0, NOAM\u003d8, WMC\u003d12)",
-          "rule": "DataClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     }
