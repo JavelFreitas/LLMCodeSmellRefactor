@@ -51,15 +51,31 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(task);
     }
 
-    private void handleSetObjective(StudyObjective objective){
+    private void handleSetObjective(StudyObjective objective) {
         handleMethodHeader("(Study Objective Edit)");
-        System.out.println("Type the following info: Integer id, Integer priority " +
-                "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
-                "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
-                "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+
+        System.out.println("Type the following info: Integer id, Integer priority, Integer practicedDays, int day, int month, int year, " +
+                "String name, String title, String description, String topic, String objectiveInOneLine, String objectiveFullDescription, " +
+                "String motivation, Double duration, boolean isActive \n");
+
+        // Criar o objeto StudyObjective.Objective com os dados fornecidos
+        StudyObjective.Objective newObjective = new StudyObjective.Objective(
+                Integer.parseInt(getInput()),   // id
+                Integer.parseInt(getInput()),   // priority
+                Integer.parseInt(getInput()),   // practicedDays
+                Integer.parseInt(getInput()),   // day
+                Integer.parseInt(getInput()),   // month
+                Integer.parseInt(getInput()),   // year
+                getInput(),                     // name
+                getInput(),                     // title
+                getInput(),                     // description
+                getInput(),                     // topic
+                getInput(),                     // objectiveInOneLine
+                getInput(),                     // objectiveFullDescription
+                getInput(),                     // motivation
+                Double.parseDouble(getInput()), // duration
+                Boolean.parseBoolean(getInput()) // isActive
+        );
     }
 
     private StudyObjective getStudyObjectiveInfo(){
