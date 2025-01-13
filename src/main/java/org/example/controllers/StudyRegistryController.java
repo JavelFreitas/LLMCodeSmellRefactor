@@ -51,15 +51,28 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(task);
     }
 
-    private void handleSetObjective(StudyObjective objective){
+    private void handleSetObjective(StudyObjective objective) {
         handleMethodHeader("(Study Objective Edit)");
         System.out.println("Type the following info: Integer id, Integer priority " +
                 "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
                 "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
                 "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+
+        // Criação de um objeto StudyObjective com o builder
+        StudyObjective newObjective = new StudyObjective.StudyObjectiveBuilder()
+                .setTitle(getInput())
+                .setDescription(getInput())
+                .setTopic(getInput())
+                .setObjectiveInOneLine(getInput())
+                .setObjectiveFullDescription(getInput())
+                .setMotivation(getInput())
+                .setPracticedDays(Integer.parseInt(getInput()))
+                .setStartDate(LocalDateTime.of(Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()), 0, 0))
+                .setDuration(Double.parseDouble(getInput()))
+                .build();
+
+        // Agora, você chama o método handleSetObjective com o novo objeto
+        objective.handleSetObjective(newObjective);
     }
 
     private StudyObjective getStudyObjectiveInfo(){
