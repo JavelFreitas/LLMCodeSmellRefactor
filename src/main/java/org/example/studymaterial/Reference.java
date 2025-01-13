@@ -1,103 +1,243 @@
 package org.example.studymaterial;
 
 public abstract class Reference {
-    private String title;
-    private String description;
-    private String link;
-    private String accessRights;
-    private String license;
-    private boolean isDownloadable;
-    private int rating;
-    private String language;
-    private int viewCount;
-    private int downloadCount;
-    private int shareCount;
+    private ReferenceMetadata metadata;
+
+    public Reference(ReferenceMetadata metadata) {
+        this.metadata = metadata;
+    }
 
     public void setTitle(String title) {
-        this.title = title;
+        metadata = new ReferenceMetadata(
+                title,
+                metadata.description(),
+                metadata.link(),
+                metadata.accessRights(),
+                metadata.license(),
+                metadata.isDownloadable(),
+                metadata.rating(),
+                metadata.language(),
+                metadata.viewCount(),
+                metadata.downloadCount(),
+                metadata.shareCount()
+        );
     }
 
     public String getTitle() {
-        return title;
+        return metadata.title();
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                description,
+                metadata.link(),
+                metadata.accessRights(),
+                metadata.license(),
+                metadata.isDownloadable(),
+                metadata.rating(),
+                metadata.language(),
+                metadata.viewCount(),
+                metadata.downloadCount(),
+                metadata.shareCount()
+        );
     }
 
     public String getDescription() {
-        return description;
+        return metadata.description();
     }
 
     public void setLink(String link) {
-        this.link = link;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                metadata.description(),
+                link,
+                metadata.accessRights(),
+                metadata.license(),
+                metadata.isDownloadable(),
+                metadata.rating(),
+                metadata.language(),
+                metadata.viewCount(),
+                metadata.downloadCount(),
+                metadata.shareCount()
+        );
     }
 
     public String getLink() {
-        return link;
+        return metadata.link();
     }
 
     public String getAccessRights() {
-        return accessRights;
+        return metadata.accessRights();
     }
 
     public void setAccessRights(String accessRights) {
-        this.accessRights = accessRights;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                metadata.description(),
+                metadata.link(),
+                accessRights,
+                metadata.license(),
+                metadata.isDownloadable(),
+                metadata.rating(),
+                metadata.language(),
+                metadata.viewCount(),
+                metadata.downloadCount(),
+                metadata.shareCount()
+        );
     }
 
     public String getLicense() {
-        return license;
+        return metadata.license();
     }
 
     public void setLicense(String license) {
-        this.license = license;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                metadata.description(),
+                metadata.link(),
+                metadata.accessRights(),
+                license,
+                metadata.isDownloadable(),
+                metadata.rating(),
+                metadata.language(),
+                metadata.viewCount(),
+                metadata.downloadCount(),
+                metadata.shareCount()
+        );
     }
 
     public boolean getIsDownloadable() {
-        return isDownloadable;
+        return metadata.isDownloadable();
     }
 
     public void setDownloadable(boolean downloadable) {
-        isDownloadable = downloadable;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                metadata.description(),
+                metadata.link(),
+                metadata.accessRights(),
+                metadata.license(),
+                downloadable,
+                metadata.rating(),
+                metadata.language(),
+                metadata.viewCount(),
+                metadata.downloadCount(),
+                metadata.shareCount()
+        );
     }
 
     public int getRating() {
-        return rating;
+        return metadata.rating();
     }
 
     public void setRating(int rating) {
-        this.rating = rating;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                metadata.description(),
+                metadata.link(),
+                metadata.accessRights(),
+                metadata.license(),
+                metadata.isDownloadable(),
+                rating,
+                metadata.language(),
+                metadata.viewCount(),
+                metadata.downloadCount(),
+                metadata.shareCount()
+        );
     }
 
     public String getLanguage() {
-        return language;
+        return metadata.language();
     }
 
     public void setLanguage(String language) {
-        this.language = language;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                metadata.description(),
+                metadata.link(),
+                metadata.accessRights(),
+                metadata.license(),
+                metadata.isDownloadable(),
+                metadata.rating(),
+                language,
+                metadata.viewCount(),
+                metadata.downloadCount(),
+                metadata.shareCount()
+        );
     }
 
     public int getViewCount() {
-        return viewCount;
+        return metadata.viewCount();
     }
 
     public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                metadata.description(),
+                metadata.link(),
+                metadata.accessRights(),
+                metadata.license(),
+                metadata.isDownloadable(),
+                metadata.rating(),
+                metadata.language(),
+                viewCount,
+                metadata.downloadCount(),
+                metadata.shareCount()
+        );
     }
 
     public int getDownloadCount() {
-        return downloadCount;
+        return metadata.downloadCount();
     }
 
     public void setDownloadCount(int downloadCount) {
-        this.downloadCount = downloadCount;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                metadata.description(),
+                metadata.link(),
+                metadata.accessRights(),
+                metadata.license(),
+                metadata.isDownloadable(),
+                metadata.rating(),
+                metadata.language(),
+                metadata.viewCount(),
+                downloadCount,
+                metadata.shareCount()
+        );
     }
 
     public int getShareCount() {
-        return shareCount;
+        return metadata.shareCount();
     }
 
     public void setShareCount(int shareCount) {
-        this.shareCount = shareCount;
+        metadata = new ReferenceMetadata(
+                metadata.title(),
+                metadata.description(),
+                metadata.link(),
+                metadata.accessRights(),
+                metadata.license(),
+                metadata.isDownloadable(),
+                metadata.rating(),
+                metadata.language(),
+                metadata.viewCount(),
+                metadata.downloadCount(),
+                shareCount
+        );
     }
 }
+
+record ReferenceMetadata(
+        String title,
+        String description,
+        String link,
+        String accessRights,
+        String license,
+        boolean isDownloadable,
+        int rating,
+        String language,
+        int viewCount,
+        int downloadCount,
+        int shareCount
+) {}
