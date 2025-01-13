@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class KanbanView {
-    public enum State{
+    public enum State {
         TODO, DOING, DONE;
     }
 
@@ -28,94 +28,84 @@ public class KanbanView {
     }
 
     public void addHabitToKanban(State state, Integer id) throws Exception {
-        try{
+        try {
             Habit toAdd = this.habitTracker.getHabitById(id);
-            if(toAdd == null){
+            if (toAdd == null) {
                 throw new Exception("Habit not found with id: " + id);
             }
             kanban.get(state).add(toAdd);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
     public void addToDoToKanban(State state, Integer id) throws Exception {
-        try{
+        try {
             ToDo toAdd = this.todoTracker.getToDoById(id);
-            if(toAdd == null){
+            if (toAdd == null) {
                 throw new Exception("ToDo not found with id: " + id);
             }
             kanban.get(state).add(toAdd);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
     public void removeHabitFromKanban(State state, Integer id) throws Exception {
-        try{
+        try {
             Habit toRemove = this.habitTracker.getHabitById(id);
-            if(toRemove == null) {
+            if (toRemove == null) {
                 throw new Exception("No habit found with id: " + id);
             }
             kanban.get(state).remove(toRemove);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
+
     public void removeToDoFromKanban(State state, Integer id) throws Exception {
-        try{
+        try {
             ToDo toRemove = this.todoTracker.getToDoById(id);
-            if(toRemove == null) {
+            if (toRemove == null) {
                 throw new Exception("No todo found with id: " + id);
             }
             kanban.get(state).remove(toRemove);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
     public String kanbanView() throws Exception {
-        try{
-
-            if(kanban.isEmpty()){
+        try {
+            if (kanban.isEmpty()) {
                 throw new Exception("No material found");
             }
-            StringBuilder sb = new StringBuilder();
-            sb.append("[ Material ToDo: ");
-            sb.append(System.lineSeparator());
 
-            if(kanban.get(State.TODO).isEmpty()){
-                sb.append("No material found");
-            } else {
-                for(PlannerMaterial material : kanban.get(State.TODO)){
-                    sb.append(", ").append(material.toString());
-                }
-            }
-            sb.append(System.lineSeparator());
-            sb.append("Material in progress:");
-            sb.append(System.lineSeparator());
-            if(kanban.get(State.DOING).isEmpty()){
-                sb.append("No material found");
-            } else {
-                for(PlannerMaterial material : kanban.get(State.DOING)){
-                    sb.append(", ").append(material.toString());
-                }
-            }
-            sb.append(System.lineSeparator());
-            sb.append("Material completed:");
-            sb.append(System.lineSeparator());
-            if(kanban.get(State.DONE).isEmpty()){
-                sb.append("No material found");
-            } else {
-                for(PlannerMaterial material : kanban.get(State.DONE)){
-                    sb.append(", ").append(material.toString());
-                }
-            }
-            sb.append("]");
+            StringBuilder sb = new StringBuilder();
+            buildKanbanSection(sb, "Material ToDo", State.TODO);
+            buildKanbanSection(sb, "Material in progress", State.DOING);
+            buildKanbanSection(sb, "Material completed", State.DONE);
+
             return sb.toString();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
+    private void buildKanbanSection(StringBuilder sb, String sectionTitle, State state) {
+        sb.append("[ ").append(sectionTitle).append(": ").append(System.lineSeparator());
+        appendMaterials(sb, state);
+        sb.append("]").append(System.lineSeparator());
+    }
+
+    private void appendMaterials(StringBuilder sb, State state) {
+        List<PlannerMaterial> materials = kanban.get(state);
+        if (materials == null || materials.isEmpty()) {
+            sb.append("No material found").append(System.lineSeparator());
+        } else {
+            for (PlannerMaterial material : materials) {
+                sb.append(material.toString()).append(System.lineSeparator());
+            }
+        }
+    }
 }

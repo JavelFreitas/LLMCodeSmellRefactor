@@ -43,7 +43,7 @@ class AudioReferenceTest {
         assertEquals(2000, audioReference.getViewCount());
         assertEquals(500, audioReference.getShareCount());
         assertEquals(10, audioReference.getRating());
-        assertTrue(audioReference.getIsDownloadable());
+        assertTrue(audioReference.isDownloadable());
     }
 
     public void changeEditTest(){
@@ -75,6 +75,6 @@ class AudioReferenceTest {
         assertEquals(4000, audioReference.getViewCount());
         assertEquals(1000, audioReference.getShareCount());
         assertEquals(20, audioReference.getRating());
-        assertFalse(audioReference.getIsDownloadable());
+        assertFalse(audioReference.isDownloadable());
     }
 }

@@ -174,8 +174,16 @@ public class StudyRegistryController {
         System.out.println("(Study Task Manager Week Set Up) Type the following info: String planName, String objectiveTitle, " +
                 "String objectiveDescription, String materialTopic, String materialFormat, String goal, String reminderTitle, " +
                 "String reminderDescription, String mainTaskTitle, String mainHabit, String mainCardStudy");
-        studyTaskManager.setUpWeek(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), getInput());
+
+        // Criar um objeto WeekPlan com os dados de entrada
+        WeekPlan weekPlan = new WeekPlan(
+                getInput(), getInput(), getInput(), getInput(),
+                getInput(), getInput(), getInput(), getInput(),
+                getInput(), getInput(), getInput()
+        );
+
+        // Passar o objeto WeekPlan para o método setUpWeek
+        studyTaskManager.setUpWeek(weekPlan);
     }
 
     private void handleSetUpWeek(){
