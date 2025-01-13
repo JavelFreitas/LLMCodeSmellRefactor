@@ -29,8 +29,6 @@ public class VideoReference extends Reference {
     public boolean handleStreamAvailability(){
         if(!isAvailable){
             return false;
-        } else if(!this.getIsDownloadable()){
-            return false;
         }
         return true;
 
