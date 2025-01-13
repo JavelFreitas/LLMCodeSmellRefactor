@@ -1,15 +1,12 @@
 
 package org.example.studyregistry;
 
-import org.example.studymaterial.AudioReference;
-import org.example.studymaterial.Reference;
-import org.example.studymaterial.TextReference;
-import org.example.studymaterial.VideoReference;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.example.studymaterial.Reference;
 
 public class StudyMaterial {
     List<Reference> references;
@@ -84,5 +81,5 @@ public class StudyMaterial {
             Integer count = countMap.get(key);
             countMap.put(key, count + 1);
         }
-}
+    }
 }
