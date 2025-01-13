@@ -1,9 +1,11 @@
+
 package org.example.studyplanner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class KanbanView {
     public enum State {
@@ -63,18 +65,6 @@ public class KanbanView {
         }
     }
 
-    public void removeToDoFromKanban(State state, Integer id) throws Exception {
-        try {
-            ToDo toRemove = this.todoTracker.getToDoById(id);
-            if (toRemove == null) {
-                throw new Exception("No todo found with id: " + id);
-            }
-            kanban.get(state).remove(toRemove);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
-    }
-
     private String formatMaterialsForState(State state, String stateTitle) {
         StringBuilder sb = new StringBuilder();
         sb.append(stateTitle);
@@ -111,6 +101,18 @@ public class KanbanView {
             sb.append("]");
             return sb.toString();
 
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public void removeToDoFromKanban(State state, Integer id) throws Exception {
+        try {
+            ToDo toRemove = this.todoTracker.getToDoById(id);
+            if (toRemove == null || !toRemove.matchesId(id)) {
+                throw new Exception("No todo found with id: " + id);
+            }
+            kanban.get(state).remove(toRemove);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
