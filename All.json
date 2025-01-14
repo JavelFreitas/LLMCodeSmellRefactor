@@ -1,7 +1,7 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-14T12:03:42.344-03:00",
+  "timestamp": "2025-01-14T12:29:17.921-03:00",
   "files": [
     {
       "filename": ".\\src\\main\\java\\org\\example\\studycards\\Card.java",
@@ -151,9 +151,9 @@
       "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyMaterial.java",
       "violations": [
         {
-          "beginline": 61,
+          "beginline": 76,
           "begincolumn": 33,
-          "endline": 61,
+          "endline": 76,
           "endcolumn": 53,
           "description": "The method \u0027getReferenceCountMap()\u0027 has a NCSS line count of 21.",
           "rule": "NcssCount",

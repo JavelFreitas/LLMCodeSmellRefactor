@@ -8,14 +8,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.example.studysearch.SearchLog;
 
-public class StudyMaterial{
-    List<Reference> references;
+public class StudyMaterial {
+    private List<Reference> references;
     private static StudyMaterial studyMaterial;
     private Map<String, Integer> referenceCount;
+    private SearchLog searchLog;
 
-    private StudyMaterial(){
+    private StudyMaterial() {
         references = new ArrayList<Reference>();
+        searchLog = new SearchLog("Material Search");
+    }
+
+    public List<String> search(String text) {
+        List<String> results = new ArrayList<>();
+        results.addAll(searchInMaterials(text));
+        searchLog.addSearchHistory(text);
+        results.add("\nLogged in: " + searchLog.getLogName());
+        return results;
+    }
+
+    public SearchLog getSearchLog() {
+        return searchLog;
     }
 
     public static StudyMaterial getStudyMaterial(){
