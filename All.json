@@ -1,24 +1,8 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-14T16:14:32.130-03:00",
+  "timestamp": "2025-01-14T16:44:27.969-03:00",
   "files": [
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studycards\\Card.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 3,
-          "endcolumn": 13,
-          "description": "The class \u0027Card\u0027 is suspected to be a Data Class (WOC\u003d20.000%, NOPA\u003d0, NOAM\u003d4, WMC\u003d6)",
-          "rule": "DataClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
-        }
-      ]
-    },
     {
       "filename": ".\\src\\main\\java\\org\\example\\studycards\\LeitnerSystem.java",
       "violations": [
