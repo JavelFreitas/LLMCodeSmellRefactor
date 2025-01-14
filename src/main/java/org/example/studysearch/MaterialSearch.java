@@ -1,13 +1,10 @@
 package org.example.studysearch;
 
 import org.example.studyregistry.StudyMaterial;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaterialSearch implements Search<String>{
-
-
+public class MaterialSearch implements Search<String> {
     private SearchLog searchLog = new SearchLog("Material Search");
 
     public MaterialSearch() {}
@@ -21,13 +18,12 @@ public class MaterialSearch implements Search<String>{
         return searchLog;
     }
 
-    private List<String> handleMaterialSearch(String text){
+    private List<String> handleMaterialSearch(String text) {
         List<String> results = new ArrayList<>();
         results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
         this.searchLog.addSearchHistory(text);
-        this.searchLog.setNumUsages(this.searchLog.getNumUsages() + 1);
+        // Removida a chamada para setNumUsages pois o incremento já é feito internamente em handleSearch
         results.add("\nLogged in: " + this.searchLog.getLogName());
         return results;
     }
-
 }
