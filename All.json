@@ -1,7 +1,7 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-14T12:29:17.921-03:00",
+  "timestamp": "2025-01-14T16:14:32.130-03:00",
   "files": [
     {
       "filename": ".\\src\\main\\java\\org\\example\\studycards\\Card.java",
@@ -199,9 +199,9 @@
       "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyTaskManager.java",
       "violations": [
         {
-          "beginline": 30,
+          "beginline": 42,
           "begincolumn": 26,
-          "endline": 32,
+          "endline": 44,
           "endcolumn": 88,
           "description": "Avoid long parameter lists.",
           "rule": "ExcessiveParameterList",

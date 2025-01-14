@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import org.example.studyregistry.StudyTaskManager;
 import org.example.studysearch.GeneralSearch;
 import org.example.studysearch.MaterialSearch;
 import org.example.studysearch.RegistrySearch;
@@ -15,7 +16,7 @@ import static org.example.controllers.MainController.validateInput;
 public class StudySearchController {
     GeneralSearch generalSearch = new GeneralSearch();
     MaterialSearch materialSearch = new MaterialSearch();
-    RegistrySearch registrySearch = new RegistrySearch();
+    RegistrySearch registrySearch = new RegistrySearch(StudyTaskManager.getStudyTaskManager());
 
     private Map<String, Runnable> actions = new HashMap<>();
 
