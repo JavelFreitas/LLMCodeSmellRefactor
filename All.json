@@ -1,7 +1,7 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-14T11:32:19.083-03:00",
+  "timestamp": "2025-01-14T12:03:42.344-03:00",
   "files": [
     {
       "filename": ".\\src\\main\\java\\org\\example\\studycards\\Card.java",
@@ -23,9 +23,9 @@
       "filename": ".\\src\\main\\java\\org\\example\\studycards\\LeitnerSystem.java",
       "violations": [
         {
-          "beginline": 44,
+          "beginline": 53,
           "begincolumn": 19,
-          "endline": 44,
+          "endline": 53,
           "endcolumn": 32,
           "description": "The method \u0027getRandomCard(List\u003cBox\u003e)\u0027 has a NCSS line count of 17.",
           "rule": "NcssCount",

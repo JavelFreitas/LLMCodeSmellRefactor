@@ -4,24 +4,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LeitnerSystem extends StudyMethod{
-    List<Box> boxes = null;
+public class LeitnerSystem {
+    private String methodName;
+    private List<Box> boxes;
+    private CardManager cardManager;
+
     public LeitnerSystem(String methodName) {
-        super(methodName);
-        boxes = new ArrayList<>(Arrays.asList(new Box(), new Box(), new Box(), new Box(), new Box()));
+        this.methodName = methodName;
+        this.cardManager = CardManager.getCardManager();
+        this.boxes = new ArrayList<>(Arrays.asList(new Box(), new Box(), new Box(), new Box(), new Box()));
     }
 
-    @Override
     public String getMethodName() {
         return this.methodName;
     }
 
-    @Override
-    void setMethodName(String methodName) {
+    public void setMethodName(String methodName) {
         this.methodName = methodName;
     }
 
-    @Override
+    public String getRandomCardFromBoxFormatted() {
+        String response = "";
+        response += getMethodName();
+        List<Box> boxes = getBoxes();
+        response += getRandomCard(boxes);
+        return response;
+    }
+
     public String toString(){
         StringBuilder response = new StringBuilder();
         int index = 0;
@@ -103,6 +112,44 @@ public class LeitnerSystem extends StudyMethod{
         }
         refBox.removeCard(cardId);
         boxes.get(Math.max(boxId - 1, 0)).addCard(cardId);
+    }
+
+    public void handleInsertCard(int id, int box) {
+        addCardToBox(id, box);
+    }
+
+    public void handleRemoveCard(int id, int box) {
+        removeCardFromBox(id, box);
+    }
+
+    public void handleViewBoxes() {
+        System.out.println(this.toString());
+    }
+
+    public void handleUpgradeCard(int id, int box) {
+        try {
+            upgradeCard(id, box);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void handleDowngradeCard(int id, int box) {
+        try {
+            downgradeCard(id, box);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void handleGetRandomCard() {
+        try {
+            String response = getMethodName();
+            response += getRandomCard(getBoxes());
+            System.out.println(response);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
