@@ -1,7 +1,7 @@
 {
   "formatVersion": 0,
   "pmdVersion": "7.9.0",
-  "timestamp": "2025-01-15T19:38:25.293-03:00",
+  "timestamp": "2025-01-15T19:42:58.943-03:00",
   "files": [
     {
       "filename": "./src/main/java/org/example/studycards/LeitnerSystem.java",
@@ -52,6 +52,33 @@
       ]
     },
     {
+      "filename": "./src/main/java/org/example/studyregistry/StepProperties.java",
+      "violations": [
+        {
+          "beginline": 5,
+          "begincolumn": 8,
+          "endline": 5,
+          "endcolumn": 13,
+          "description": "The class \u0027StepProperties\u0027 is suspected to be a Data Class (WOC\u003d7.692%, NOPA\u003d0, NOAM\u003d12, WMC\u003d14)",
+          "rule": "DataClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
+        },
+        {
+          "beginline": 20,
+          "begincolumn": 13,
+          "endline": 20,
+          "endcolumn": 27,
+          "description": "The constructor \u0027StepProperties(Builder)\u0027 has a NCSS line count of 14.",
+          "rule": "NcssCount",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
+        }
+      ]
+    },
+    {
       "filename": "./src/main/java/org/example/studyregistry/StudyGoal.java",
       "violations": [
         {
@@ -80,22 +107,6 @@
           "ruleset": "Design",
           "priority": 3,
           "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
-        }
-      ]
-    },
-    {
-      "filename": "./src/main/java/org/example/studyregistry/StudyPlan.java",
-      "violations": [
-        {
-          "beginline": 40,
-          "begincolumn": 28,
-          "endline": 42,
-          "endcolumn": 137,
-          "description": "Avoid long parameter lists.",
-          "rule": "ExcessiveParameterList",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
