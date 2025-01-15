@@ -6,31 +6,32 @@ import java.util.List;
 import java.util.Map;
 
 public class SearchLog {
-    private List<String> searchHistory;
+    private final SearchHistoryManager searchHistoryManager;
     private Map<String, Integer> searchCount;
     private boolean isLocked;
     private Integer numUsages;
     private String logName;
 
     public SearchLog(String logName) {
-        searchHistory = new ArrayList<>();
+        searchHistoryManager = new SearchHistoryManager();
         searchCount = new HashMap<>();
         this.logName = logName;
         numUsages = 0;
         isLocked = false;
     }
-    public void addSearchHistory(String searchHistory) {
-        this.searchHistory.add(searchHistory);
+
+    public void addSearchHistory(String searchTerm) {
+        searchHistoryManager.addSearchHistory(searchTerm);
     }
+
     public List<String> getSearchHistory() {
-        return searchHistory;
+        return searchHistoryManager.getSearchHistory();
     }
-    public void setSearchHistory(List<String> searchHistory) {
-        this.searchHistory = searchHistory;
-    }
+
     public Map<String, Integer> getSearchCount() {
         return searchCount;
     }
+
     public void setSearchCount(Map<String, Integer> searchCount) {
         this.searchCount = searchCount;
     }
@@ -57,5 +58,44 @@ public class SearchLog {
 
     public void setLogName(String logName) {
         this.logName = logName;
+    }
+
+    public void logSearch(String searchTerm) {
+        addSearchHistory(searchTerm);
+        setNumUsages(getNumUsages() + 1);
+    }
+
+    public String logSearchAndGetMessage(String searchTerm) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot add search when log is locked");
+        }
+        addSearchHistory(searchTerm);
+        return "\nLogged in: " + this.logName;
+    }
+
+    public List<String> handleSearchAndLog(List<String> searchResults, String searchTerm) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot add search when log is locked");
+        }
+        List<String> results = new ArrayList<>(searchResults);
+        addSearchHistory(searchTerm);
+        results.add("\nLogged in: " + this.logName);
+        return results;
+    }
+}
+
+class SearchHistoryManager {
+    private final List<String> searchHistory;
+
+    public SearchHistoryManager() {
+        searchHistory = new ArrayList<>();
+    }
+
+    public void addSearchHistory(String searchTerm) {
+        this.searchHistory.add(searchTerm);
+    }
+
+    public List<String> getSearchHistory() {
+        return searchHistory;
     }
 }

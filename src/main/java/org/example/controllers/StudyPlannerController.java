@@ -117,7 +117,15 @@ public class StudyPlannerController {
         Integer dailyMinutesDedication = Integer.parseInt(Objects.requireNonNull(this.getInput().trim()));
         Integer dailyHoursDedication = Integer.parseInt(Objects.requireNonNull(this.getInput().trim()));
         LocalDateTime start =  handleGetStartDate();
-        habitTracker.addHabit(name, motivation, dailyMinutesDedication, dailyHoursDedication, start.getYear(), start.getMonthValue(), start.getDayOfMonth(), start.getHour(), start.getMinute(), start.getSecond(), false);
+        // habitTracker.addHabit(name, motivation, dailyMinutesDedication, dailyHoursDedication, start.getYear(), start.getMonthValue(), start.getDayOfMonth(), start.getHour(), start.getMinute(), start.getSecond(), false);
+        HabitBuilder builder = new HabitBuilder()
+        .withName(name)
+        .withMotivation(motivation)
+        .withDailyTime(dailyHoursDedication, dailyMinutesDedication)
+        .withStartDate(start.getYear(), start.getMonthValue(), start.getDayOfMonth())
+        .withStartTime(start.getHour(), start.getMinute(), start.getSecond())
+        .setConcluded(false);
+habitTracker.addHabit(builder);
     }
 
     private String viewToDoHeader(){
