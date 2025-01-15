@@ -59,6 +59,19 @@ public class SearchLog {
     public void setLogName(String logName) {
         this.logName = logName;
     }
+
+    public void logSearch(String searchTerm) {
+        addSearchHistory(searchTerm);
+        setNumUsages(getNumUsages() + 1);
+    }
+
+    public String logSearchAndGetMessage(String searchTerm) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot add search when log is locked");
+        }
+        addSearchHistory(searchTerm);
+        return "\nLogged in: " + this.logName;
+    }
 }
 
 class SearchHistoryManager {
