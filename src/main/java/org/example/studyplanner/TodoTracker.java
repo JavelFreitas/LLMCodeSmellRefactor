@@ -25,32 +25,25 @@ public class TodoTracker {
         return instance;
     }
 
-    @Override
-    public String toString() {
+    private String getTrackInfo(ToDo toDo) {
+        Integer id = toDo.getId();
+        List<LocalDateTime> todosDate = this.tracker.get(id);
+        if(todosDate == null){
+            return "No tracks found\n";
+        }
+        return formatTrackDates(todosDate);
+    }
+
+    private String formatTrackDates(List<LocalDateTime> todosDate) {
         StringBuilder str = new StringBuilder();
-        for (ToDo toDo : toDos) {
-            String todoInfo = toDo.toString();
-            str.append(todoInfo);
+        for (LocalDateTime ldt : todosDate) {
+            String pattern = "yyyy-MM-dd HH:mm:ss";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            String formattedDate = formatter.format(ldt);
+            str.append(formattedDate);
             str.append("\n");
-            Integer id = toDo.getId();
-            List<LocalDateTime> todosDate = this.tracker.get(id);
-            if(todosDate == null){
-                str.append("No tracks found\n");
-            }else{
-                for (LocalDateTime ldt : todosDate) {
-                    String pattern = "yyyy-MM-dd HH:mm:ss";
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                    String formattedDate = formatter.format(ldt);
-                    str.append(formattedDate);
-                    str.append("\n");
-                }
-            }
         }
-        String response = str.toString();
-        if(response.isEmpty()){
-            return "No ToDos found";
-        }
-        return response;
+        return str.toString();
     }
 
     public void addToDoExecutionTime(Integer id){
@@ -99,5 +92,17 @@ public class TodoTracker {
         return todos;
     }
 
-
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (ToDo toDo : toDos) {
+            str.append(toDo.toString());
+            str.append("\n");
+            str.append(getTrackInfo(toDo));
+        }
+        String response = str.toString();
+        if(response.isEmpty()){
+            return "No ToDos found";
+        }
+        return response;
+    }
 }
