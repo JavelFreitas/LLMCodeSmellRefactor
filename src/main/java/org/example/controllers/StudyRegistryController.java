@@ -57,9 +57,16 @@ public class StudyRegistryController {
                 "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
                 "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
                 "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+                RegistryProperties.Builder registryBuilder = RegistryProperties.builder().id(Integer.parseInt(getInput()))
+                .priority(Integer.parseInt(getInput())).isActive(Boolean.parseBoolean(getInput()));
+        TextualProperties.Builder textualBuilder = TextualProperties.builder().title(getInput()).description(getInput())
+                .topic(getInput()).objectiveInOneLine(getInput()).objectiveFullDescription(getInput())
+                .motivation(getInput());
+        TimeProperties.Builder timeBuilder = TimeProperties.builder().practicedDays(Integer.parseInt(getInput()))
+                .day(Integer.parseInt(getInput())).month(Integer.parseInt(getInput()))
+                .year(Integer.parseInt(getInput()))
+                .duration(Double.parseDouble(getInput()));
+        objective.handleSetObjective(registryBuilder.build(), textualBuilder.build(), timeBuilder.build());
     }
 
     private StudyObjective getStudyObjectiveInfo(){
@@ -85,13 +92,17 @@ public class StudyRegistryController {
 
     private void handleSetSteps(StudyPlan studyPlan){
         handleMethodHeader("(Study Plan Edit)");
-        System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
-                "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
-                "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
-                "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
+        System.out.println(
+            "Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
+                    "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, "
+                    +
+                    "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
+                    "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
         LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
+        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
+        getInput(), getInput(),
+        Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT,
+        createdAT.plusDays(Long.parseLong(getInput())));
     }
 
     private StudyGoal getStudyGoalInfo(){
@@ -111,9 +122,11 @@ public class StudyRegistryController {
 
     private void editAudio(AudioReference audioReference) {
         handleMethodHeader("(Audio Edit)");
-        System.out.println("Type the following info: AudioReference.AudioQuality audioQuality, boolean isDownloadable, " +
-                "String title, String description, String link, String accessRights, String license, String language, int rating, " +
-                "int viewCount, int shareCount \n");
+        System.out.println(
+            "Type the following info:  AudioReference. AudioQuality audioQuality, boolean isDownloadable, " +
+                    "String title, String description, String link, String accessRights, String license, String language, int rating, "
+                    +
+                    "int viewCount, int shareCount \n");
         AudioReference.AudioQuality quality = AudioReference.audioQualityAdapter(getInput());
         AudioReference.BasicDetails basicDetails = new AudioReference.BasicDetails(
                 getInput(), // Title
