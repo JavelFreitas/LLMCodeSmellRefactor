@@ -72,6 +72,16 @@ public class SearchLog {
         addSearchHistory(searchTerm);
         return "\nLogged in: " + this.logName;
     }
+
+    public List<String> handleSearchAndLog(List<String> searchResults, String searchTerm) {
+        if (isLocked) {
+            throw new IllegalStateException("Cannot add search when log is locked");
+        }
+        List<String> results = new ArrayList<>(searchResults);
+        addSearchHistory(searchTerm);
+        results.add("\nLogged in: " + this.logName);
+        return results;
+    }
 }
 
 class SearchHistoryManager {
