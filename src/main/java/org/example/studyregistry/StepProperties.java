@@ -3,34 +3,122 @@ package org.example.studyregistry;
 import java.time.LocalDateTime;
 
 public class StepProperties {
-    private final String firstStep;
-    private final String resetStudyMechanism;
-    private final String consistentStep;
-    private final String seasonalSteps;
-    private final String basicSteps;
-    private final String mainObjectiveTitle;
-    private final String mainGoalTitle;
-    private final String mainMaterialTopic;
-    private final String mainTask;
-    private final Integer numberOfSteps;
-    private final boolean isImportant;
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
+    private String firstStep;
+    private String resetStudyMechanism;
+    private String consistentStep;
+    private String seasonalSteps;
+    private String basicSteps;
+    private String mainObjectiveTitle;
+    private String mainGoalTitle;
+    private String mainMaterialTopic;
+    private String mainTask;
+    private Integer numberOfSteps;
+    private boolean isImportant;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     private StepProperties(Builder builder) {
+        validateRequiredFields(builder);
+        validateDates(builder);
+        validateStepCount(builder);
+
+        initializeStepFields(builder);
+        initializeObjectiveFields(builder);
+        initializeDateFields(builder);
+    }
+
+    private void validateRequiredFields(Builder builder) {
+        validateFirstStep(builder);
+        validateObjectiveTitle(builder);
+        validateMainTask(builder);
+    }
+
+    private void validateFirstStep(Builder builder) {
+        if (isNullOrEmpty(builder.firstStep)) {
+            throw new IllegalArgumentException("First step cannot be empty");
+        }
+    }
+
+    private void validateObjectiveTitle(Builder builder) {
+        if (isNullOrEmpty(builder.mainObjectiveTitle)) {
+            throw new IllegalArgumentException("Main objective title cannot be empty");
+        }
+    }
+
+    private void validateMainTask(Builder builder) {
+        if (isNullOrEmpty(builder.mainTask)) {
+            throw new IllegalArgumentException("Main task cannot be empty");
+        }
+    }
+
+    private boolean isNullOrEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
+    public boolean isStepComplete() {
+        return !isNullOrEmpty(firstStep) && numberOfSteps != null && numberOfSteps > 0;
+    }
+
+    public boolean hasValidSchedule() {
+        return startDate != null && endDate != null && !endDate.isBefore(startDate);
+    }
+
+    public boolean isMainTaskPriority() {
+        return isImportant && !isNullOrEmpty(mainTask);
+    }
+
+    public String getStepSummary() {
+        return String.format("Step: %s - Objective: %s - Task: %s",
+                firstStep, mainObjectiveTitle, mainTask);
+    }
+
+    public boolean containsTopicReference(String topic) {
+        return mainMaterialTopic != null &&
+                mainMaterialTopic.toLowerCase().contains(topic.toLowerCase());
+    }
+
+    public boolean isInDateRange(LocalDateTime checkDate) {
+        return (startDate == null || !checkDate.isBefore(startDate)) &&
+                (endDate == null || !checkDate.isAfter(endDate));
+    }
+
+    private void validateDates(Builder builder) {
+        if (builder.startDate != null && builder.endDate != null
+                && builder.endDate.isBefore(builder.startDate)) {
+            throw new IllegalArgumentException("End date cannot be before start date");
+        }
+    }
+
+    private void validateStepCount(Builder builder) {
+        if (builder.numberOfSteps != null && builder.numberOfSteps <= 0) {
+            throw new IllegalArgumentException("Number of steps must be positive");
+        }
+    }
+
+    private void initializeStepFields(Builder builder) {
         this.firstStep = builder.firstStep;
         this.resetStudyMechanism = builder.resetStudyMechanism;
         this.consistentStep = builder.consistentStep;
         this.seasonalSteps = builder.seasonalSteps;
         this.basicSteps = builder.basicSteps;
+        this.numberOfSteps = builder.numberOfSteps;
+    }
+
+    private void initializeObjectiveFields(Builder builder) {
         this.mainObjectiveTitle = builder.mainObjectiveTitle;
         this.mainGoalTitle = builder.mainGoalTitle;
         this.mainMaterialTopic = builder.mainMaterialTopic;
         this.mainTask = builder.mainTask;
-        this.numberOfSteps = builder.numberOfSteps;
         this.isImportant = builder.isImportant;
+    }
+
+    private void initializeDateFields(Builder builder) {
         this.startDate = builder.startDate;
         this.endDate = builder.endDate;
+    }
+
+    public boolean isValidDateRange() {
+        return startDate != null && endDate != null && !endDate.isBefore(startDate);
     }
 
     public static class Builder {
