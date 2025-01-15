@@ -14,12 +14,19 @@ class HabitTrackerTest {
 
     @BeforeEach
     void setUp() {
-        habitIds.add(habitTracker.addHabit("Test Search Name Habit", "Test Search Habit Motivation"));
+        habitIds.add(
+                habitTracker.addHabit(
+                        new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                                .withName("Test Search Name Habit")
+                                .withMotivation("Test Search Habit Motivation")
+                                .withIsConcluded(false)
+                )
+        );
     }
 
     boolean verifyCardStringInList(String searching, List<String> response) {
-        for(String habit : response){
-            if(habit.contains(searching)){
+        for (String habit : response) {
+            if (habit.contains(searching)) {
                 return true;
             }
         }
@@ -42,7 +49,7 @@ class HabitTrackerTest {
         assertTrue(verifyCardStringInList("Search Habit Motivation", response));
     }
 
-    void verifyAddHabitProperties(Habit habit){
+    void verifyAddHabitProperties(Habit habit) {
         assertEquals("Add Habit Name Test", habit.getName());
         assertEquals("Add Habit Motivation Test", habit.getMotivation());
         assertEquals(30, habit.getDailyDedicationTime().getMinute());
@@ -59,17 +66,36 @@ class HabitTrackerTest {
     @Order(3)
     @DisplayName("Add Habit Test")
     void addHabitTest() {
-        List<String> stringProperties = List.of("Add Habit Name Test", "Add Habit Motivation Test");
-        List<Integer> intProperties = List.of(30, 2, 2024, 2, 4, 8, 16, 32);
-        boolean isConcluded = false;
-        int id = habitTracker.handleAddHabitAdapter(stringProperties, intProperties, isConcluded);
-        Habit habit = habitTracker.getHabitById(id);
-        if(habit == null){
-            fail();
-        }
-        assertFalse(habit.getIsConcluded());
+        // Extracted methods improve readability
+        int id = createAndAddHabit();
+        Habit habit = retrieveAndVerifyHabit(id);
         verifyAddHabitProperties(habit);
     }
 
+    private int createAndAddHabit() {
+        String name = "Add Habit Name Test";
+        String motivation = "Add Habit Motivation Test";
+        int dailyMinutesDedication = 30;
+        int dailyHoursDedication = 2;
+        int year = 2024, month = 2, day = 4, hour = 8, minute = 16, second = 32;
+        boolean isConcluded = false;
 
+        return habitTracker.addHabit(
+                new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                        .withName(name)
+                        .withMotivation(motivation)
+                        .withDailyDedicationTime(dailyHoursDedication, dailyMinutesDedication)
+                        .withStartDate(year, month, day, hour, minute, second)
+                        .withIsConcluded(isConcluded)
+        );
+    }
+
+    private Habit retrieveAndVerifyHabit(int id) {
+        Habit habit = habitTracker.getHabitById(id);
+        if (habit == null) {
+            fail("Habit was not added successfully.");
+        }
+        assertFalse(habit.getIsConcluded());
+        return habit;
+    }
 }

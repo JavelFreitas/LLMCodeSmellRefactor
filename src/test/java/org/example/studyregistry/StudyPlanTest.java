@@ -13,24 +13,53 @@ import static org.junit.jupiter.api.Assertions.*;
 class StudyPlanTest {
     StudyObjective studyObjective = new StudyObjective("Test Study Objective", "Test Study Objective");
     StudyPlan studyPlan = new StudyPlan("Test Plan", studyObjective, new ArrayList<>());
-    LocalDateTime startDateTest = null;
+    LocalDateTime startDateTest = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
 
     @BeforeEach
     void setUp() {
         assignSteps();
     }
 
-    void assignSteps(){
-        List<String> stringProperties = List.of("firstStep", "resetStudyMechanism", "consistentStep", "seasonalSteps",
-                "basicSteps", "mainObjectiveTitle", "mainGoalTitle", "mainMaterialTopic", "mainTask");
+    void assignSteps() {
+        List<String> stringProperties = List.of(
+                "firstStep",
+                "resetStudyMechanism",
+                "consistentStep",
+                "seasonalSteps",
+                "basicSteps",
+                "mainObjectiveTitle",
+                "mainGoalTitle",
+                "mainMaterialTopic",
+                "mainTask"
+        );
+
         Integer numberOfSteps = 20;
         boolean isImportant = true;
-        startDateTest = LocalDateTime.now();
-        LocalDateTime startDate = startDateTest;
+        LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime endDate = startDate.plusDays(10);
-        studyPlan.handleAssignSteps(stringProperties, numberOfSteps, isImportant, startDate, endDate);
+
+        // Criação do AssignStepsBuilder
+        StudyPlan.AssignStepsBuilder builder = new StudyPlan.AssignStepsBuilder()
+                .setFirstStep(stringProperties.get(0))
+                .setResetStudyMechanism(stringProperties.get(1))
+                .setConsistentStep(stringProperties.get(2))
+                .setSeasonalSteps(stringProperties.get(3))
+                .setBasicSteps(stringProperties.get(4))
+                .setMainObjectiveTitle(stringProperties.get(5))
+                .setMainGoalTitle(stringProperties.get(6))
+                .setMainMaterialTopic(stringProperties.get(7))
+                .setMainTask(stringProperties.get(8))
+                .setNumberOfSteps(numberOfSteps)
+                .setIsImportant(isImportant)
+                .setStartDate(startDate)
+                .setEndDate(endDate);
+
+        // Chamada ao método handleAssignSteps com o builder
+        studyPlan.handleAssignSteps(builder);
     }
+
 
     boolean verifyStepsResponse(String step, List<String> response) {
         for(String object : response){

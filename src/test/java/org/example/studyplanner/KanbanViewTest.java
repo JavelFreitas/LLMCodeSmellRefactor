@@ -80,15 +80,28 @@ class KanbanViewTest {
     @Order(4)
     void addHabitToKanban() {
         try {
-            int id = habitTracker.addHabit("Habit 1", "Habit Motivation 1");
+            // Create and add the habit using HabitBuilder
+            int id = habitTracker.addHabit(
+                    new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                            .withName("Habit 1")
+                            .withMotivation("Habit Motivation 1")
+                            .withIsConcluded(false)
+            );
+
+            // Retrieve the habit
             Habit habit = habitTracker.getHabitById(id);
+
+            // Add the habit to the Kanban board
             kanbanView.addHabitToKanban(KanbanView.State.TODO, id);
+
+            // Verify the habit is in the correct Kanban state
             List<PlannerMaterial> materials = kanbanView.getKanbanByState(KanbanView.State.TODO);
             assertTrue(materials.contains(habit));
-        } catch (Exception e){
-            fail();
+        } catch (Exception e) {
+            fail("Exception occurred: " + e.getMessage());
         }
     }
+
 
     @Test
     @DisplayName("Add ToDo Test")
@@ -154,16 +167,41 @@ class KanbanViewTest {
         }
     }
 
-    void addMaterials(){
+    void addMaterials() {
+        // Adding ToDos
         toDoIds.add(todoTracker.addToDo("Test Title 1", "Test Description 1", 2));
         toDoIds.add(todoTracker.addToDo("Test Title 2", "Test Description 2", 2));
         toDoIds.add(todoTracker.addToDo("Test Title 3", "Test Description 3", 3));
 
-        habitIds.add(habitTracker.addHabit("Habit 1", "Habit Motivation 1"));
-        habitIds.add(habitTracker.addHabit("Habit 2", "Habit Motivation 2"));
-        habitIds.add(habitTracker.addHabit("Habit 3", "Habit Motivation 3"));
+        // Adding Habits using HabitBuilder
+        habitIds.add(
+                habitTracker.addHabit(
+                        new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                                .withName("Habit 1")
+                                .withMotivation("Habit Motivation 1")
+                                .withIsConcluded(false)
+                )
+        );
 
+        habitIds.add(
+                habitTracker.addHabit(
+                        new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                                .withName("Habit 2")
+                                .withMotivation("Habit Motivation 2")
+                                .withIsConcluded(false)
+                )
+        );
+
+        habitIds.add(
+                habitTracker.addHabit(
+                        new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                                .withName("Habit 3")
+                                .withMotivation("Habit Motivation 3")
+                                .withIsConcluded(false)
+                )
+        );
     }
+
 
     void addMaterialsToKanban() throws Exception {
         kanbanView.addToDoToKanban(KanbanView.State.TODO, toDoIds.get(0));
