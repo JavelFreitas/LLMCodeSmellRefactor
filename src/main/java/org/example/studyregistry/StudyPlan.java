@@ -18,7 +18,7 @@ public class StudyPlan extends Registry{
 
     @Override
     public String toString(){
-        return "Plan: " + name + ",\nObjective: " + objective.getDescription() + ",\nSteps: " + String.join(", ", steps);
+        return "Plan: " + name + ",\nObjective: " + objective.getName() + ",\nSteps: " + String.join(", ", steps);
     }
 
     public List<String> getSteps() {
