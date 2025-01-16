@@ -50,29 +50,38 @@ public class LeitnerSystem {
         return boxes;
     }
 
-    public String getRandomCard(List<Box> otherBoxes){
-        if(otherBoxes == null){
+    public String getRandomCard(List<Box> otherBoxes) {
+        if (isInvalidBoxes(otherBoxes)) {
             return null;
         }
-        if(otherBoxes.isEmpty()){
-            return null;
-        }
-        Box allBoxes = new Box();
-        for(Box box : otherBoxes){
-            allBoxes.addCards(box.getCards());
-        }
-        Integer randomCard = allBoxes.getRandomCard();
-        if(randomCard == null){
+
+        Box allBoxes = combineBoxes(otherBoxes);
+        Integer randomCardId = allBoxes.getRandomCard();
+
+        if (randomCardId == null) {
             return "No card found";
         }
-        CardManager manager = CardManager.getCardManager();
-        Card card = manager.getCard(randomCard);
-        String response = "["+ randomCard + "] ";
-        response += "The random question was: " + card.getQuestion() + " | ";
-        response += "The answer is: " + card.getAnswer();
-        return  response;
+
+        return formatCardResponse(randomCardId);
     }
 
+    private boolean isInvalidBoxes(List<Box> boxes) {
+        return boxes == null || boxes.isEmpty();
+    }
+
+    private Box combineBoxes(List<Box> otherBoxes) {
+        Box allBoxes = new Box();
+        for (Box box : otherBoxes) {
+            allBoxes.addCards(box.getCards());
+        }
+        return allBoxes;
+    }
+
+    private String formatCardResponse(Integer cardId) {
+        Card card = cardManager.getCard(cardId);
+        return String.format("[%d] The random question was: %s | The answer is: %s",
+                cardId, card.getQuestion(), card.getAnswer());
+    }
     public void addCardToBox(Integer id, Integer boxId) {
         this.boxes.get(boxId).addCard(id);
     }
@@ -151,5 +160,4 @@ public class LeitnerSystem {
             System.out.println(e.getMessage());
         }
     }
-
 }
