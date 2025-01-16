@@ -2,6 +2,7 @@ package org.example.studysearch;
 
 import org.example.studyregistry.StudyTaskManager;
 import java.util.List;
+import java.util.ArrayList;
 
 public class RegistrySearch implements Search<String> {
     private final SearchLog searchLog;
@@ -18,17 +19,13 @@ public class RegistrySearch implements Search<String> {
 
     @Override
     public List<String> search(String text) {
-        return handleRegistrySearch(text);
+        List<String> results = new ArrayList<>();
+        results.addAll(searchService.searchAllRegistries(text));
+        results.addAll(searchLog.handleSearch(text));
+        return results;
     }
 
     public SearchLog getSearchLog() {
         return searchLog;
-    }
-
-    private List<String> handleRegistrySearch(String text) {
-        List<String> results = searchService.searchAllRegistries(text);
-        this.searchLog.addSearchHistory(text);
-        results.add("\nLogged in: " + this.searchLog.getLogName());
-        return results;
     }
 }

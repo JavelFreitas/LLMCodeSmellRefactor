@@ -24,7 +24,6 @@ public class StudyMaterial {
     public List<String> search(String text) {
         List<String> results = new ArrayList<>();
         results.addAll(searchInMaterials(text));
-        searchLog.addSearchHistory(text);
         results.add("\nLogged in: " + searchLog.getLogName());
         return results;
     }

@@ -1,89 +1,92 @@
 package org.example.studysearch;
 
-import org.example.studycards.CardManager;
-import org.example.studyplanner.HabitTracker;
-import org.example.studyplanner.TodoTracker;
-import org.example.studyregistry.StudyMaterial;
-import org.example.studyregistry.StudyTaskManager;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SearchLog {
-    private List<String> searchHistory;
-    private Map<String, Integer> searchCount;
+    private final List<String> searchHistory;
+    private final Map<String, Integer> searchCount;
     private boolean isLocked;
-    private Integer numUsages;
+    private int numUsages;
     private String logName;
 
     public SearchLog(String logName) {
-        searchHistory = new ArrayList<>();
-        searchCount = new HashMap<>();
+        if (logName == null || logName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome do log não pode ser vazio");
+        }
+        this.searchHistory = new ArrayList<>();
+        this.searchCount = new HashMap<>();
         this.logName = logName;
-        numUsages = 0;
-        isLocked = false;
+        this.numUsages = 0;
+        this.isLocked = false;
     }
 
+    // API Compatibility Methods
+    public Integer getNumUsages() {
+        return getTotalSearches();
+    }
+
+    public List<String> getSearchHistory() {
+        return Collections.unmodifiableList(searchHistory);
+    }
+
+    public void addSearchHistory(String searchTerm) {
+        handleSearch(searchTerm);
+    }
+
+    // Core Methods
     public List<String> handleSearch(String text) {
+        if (isLocked) {
+            throw new IllegalStateException("Log está bloqueado para buscas");
+        }
+        if (text == null || text.trim().isEmpty()) {
+            throw new IllegalArgumentException("Texto de busca não pode ser vazio");
+        }
+
+        searchHistory.add(text);
+        incrementSearchCount(text);
+        incrementUsages();
+
         List<String> results = new ArrayList<>();
-        results.addAll(CardManager.getCardManager().searchInCards(text));
-        results.addAll(HabitTracker.getHabitTracker().searchInHabits(text));
-        results.addAll(TodoTracker.getInstance().searchInTodos(text));
-        results.addAll(StudyMaterial.getStudyMaterial().searchInMaterials(text));
-        results.addAll(StudyTaskManager.getStudyTaskManager().searchInRegistries(text));
-
-        addSearchHistory(text);
-        setNumUsages(getNumUsages() + 1);
-
-        // Atualizar searchCount
-        searchCount.merge(text, 1, Integer::sum);
-
         results.add("\nLogged in: " + this.logName);
         return results;
     }
 
-    public void addSearchHistory(String searchHistory) {
-        this.searchHistory.add(searchHistory);
+    private void incrementSearchCount(String searchTerm) {
+        searchCount.merge(searchTerm, 1, Integer::sum);
     }
 
-    public List<String> getSearchHistory() {
-        return searchHistory;
+    private void incrementUsages() {
+        numUsages++;
     }
 
-    public void setSearchHistory(List<String> searchHistory) {
-        this.searchHistory = searchHistory;
-    }
-
-    public Map<String, Integer> getSearchCount() {
-        return searchCount;
-    }
-
-    public void setSearchCount(Map<String, Integer> searchCount) {
-        this.searchCount = searchCount;
-    }
-
-    public boolean isLocked() {
-        return isLocked;
-    }
-
-    public void setLocked(boolean locked) {
-        isLocked = locked;
-    }
-
-    public Integer getNumUsages() {
+    public int getTotalSearches() {
         return numUsages;
-    }
-
-    public void setNumUsages(Integer numUsages) {
-        this.numUsages = numUsages;
     }
 
     public String getLogName() {
         return logName;
     }
 
-    public void setLogName(String logName) {
-        this.logName = logName;
+    public void setLogName(String newLogName) {
+        if (newLogName == null || newLogName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome do log não pode ser vazio");
+        }
+        this.logName = newLogName;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void lock() {
+        this.isLocked = true;
+    }
+
+    public void unlock() {
+        this.isLocked = false;
+    }
+
+    public Map<String, Integer> getSearchStatistics() {
+        return Collections.unmodifiableMap(searchCount);
     }
 }
