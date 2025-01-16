@@ -1,6 +1,6 @@
 package org.example.studymaterial;
 
-public class TextReference extends Reference{
+public class TextReference extends Reference {
     private int wordCount;
     private String format;
 
@@ -12,21 +12,28 @@ public class TextReference extends Reference{
         this.setAccessRights(accessRights);
     }
 
+    @Override
+    protected String getContentType() {
+        return "TEXT";
+    }
+
+    public int getWordCount() {
+        return wordCount;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
     public void editAccess(String accessRights, String format, int wordCount) {
         this.setAccessRights(accessRights);
         this.format = format;
         this.wordCount = wordCount;
     }
 
-    public boolean handleTextAccess(){
-        if(getAccessRights() != "Public"){
-            return false;
-        } else if (this.format != "pdf"){
-            return false;
-        } else if (this.wordCount == 0){
-            return false;
-        }
-        return true;
+    public boolean handleTextAccess() {
+        return "Public".equals(getAccessRights())
+                && "pdf".equals(this.format)
+                && this.wordCount > 0;
     }
-
 }

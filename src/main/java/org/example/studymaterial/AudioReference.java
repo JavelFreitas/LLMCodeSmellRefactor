@@ -8,6 +8,11 @@ public class AudioReference extends Reference {
     }
     private AudioQuality audioQuality;
 
+    @Override
+    protected String getContentType() {
+        return "AUDIO";
+    }
+
     public AudioReference(AudioQuality quality){
         this.audioQuality = quality;
     }
