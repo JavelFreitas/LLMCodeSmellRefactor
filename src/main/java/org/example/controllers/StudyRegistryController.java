@@ -111,12 +111,24 @@ public class StudyRegistryController {
 
     private void editAudio(AudioReference audioReference){
         handleMethodHeader("(Audio Edit)");
-        System.out.println("Type the following info:  AudioReference. AudioQuality audioQuality, boolean isDownloadable, " +
-                "String title, String description, String link, String accessRights, String license, String language, int rating, " +
-                "int viewCount, int shareCount \n");
-        AudioReference.AudioQuality quality =AudioReference.audioQualityAdapter(getInput());
-        audioReference.editAudio(quality, Boolean.parseBoolean(getInput()), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()));
+        System.out.println("Type the following info: AudioQuality (LOW|MEDIUM|HIGH|VERY_HIGH), isDownloadable, " +
+                "title, description, link, accessRights, license, language, rating, " +
+                "viewCount, shareCount");
+
+        AudioReference.AudioBuilder builder = new AudioReference.AudioBuilder()
+                .audioQuality(AudioReference.audioQualityAdapter(getInput()))
+                .downloadable(Boolean.parseBoolean(getInput()))
+                .title(getInput())
+                .description(getInput())
+                .link(getInput())
+                .accessRights(getInput())
+                .license(getInput())
+                .language(getInput())
+                .rating(Integer.parseInt(getInput()))
+                .viewCount(Integer.parseInt(getInput()))
+                .shareCount(Integer.parseInt(getInput()));
+
+        audioReference.editAudio(builder);
     }
 
     private AudioReference addAudioReference(){
