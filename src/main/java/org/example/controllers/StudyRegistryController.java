@@ -96,27 +96,50 @@ public class StudyRegistryController {
         return studyObjective;
     }
 
+    // Atualizar o método getStudyPlanInfo para não usar Builder
     private StudyPlan getStudyPlanInfo(){
         handleMethodHeader("(Study Plan Creation)");
         System.out.println("Type the following info: name \n");
         String name = getInput();
         StudyObjective studyObjective = getStudyObjectiveInfo();
-        StudyPlan plan = new StudyPlan(name, studyObjective,  new ArrayList<>());
+        StudyPlan plan = new StudyPlan(name, studyObjective, new ArrayList<>());
         studyTaskManager.addRegistry(plan);
         return plan;
     }
 
-    private void handleSetSteps(StudyPlan studyPlan){
+    private void handleSetSteps(StudyPlan studyPlan) {
         handleMethodHeader("(Study Plan Edit)");
         System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
                 "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
-                "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
+                "String mainTask, @NotNull Integer numberOfSteps, boolean isImportant. " +
                 "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
-        LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
-    }
 
+        LocalDateTime createdAT = LocalDateTime.now();
+
+        List<String> stringProperties = Arrays.asList(
+                getInput(),  // firstStep
+                getInput(),  // resetStudyMechanism
+                getInput(),  // consistentStep
+                getInput(),  // seasonalSteps
+                getInput(),  // basicSteps
+                getInput(),  // mainObjectiveTitle
+                getInput(),  // mainGoalTitle
+                getInput(),  // mainMaterialTopic
+                getInput()   // mainTask
+        );
+
+        Integer numberOfSteps = Integer.parseInt(getInput());
+        boolean isImportant = Boolean.parseBoolean(getInput());
+        Long daysToAdd = Long.parseLong(getInput());
+
+        studyPlan.handleAssignSteps(
+                stringProperties,
+                numberOfSteps,
+                isImportant,
+                createdAT,
+                createdAT.plusDays(daysToAdd)
+        );
+    }
     private StudyGoal getStudyGoalInfo(){
         handleMethodHeader("(Study Goal Creation)");
         System.out.println("Type the following info: name \n");
@@ -126,6 +149,7 @@ public class StudyRegistryController {
         StudyObjective studyObjective = studyPlan.getObjective();
         return new StudyGoal(name, studyObjective, studyPlan);
     }
+
 
     private void handleAddStudyGoal(){
         StudyGoal goal = getStudyGoalInfo();
