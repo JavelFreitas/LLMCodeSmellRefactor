@@ -16,6 +16,10 @@ public class ToDo implements PlannerMaterial {
         this.priority = priority;
     }
 
+    public String toStringWithTracking(String trackingInfo) {
+        return this.toString() + "\n" + trackingInfo;
+    }
+
     private void validateFields(Integer id, String title, int priority) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("ID deve ser positivo");

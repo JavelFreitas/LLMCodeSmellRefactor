@@ -11,7 +11,6 @@ public class TodoTracker {
     private Integer nextId;
     private static TodoTracker instance;
 
-
     private TodoTracker() {
         this.tracker = new HashMap<>();
         this.toDos = new ArrayList<>();
@@ -25,32 +24,41 @@ public class TodoTracker {
         return instance;
     }
 
+    private String formatDateTime(LocalDateTime dateTime) {
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return formatter.format(dateTime);
+    }
+
+    private String getTrackingInfo(Integer todoId) {
+        StringBuilder trackInfo = new StringBuilder();
+        List<LocalDateTime> todosDate = this.tracker.get(todoId);
+
+        if (todosDate == null) {
+            return "No tracks found\n";
+        }
+
+        for (LocalDateTime ldt : todosDate) {
+            trackInfo.append(formatDateTime(ldt)).append("\n");
+        }
+        return trackInfo.toString();
+    }
+
+    private String buildTodoString(ToDo todo) {
+        return todo.toStringWithTracking(getTrackingInfo(todo.getId()));
+    }
+
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder();
-        for (ToDo toDo : toDos) {
-            String todoInfo = toDo.toString();
-            str.append(todoInfo);
-            str.append("\n");
-            Integer id = toDo.getId();
-            List<LocalDateTime> todosDate = this.tracker.get(id);
-            if(todosDate == null){
-                str.append("No tracks found\n");
-            }else{
-                for (LocalDateTime ldt : todosDate) {
-                    String pattern = "yyyy-MM-dd HH:mm:ss";
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                    String formattedDate = formatter.format(ldt);
-                    str.append(formattedDate);
-                    str.append("\n");
-                }
-            }
-        }
-        String response = str.toString();
-        if(response.isEmpty()){
+        if (toDos.isEmpty()) {
             return "No ToDos found";
         }
-        return response;
+
+        StringBuilder str = new StringBuilder();
+        for (ToDo toDo : toDos) {
+            str.append(buildTodoString(toDo));
+        }
+        return str.toString();
     }
 
     public void addToDoExecutionTime(Integer id){
