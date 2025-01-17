@@ -5,7 +5,6 @@ import org.example.studyplanner.HabitTracker;
 import org.example.studyplanner.TodoTracker;
 import org.example.studysearch.SearchService;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StudyTaskManager implements SearchService {
@@ -39,17 +38,12 @@ public class StudyTaskManager implements SearchService {
         return weekResponsibilities;
     }
 
-    public void setUpWeek(String planName, String objectiveTitle, String objectiveDescription, String materialTopic,
-                          String materialFormat, String goal, String reminderTitle, String reminderDescription,
-                          String mainTaskTitle, String mainHabit, String mainCardStudy){
-        this.weekResponsibilities = new ArrayList<>();
-        this.weekResponsibilities.addAll(Arrays.asList(planName, objectiveTitle, objectiveDescription, materialTopic, materialFormat, goal, reminderTitle, reminderDescription, mainTaskTitle, mainHabit, mainCardStudy));
+    public void setUpWeek(WeekSetup setup) {
+        this.weekResponsibilities = new ArrayList<>(setup.toList());
     }
 
-    public void handleSetUpWeek(List<String> stringProperties){
-        setUpWeek(stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3),
-                stringProperties.get(4), stringProperties.get(5), stringProperties.get(6), stringProperties.get(7),
-                stringProperties.get(8), stringProperties.get(9), stringProperties.get(10));
+    public void handleSetUpWeek(List<String> stringProperties) {
+        setUpWeek(WeekSetup.fromList(stringProperties));
     }
 
 
