@@ -1,16 +1,10 @@
 package org.example.controllers;
 
-import org.example.studymaterial.AudioReference;
-import org.example.studymaterial.Reference;
-import org.example.studymaterial.TextReference;
-import org.example.studymaterial.VideoReference;
+import org.example.studymaterial.*;
 import org.example.studyregistry.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.example.controllers.MainController.getInput;
 import static org.example.controllers.MainController.validateInput;
@@ -51,15 +45,50 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(task);
     }
 
-    private void handleSetObjective(StudyObjective objective){
+    private void handleSetObjective(StudyObjective objective) {
         handleMethodHeader("(Study Objective Edit)");
-        System.out.println("Type the following info: Integer id, Integer priority " +
-                "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
-                "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
-                "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+
+        RegistryInfo registryInfo = getRegistryInfo();
+        TextualInfo textualInfo = getTextualInfo();
+        TimeInfo timeInfo = getTimeInfo();
+
+        objective.handleSetObjective(registryInfo, textualInfo, timeInfo);
+    }
+
+    private RegistryInfo getRegistryInfo() {
+        System.out.println("Enter Registry Info:");
+        System.out.println("id, name, priority, isActive:");
+        return new RegistryInfo(
+                Integer.parseInt(getInput()),
+                getInput(),
+                Integer.parseInt(getInput()),
+                Boolean.parseBoolean(getInput())
+        );
+    }
+
+    private TextualInfo getTextualInfo() {
+        System.out.println("Enter Textual Info:");
+        System.out.println("title, description, topic, objectiveInOneLine, objectiveFullDescription, motivation:");
+        return new TextualInfo.Builder()
+                .withTitle(getInput())
+                .withDescription(getInput())
+                .withTopic(getInput())
+                .withObjectiveInOneLine(getInput())
+                .withObjectiveFullDescription(getInput())
+                .withMotivation(getInput())
+                .build();
+    }
+
+    private TimeInfo getTimeInfo() {
+        System.out.println("Enter Time Info:");
+        System.out.println("practicedDays, day, month, year, duration:");
+        return new TimeInfo(
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Integer.parseInt(getInput()),
+                Double.parseDouble(getInput())
+        );
     }
 
     private StudyObjective getStudyObjectiveInfo(){
@@ -83,15 +112,32 @@ public class StudyRegistryController {
         return plan;
     }
 
-    private void handleSetSteps(StudyPlan studyPlan){
+    private void handleSetSteps(StudyPlan studyPlan) {
         handleMethodHeader("(Study Plan Edit)");
         System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
                 "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
                 "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
                 "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
+
         LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
+
+        StepDetails details = new StepDetails.Builder()
+                .firstStep(getInput())
+                .resetStudyMechanism(getInput())
+                .consistentStep(getInput())
+                .seasonalSteps(getInput())
+                .basicSteps(getInput())
+                .mainObjectiveTitle(getInput())
+                .mainGoalTitle(getInput())
+                .mainMaterialTopic(getInput())
+                .mainTask(getInput())
+                .numberOfSteps(Integer.parseInt(getInput()))
+                .isImportant(Boolean.parseBoolean(getInput()))
+                .startDate(createdAT)
+                .endDate(createdAT.plusDays(Long.parseLong(getInput())))
+                .build();
+
+        studyPlan.assignSteps(details);
     }
 
     private StudyGoal getStudyGoalInfo(){
@@ -109,14 +155,25 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(goal);
     }
 
-    private void editAudio(AudioReference audioReference){
+    private void editAudio(AudioReference audioReference) {
         handleMethodHeader("(Audio Edit)");
-        System.out.println("Type the following info:  AudioReference. AudioQuality audioQuality, boolean isDownloadable, " +
-                "String title, String description, String link, String accessRights, String license, String language, int rating, " +
-                "int viewCount, int shareCount \n");
-        AudioReference.AudioQuality quality =AudioReference.audioQualityAdapter(getInput());
-        audioReference.editAudio(quality, Boolean.parseBoolean(getInput()), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()));
+        System.out.println("Type the following info: AudioQuality, isDownloadable, title, description, link, " +
+                "accessRights, license, language, rating, viewCount, shareCount\n");
+
+        AudioReference.Builder builder = AudioReference.builder()
+                .audioQuality(AudioReference.audioQualityAdapter(getInput()))
+                .downloadable(Boolean.parseBoolean(getInput()))
+                .title(getInput())
+                .description(getInput())
+                .link(getInput())
+                .accessRights(getInput())
+                .license(getInput())
+                .language(getInput())
+                .rating(Integer.parseInt(getInput()))
+                .viewCount(Integer.parseInt(getInput()))
+                .shareCount(Integer.parseInt(getInput()));
+
+        builder.updateExisting(audioReference);
     }
 
     private AudioReference addAudioReference(){
@@ -170,12 +227,63 @@ public class StudyRegistryController {
         System.out.println("Study Plan Added");
     }
 
-    private void getWeekInfo(){
-        System.out.println("(Study Task Manager Week Set Up) Type the following info: String planName, String objectiveTitle, " +
-                "String objectiveDescription, String materialTopic, String materialFormat, String goal, String reminderTitle, " +
-                "String reminderDescription, String mainTaskTitle, String mainHabit, String mainCardStudy");
-        studyTaskManager.setUpWeek(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), getInput());
+    public enum WeekInfoFields {
+        PLAN_NAME("Plan Name"),
+        OBJECTIVE_TITLE("Objective Title"),
+        OBJECTIVE_DESCRIPTION("Objective Description"),
+        MATERIAL_TOPIC("Material Topic"),
+        MATERIAL_FORMAT("Material Format"),
+        GOAL("Goal"),
+        REMINDER_TITLE("Reminder Title"),
+        REMINDER_DESCRIPTION("Reminder Description"),
+        MAIN_TASK_TITLE("Main Task Title"),
+        MAIN_HABIT("Main Habit"),
+        MAIN_CARD_STUDY("Main Card Study");
+
+        private final String displayName;
+
+        WeekInfoFields(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+    }
+
+    private void getWeekInfo() {
+        System.out.println("Study Task Manager Week Setup");
+        System.out.println("Please enter the following information:");
+
+        Map<WeekInfoFields, String> inputs = new EnumMap<>(WeekInfoFields.class);
+        for (WeekInfoFields field : WeekInfoFields.values()) {
+            inputs.put(field, promptForInput(field.getDisplayName()));
+        }
+
+        WeekInfo weekInfo = new WeekInfo(
+                inputs.get(WeekInfoFields.PLAN_NAME),
+                inputs.get(WeekInfoFields.OBJECTIVE_TITLE),
+                inputs.get(WeekInfoFields.OBJECTIVE_DESCRIPTION),
+                inputs.get(WeekInfoFields.MATERIAL_TOPIC),
+                inputs.get(WeekInfoFields.MATERIAL_FORMAT),
+                inputs.get(WeekInfoFields.GOAL),
+                inputs.get(WeekInfoFields.REMINDER_TITLE),
+                inputs.get(WeekInfoFields.REMINDER_DESCRIPTION),
+                inputs.get(WeekInfoFields.MAIN_TASK_TITLE),
+                inputs.get(WeekInfoFields.MAIN_HABIT),
+                inputs.get(WeekInfoFields.MAIN_CARD_STUDY)
+        );
+
+        studyTaskManager.setUpWeek(weekInfo);
+    }
+
+    private String promptForInput(String fieldName) {
+        String input;
+        do {
+            System.out.print(fieldName + ": ");
+            input = getInput().trim();
+        } while (input.isEmpty());
+        return input;
     }
 
     private void handleSetUpWeek(){
