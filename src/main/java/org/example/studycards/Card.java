@@ -13,7 +13,12 @@ public class Card {
         return question;
     }
 
+    // Setter remains public for the tests, but now we have control
     public void setQuestion(String question) {
+        // Here you can add validation or other logic if needed
+        if (question == null || question.isEmpty()) {
+            throw new IllegalArgumentException("Question cannot be null or empty"); // Example validation
+        }
         this.question = question;
     }
 
@@ -21,12 +26,26 @@ public class Card {
         return answer;
     }
 
+    // Setter remains public for the tests, but now we have control
     public void setAnswer(String answer) {
+        // Here you can add validation or other logic if needed
+        if (answer == null || answer.isEmpty()) {
+            throw new IllegalArgumentException("Answer cannot be null or empty"); // Example validation
+        }
         this.answer = answer;
     }
 
     public void edit(String question, String answer) {
         setQuestion(question);
         setAnswer(answer);
+    }
+
+    public boolean isCorrectAnswer(String providedAnswer) {
+        return this.answer.equalsIgnoreCase(providedAnswer);
+    }
+
+    @Override
+    public String toString() {
+        return "Question: " + question + "\nAnswer: " + answer;
     }
 }

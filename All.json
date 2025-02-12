@@ -1,26 +1,10 @@
 {
   "formatVersion": 0,
-  "pmdVersion": "7.0.0",
-  "timestamp": "2024-12-17T14:59:53.300-03:00",
+  "pmdVersion": "7.9.0",
+  "timestamp": "2025-02-12T16:51:16.002-03:00",
   "files": [
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studycards\\Card.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 3,
-          "endcolumn": 13,
-          "description": "The class \u0027Card\u0027 is suspected to be a Data Class (WOC\u003d20.000%, NOPA\u003d0, NOAM\u003d4, WMC\u003d6)",
-          "rule": "DataClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
-        }
-      ]
-    },
-    {
-      "filename": ".\\src\\main\\java\\org\\example\\studycards\\LeitnerSystem.java",
+      "filename": "./src/main/java/org/example/studycards/LeitnerSystem.java",
       "violations": [
         {
           "beginline": 44,
@@ -31,12 +15,12 @@
           "rule": "NcssCount",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\AudioReference.java",
+      "filename": "./src/main/java/org/example/studymaterial/AudioReference.java",
       "violations": [
         {
           "beginline": 33,
@@ -47,12 +31,12 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studymaterial\\Reference.java",
+      "filename": "./src/main/java/org/example/studymaterial/Reference.java",
       "violations": [
         {
           "beginline": 3,
@@ -63,12 +47,12 @@
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\HabitTracker.java",
+      "filename": "./src/main/java/org/example/studyplanner/HabitTracker.java",
       "violations": [
         {
           "beginline": 57,
@@ -79,12 +63,12 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\KanbanView.java",
+      "filename": "./src/main/java/org/example/studyplanner/KanbanView.java",
       "violations": [
         {
           "beginline": 77,
@@ -95,12 +79,12 @@
           "rule": "NcssCount",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\ToDo.java",
+      "filename": "./src/main/java/org/example/studyplanner/ToDo.java",
       "violations": [
         {
           "beginline": 5,
@@ -111,12 +95,12 @@
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyplanner\\TodoTracker.java",
+      "filename": "./src/main/java/org/example/studyplanner/TodoTracker.java",
       "violations": [
         {
           "beginline": 29,
@@ -127,12 +111,12 @@
           "rule": "NcssCount",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyGoal.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyGoal.java",
       "violations": [
         {
           "beginline": 29,
@@ -143,12 +127,12 @@
           "rule": "NcssCount",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyMaterial.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyMaterial.java",
       "violations": [
         {
           "beginline": 61,
@@ -159,12 +143,12 @@
           "rule": "NcssCount",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#ncsscount"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#ncsscount"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyObjective.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyObjective.java",
       "violations": [
         {
           "beginline": 85,
@@ -175,12 +159,12 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyPlan.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyPlan.java",
       "violations": [
         {
           "beginline": 40,
@@ -191,12 +175,12 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\StudyTaskManager.java",
+      "filename": "./src/main/java/org/example/studyregistry/StudyTaskManager.java",
       "violations": [
         {
           "beginline": 30,
@@ -207,12 +191,12 @@
           "rule": "ExcessiveParameterList",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#excessiveparameterlist"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#excessiveparameterlist"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studyregistry\\Task.java",
+      "filename": "./src/main/java/org/example/studyregistry/Task.java",
       "violations": [
         {
           "beginline": 5,
@@ -223,12 +207,12 @@
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     },
     {
-      "filename": ".\\src\\main\\java\\org\\example\\studysearch\\SearchLog.java",
+      "filename": "./src/main/java/org/example/studysearch/SearchLog.java",
       "violations": [
         {
           "beginline": 8,
@@ -239,7 +223,7 @@
           "rule": "DataClass",
           "ruleset": "Design",
           "priority": 3,
-          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#dataclass"
+          "externalInfoUrl": "https://docs.pmd-code.org/pmd-doc-7.9.0/pmd_rules_java_design.html#dataclass"
         }
       ]
     }
