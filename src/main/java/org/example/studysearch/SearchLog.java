@@ -1,25 +1,20 @@
 package org.example.studysearch;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class SearchLog {
-    private List<String> searchHistory;
-    private Map<String, Integer> searchCount;
+    private final List<String> searchHistory;
+    private final Map<String, Integer> searchCount;
     private boolean isLocked;
-    private int numUsages; // Use int para consistência
-    private final String logName; // 🔹 Tornado final para imutabilidade
+    private int numUsages; // 🔹 Mantido int para consistência
+    private final String logName; // 🔹 Imutável para garantir que o nome do log nunca mude
 
     public SearchLog(String logName) {
-        this.logName = Objects.requireNonNull(logName, "Log name cannot be null"); // 🔹 Impedindo logName nulo
-        searchHistory = new ArrayList<>();
-        searchCount = new HashMap<>();
-        numUsages = 0;
-        isLocked = false;
+        this.logName = Objects.requireNonNull(logName, "Log name cannot be null"); // 🔹 Prevenção de null
+        this.searchHistory = new ArrayList<>();
+        this.searchCount = new HashMap<>();
+        this.numUsages = 0;
+        this.isLocked = false;
     }
 
     public void addSearch(String searchTerm) {
@@ -33,7 +28,13 @@ public class SearchLog {
         numUsages++;
     }
 
-    // 🔹 Método restaurado para compatibilidade com os testes
+    // 🔹 Método atualizado para incluir a funcionalidade combinada de registrar a busca e retornar o nome do log
+    public String logAndGetName(String searchTerm) {
+        addSearch(searchTerm);
+        return logName;
+    }
+
+    // 🔹 Mantido para compatibilidade com testes antigos
     public void addSearchHistory(String searchTerm) {
         addSearch(searchTerm);
     }
