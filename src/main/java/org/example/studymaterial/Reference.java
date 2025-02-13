@@ -1,7 +1,13 @@
 package org.example.studymaterial;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+// Enum for access levels
+enum AccessLevel {
+    PUBLIC, PRIVATE, RESTRICTED, UNKNOWN
+}
 
 public abstract class Reference {
     private String title;
@@ -17,9 +23,6 @@ public abstract class Reference {
     private int shareCount;
 
     public void setTitle(String title) {
-        if (title == null || title.isBlank()) {
-            throw new IllegalArgumentException("Title cannot be empty.");
-        }
         this.title = title;
     }
 
@@ -43,61 +46,51 @@ public abstract class Reference {
         return link;
     }
 
-    public void setAccessRights(String accessRights) {
-        this.accessRights = accessRights;
-    }
-
     public String getAccessRights() {
         return accessRights;
     }
 
-    public void setLicense(String license) {
-        this.license = license;
+    public void setAccessRights(String accessRights) {
+        this.accessRights = accessRights;
     }
 
     public String getLicense() {
         return license;
     }
 
-    public void setDownloadable(boolean downloadable) {
-        isDownloadable = downloadable;
+    public void setLicense(String license) {
+        this.license = license;
     }
 
-    public boolean isDownloadable() {
+    public boolean getIsDownloadable() {
         return isDownloadable;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setDownloadable(boolean downloadable) {
+        isDownloadable = downloadable;
     }
 
     public int getRating() {
         return rating;
     }
 
-    public void setLanguage(String language) {
-        if (language == null || language.isBlank()) {
-            throw new IllegalArgumentException("Language cannot be empty.");
-        }
-        this.language = language;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getLanguage() {
         return language;
     }
 
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     public int getViewCount() {
         return viewCount;
     }
 
-    public void incrementViewCount() {
-        this.viewCount++;
-    }
-
     public void setViewCount(int viewCount) {
-        if (viewCount < 0) {
-            throw new IllegalArgumentException("View count cannot be negative.");
-        }
         this.viewCount = viewCount;
     }
 
@@ -105,59 +98,175 @@ public abstract class Reference {
         return downloadCount;
     }
 
-    public void incrementDownloadCount() {
-        this.downloadCount++;
+    public void setDownloadCount(int downloadCount) {
+        this.downloadCount = downloadCount;
     }
 
     public int getShareCount() {
         return shareCount;
     }
 
+    public void setShareCount(int shareCount) {
+        this.shareCount = shareCount;
+    }
+
+    // Checks if the resource is available for download
+    public boolean isAvailableForDownload() {
+        return this.isDownloadable;
+    }
+
+    // Increments the view count
+    public void incrementViewCount() {
+        this.viewCount++;
+    }
+
+    public void incrementDownloadCount() {
+        if (this.isDownloadable) {
+            this.downloadCount++;
+        }
+    }
+
     public void incrementShareCount() {
         this.shareCount++;
     }
 
-    public void setShareCount(int shareCount) {
-        if (shareCount < 0) {
-            throw new IllegalArgumentException("Share count cannot be negative.");
-        }
-        this.shareCount = shareCount;
-    }
-
-    public String getReferenceSummary() {
-        return "Title: " + title + "\nDescription: " + description + "\nLink: " + link;
-    }
-
     public boolean isPopular() {
-        return this.viewCount > 1000 || this.downloadCount > 500;
+        int popularityThreshold = 100;
+        return viewCount > popularityThreshold && shareCount > popularityThreshold / 2;
     }
 
-    public boolean isHighlyRated() {
-        return this.rating >= 4;
+    public boolean isRelevantToTopic(String topic) {
+        return title.toLowerCase().contains(topic.toLowerCase()) ||
+                description.toLowerCase().contains(topic.toLowerCase());
     }
 
-    public boolean isPubliclyAccessible() {
-        return "Public".equals(this.accessRights);
+    public String getBriefDescription() {
+        String[] words = description.split("\\s+");
+        return String.join(" ", Arrays.copyOfRange(words, 0, Math.min(words.length, 50)));
     }
 
-    public void share() {
-        this.incrementShareCount();
-        // Lógica adicional para compartilhar a referência
+    public double calculatePopularityScore() {
+        double viewCountNormalized = (double) viewCount / 1000;
+        double downloadCountNormalized = (double) downloadCount / 100;
+        double shareCountNormalized = (double) shareCount / 50;
+        return viewCountNormalized + downloadCountNormalized + shareCountNormalized;
     }
 
-    public void download() {
-        if (!this.isDownloadable) {
-            throw new IllegalStateException("This reference is not downloadable.");
+    public AccessLevel getAccessLevel() {
+        if (accessRights.equals("Public")) {
+            return AccessLevel.PUBLIC;
+        } else if (accessRights.equals("Private")) {
+            return AccessLevel.PRIVATE;
+        } else if (accessRights.equals("Restricted")) {
+            return AccessLevel.RESTRICTED;
+        } else {
+            return AccessLevel.UNKNOWN;
         }
-        this.incrementDownloadCount();
-        // Lógica adicional para realizar o download
     }
 
-    private boolean isValidLicense(String license) {
-        return List.of("MIT", "GPL", "Apache").contains(license);
+    public boolean hasCopyrightRestrictions() {
+        List<String> restrictiveLicenses = Arrays.asList("All Rights Reserved", "Copyright Protected");
+        return restrictiveLicenses.contains(license);
     }
 
-    public abstract String getType();
+    public boolean isCompatibleWithLanguage(String targetLanguage) {
+        return language.equals(targetLanguage);
+    }
 
-    public abstract void incrementCount(Map<String, Integer> counts);
+    public String getInferredResourceType() {
+        if (link.endsWith(".pdf")) {
+            return "Document";
+        } else if (link.endsWith(".mp4") || link.endsWith(".avi")) {
+            return "Video";
+        } else if (title.contains("Presentation") || link.endsWith(".pptx")) {
+            return "Presentation";
+        } else {
+            return "Unknown";
+        }
+    }
+
+    public boolean isOpenAccess() {
+        List<String> openLicenses = Arrays.asList("CC BY", "CC BY-SA", "Public Domain");
+        return openLicenses.contains(license);
+    }
+
+    public String getPrimaryLanguage() {
+        return language;
+    }
+
+    public String classifyContentType() {
+        if (title.contains("tutorial") || description.contains("how to")) {
+            return "Tutorial";
+        } else if (title.contains("paper") || description.contains("research")) {
+            return "Research Paper";
+        } else {
+            return "Other";
+        }
+    }
+
+    public double calculateEngagementScore() {
+        return viewCount * 0.5 + downloadCount * 0.3 + shareCount * 0.2;
+    }
+
+    public boolean isMobileFriendly() {
+        return link.contains("m.") || link.endsWith(".pdf") || link.endsWith(".epub");
+    }
+
+    public boolean isOfflineAccessible() {
+        return isDownloadable;
+    }
+
+    public String getShortTitle() {
+        return title.substring(0, Math.min(title.length(), 50));
+    }
+
+    public boolean isRelevantToQuery(String query) {
+        return title.toLowerCase().contains(query.toLowerCase()) ||
+                description.toLowerCase().contains(query.toLowerCase());
+    }
+
+    public boolean containsMultimedia() {
+        return title.toLowerCase().contains("video") || title.toLowerCase().contains("image") ||
+                description.toLowerCase().contains("video") || description.toLowerCase().contains("image");
+    }
+
+    public List<String> extractKeywords() {
+        String text = title + " " + description;
+        String[] words = text.split("\\s+");
+        return Arrays.asList(words).subList(0, Math.min(words.length, 5));
+    }
+
+    public boolean isViral() {
+        return shareCount > 1000 && viewCount > 10000;
+    }
+
+    public String getShortTitle(int numberOfWords) {
+        String[] words = title.split("\\s+");
+        return String.join(" ", Arrays.copyOfRange(words, 0, Math.min(numberOfWords, words.length)));
+    }
+
+    public boolean isTutorial() {
+        return title.toLowerCase().contains("tutorial") || description.toLowerCase().contains("tutorial") ||
+                title.toLowerCase().contains("how to") || description.toLowerCase().contains("how to");
+    }
+
+    public boolean isSuitableForAllAudiences() {
+        return !title.toLowerCase().contains("offensive") && !description.toLowerCase().contains("offensive");
+    }
+
+    public String generateUniqueId() {
+        return title.substring(0, 5) + "_" + link.hashCode();
+    }
+
+    public void editReferenceAttributes(List<String> properties, List<Integer> intProperties) {
+        this.setTitle(properties.get(0));
+        this.setDescription(properties.get(1));
+        this.setLink(properties.get(2));
+        this.setAccessRights(properties.get(3));
+        this.setLicense(properties.get(4));
+        this.setLanguage(properties.get(5));
+        this.setRating(intProperties.get(0));
+        this.setViewCount(intProperties.get(1));
+        this.setShareCount(intProperties.get(2));
+    }
 }

@@ -1,15 +1,15 @@
 package org.example.studymaterial;
 
 import java.util.List;
-import java.util.Map;
 
 public class AudioReference extends Reference {
     public enum AudioQuality {
         LOW, MEDIUM, HIGH, VERY_HIGH;
     }
+
     private AudioQuality audioQuality;
 
-    public AudioReference(AudioQuality quality){
+    public AudioReference(AudioQuality quality) {
         this.audioQuality = quality;
     }
 
@@ -17,7 +17,7 @@ public class AudioReference extends Reference {
         return audioQuality;
     }
 
-    public static AudioQuality audioQualityAdapter(String quality){
+    public static AudioQuality audioQualityAdapter(String quality) {
         return switch (quality.toLowerCase()) {
             case "low" -> AudioQuality.LOW;
             case "medium" -> AudioQuality.MEDIUM;
@@ -31,44 +31,25 @@ public class AudioReference extends Reference {
         this.audioQuality = audioQuality;
     }
 
-    public void editAudio(AudioQuality audioQuality, boolean isDownloadable, String title, String description, String link, String accessRights, String license, String language, int rating, int viewCount, int shareCount){
-        editBasic(title, description, link);
-        this.setAccessRights(accessRights);
-        this.setLicense(license);
+    public void editBasic(String title, String description, String link) {
+        setTitle(title);
+        setDescription(description);
+        setLink(link);
+    }
+
+    public void editAudio(AudioQuality audioQuality, boolean isDownloadable) {
         this.setAudioQuality(audioQuality);
-        editVideoAttributes(rating, language, viewCount, shareCount, isDownloadable);
-    }
-
-    public void editAudioAdapter(List<String> properties, List<Integer> intProperties, AudioQuality audioQuality, boolean isDownloadable){
-        this.editAudio(audioQuality, isDownloadable, properties.get(0), properties.get(1), properties.get(2), properties.get(3), properties.get(4), properties.get(5), intProperties.get(0), intProperties.get(1), intProperties.get(2));
-    }
-
-    private void editVideoAttributes(int rating, String language, int viewCount, int shareCount, boolean isDownloadable){
-        this.setRating(rating);
-        this.setShareCount(shareCount);
-        this.setViewCount(viewCount); // Agora este método está disponível
         this.setDownloadable(isDownloadable);
-        this.setLanguage(language);
     }
 
-    public void editBasic(String title, String description, String link){
-        this.setTitle(title);
-        this.setDescription(description);
-        this.setLink(link);
-    }
+    /**
+     * 📌 Método adaptador para receber listas e chamar os métodos corretos.
+     */
+    public void editAudioAdapter(List<String> properties, List<Integer> intProperties, AudioQuality audioQuality, boolean isDownloadable) {
+        // Atualiza os atributos da superclasse Reference
+        editReferenceAttributes(properties, intProperties);
 
-    @Override
-    public void incrementCount(Map<String, Integer> counts) {
-        Integer count = counts.get("Audio References");
-        counts.put("Audio References", count + 1);
-    }
-
-    @Override
-    public String getType() {
-        return "Audio";
-    }
-
-    public boolean getIsDownloadable() {
-        return isDownloadable();
+        // Atualiza os atributos específicos do AudioReference
+        editAudio(audioQuality, isDownloadable);
     }
 }
