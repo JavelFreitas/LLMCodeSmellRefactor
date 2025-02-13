@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 public class FlashCard extends StudyMethod {
-    private String methodName; // 🔹 Adicionado atributo para armazenar o nome do método
+    private String methodName;
 
     public FlashCard(String methodName) {
         super(methodName);
@@ -13,12 +13,12 @@ public class FlashCard extends StudyMethod {
 
     @Override
     public String getMethodName() {
-        return this.methodName; // 🔹 Retorna o nome armazenado
+        return this.methodName;
     }
 
     @Override
     void setMethodName(String methodName) {
-        this.methodName = methodName; // 🔹 Atualiza o nome armazenado
+        this.methodName = methodName;
     }
 
     public int randomFlashCard(){

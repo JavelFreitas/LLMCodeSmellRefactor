@@ -42,14 +42,8 @@ public class AudioReference extends Reference {
         this.setDownloadable(isDownloadable);
     }
 
-    /**
-     * 📌 Método adaptador para receber listas e chamar os métodos corretos.
-     */
     public void editAudioAdapter(List<String> properties, List<Integer> intProperties, AudioQuality audioQuality, boolean isDownloadable) {
-        // Atualiza os atributos da superclasse Reference
         editReferenceAttributes(properties, intProperties);
-
-        // Atualiza os atributos específicos do AudioReference
         editAudio(audioQuality, isDownloadable);
     }
 }

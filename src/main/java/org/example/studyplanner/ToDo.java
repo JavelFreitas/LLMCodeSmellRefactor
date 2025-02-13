@@ -78,7 +78,6 @@ public class ToDo implements PlannerMaterial {
 
     @Override
     public String toString() {
-        // 🔹 Restaurando o formato original do `toString()`
         return MessageFormat.format("[(Priority:{3}) ToDo {0}: {1}, {2}]", id, title, description, priority);
     }
 }

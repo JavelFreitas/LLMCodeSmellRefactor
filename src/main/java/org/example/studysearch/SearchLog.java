@@ -6,11 +6,11 @@ public class SearchLog {
     private final List<String> searchHistory;
     private final Map<String, Integer> searchCount;
     private boolean isLocked;
-    private int numUsages; // 🔹 Mantido int para consistência
-    private final String logName; // 🔹 Imutável para garantir que o nome do log nunca mude
+    private int numUsages;
+    private final String logName;
 
     public SearchLog(String logName) {
-        this.logName = Objects.requireNonNull(logName, "Log name cannot be null"); // 🔹 Prevenção de null
+        this.logName = Objects.requireNonNull(logName, "Log name cannot be null");
         this.searchHistory = new ArrayList<>();
         this.searchCount = new HashMap<>();
         this.numUsages = 0;
@@ -28,19 +28,17 @@ public class SearchLog {
         numUsages++;
     }
 
-    // 🔹 Método atualizado para incluir a funcionalidade combinada de registrar a busca e retornar o nome do log
     public String logAndGetName(String searchTerm) {
         addSearch(searchTerm);
         return logName;
     }
 
-    // 🔹 Mantido para compatibilidade com testes antigos
     public void addSearchHistory(String searchTerm) {
         addSearch(searchTerm);
     }
 
     public List<String> getSearchHistory() {
-        return Collections.unmodifiableList(searchHistory); // 🔹 Retorna uma cópia imutável
+        return Collections.unmodifiableList(searchHistory);
     }
 
     public Map<String, Integer> getSearchCount() {
