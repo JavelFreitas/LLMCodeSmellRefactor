@@ -6,12 +6,12 @@ public class VideoReference extends Reference {
     private String frameRate;
     private String videoFormat;
 
-    public VideoReference(String title, String description){
+    public VideoReference(String title, String description) {
         this.setTitle(title);
         this.setDescription(description);
     }
 
-    public VideoReference(boolean isAvailable, String title, String description, String resolution, String frameRate, String videoFormat, String accessRights){
+    public VideoReference(boolean isAvailable, String title, String description, String resolution, String frameRate, String videoFormat, String accessRights) {
         this.isAvailable = isAvailable;
         this.resolution = resolution;
         this.frameRate = frameRate;
@@ -21,18 +21,22 @@ public class VideoReference extends Reference {
         this.setAccessRights(accessRights);
     }
 
-    public void editAvailability(boolean isAvailable, boolean isDownloadable){
+    public void editAvailability(boolean isAvailable, boolean isDownloadable) {
         this.isAvailable = isAvailable;
         this.setDownloadable(isDownloadable);
     }
 
-    public boolean handleStreamAvailability(){
-        if(!isAvailable){
+    public boolean handleStreamAvailability() {
+        if (!isAvailable) {
             return false;
-        } else if(!this.getIsDownloadable()){
+        } else if (!this.isDownloadable()) { // Corrected method name
             return false;
         }
         return true;
+    }
 
+    @Override
+    public String getType() {
+        return "Video";
     }
 }
