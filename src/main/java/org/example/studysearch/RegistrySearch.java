@@ -19,7 +19,7 @@ public class RegistrySearch implements Search<String> {
         results.addAll(CardManager.getCardManager().search(text));
         results.addAll(HabitTracker.getHabitTracker().search(text));
         results.addAll(TodoTracker.getInstance().search(text));
-        results.addAll(StudyTaskManager.getStudyTaskManager().search(text));
+        results.addAll(StudyTaskManager.getStudyTaskManager().searchInRegistries(text));
         this.searchLog.addSearch(text);
         results.add("\nLogged in: " + this.searchLog.getLogName());
         return results;

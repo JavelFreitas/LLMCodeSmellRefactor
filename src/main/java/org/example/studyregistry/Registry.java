@@ -21,4 +21,9 @@ public abstract class Registry {
     public boolean isActive() {
         return isActive;
     }
+
+    boolean matchesSearchCriteria(String text) {
+        String name = getName() != null ? getName() : "";
+        return name.toLowerCase().contains(text.toLowerCase());
+    }
 }
