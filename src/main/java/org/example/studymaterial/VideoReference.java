@@ -1,5 +1,7 @@
 package org.example.studymaterial;
 
+import java.util.Map;
+
 public class VideoReference extends Reference {
     private boolean isAvailable;
     private String resolution;
@@ -33,6 +35,14 @@ public class VideoReference extends Reference {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void incrementCount(Map<String, Integer> counts) {
+        if (handleStreamAvailability()) {
+            Integer count = counts.get("Video References");
+            counts.put("Video References", count + 1);
+        }
     }
 
     @Override

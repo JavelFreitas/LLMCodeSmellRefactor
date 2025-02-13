@@ -1,6 +1,7 @@
 package org.example.studymaterial;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class Reference {
     private String title;
@@ -157,4 +158,6 @@ public abstract class Reference {
     }
 
     public abstract String getType();
+
+    public abstract void incrementCount(Map<String, Integer> counts);
 }
