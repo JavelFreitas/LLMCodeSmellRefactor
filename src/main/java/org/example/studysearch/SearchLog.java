@@ -67,6 +67,11 @@ public class SearchLog {
         return logName;
     }
 
+    public String logSearch(String text) {
+        addSearch(text);
+        return "\nLogged in: " + getLogName();
+    }
+
     public boolean hasSearched(String searchTerm) {
         return searchCount.containsKey(searchTerm);
     }
