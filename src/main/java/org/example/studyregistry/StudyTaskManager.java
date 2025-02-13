@@ -40,6 +40,17 @@ public class StudyTaskManager {
                 stringProperties.get(8), stringProperties.get(9), stringProperties.get(10));
     }
 
+    public List<String> search(String text) { // Moved and renamed
+        List<String> response = new ArrayList<>();
+        for (Registry registry : registryList) {
+            String mix = (registry.getName() != null ? registry.getName() : "");
+            if (mix.toLowerCase().contains(text.toLowerCase())) {
+                response.add(registry.getName());
+            }
+        }
+        return response;
+    }
+
 
     public void addRegistry(Registry registry){
         registryList.add(registry);

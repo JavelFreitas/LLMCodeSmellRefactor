@@ -77,6 +77,17 @@ public class CardManager {
         return question == null || question.isEmpty() || answer == null || answer.isEmpty();
     }
 
+    public List<String> search(String search) { // Moved and renamed
+        List<String> responseCards = new ArrayList<>();
+        for (int id : cards.keySet()) {
+            Card card = cards.get(id);
+            if (card.getQuestion().toLowerCase().contains(search.toLowerCase()) || card.getAnswer().toLowerCase().contains(search.toLowerCase())) {
+                responseCards.add(formatCard(id));
+            }
+        }
+        return responseCards;
+    }
+
     public List<String> searchInCards(String search){
         List<String> responseCards = new ArrayList<>();
         for (int id : cards.keySet()) {

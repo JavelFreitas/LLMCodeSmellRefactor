@@ -94,6 +94,16 @@ public class HabitTracker {
         return this.tracker.get(id);
     }
 
+    public List<String> search(String search) { // Moved and renamed
+        List<String> result = new ArrayList<>();
+        for (Habit habit : this.habits) {
+            if (habit.getName().toLowerCase().contains(search.toLowerCase()) || habit.getMotivation().toLowerCase().contains(search.toLowerCase())) {
+                result.add(habit.toString());
+            }
+        }
+        return result;
+    }
+
     public List<String> searchInHabits(String search){
         List<String> result = new ArrayList<>();
         for (Habit habit : this.habits) {

@@ -91,6 +91,16 @@ public class TodoTracker {
         return sortedToDos;
     }
 
+    public List<String> search(String search) { // Moved and renamed
+        List<String> todos = new ArrayList<>();
+        for (ToDo toDo : toDos) {
+            if (toDo.getTitle().toLowerCase().contains(search.toLowerCase()) || toDo.getDescription().toLowerCase().contains(search.toLowerCase())) {
+                todos.add(toDo.toString());
+            }
+        }
+        return todos;
+    }
+
     public List<String> searchInTodos(String search) {
         List<String> todos = new ArrayList<>();
         for (ToDo toDo : toDos) {
