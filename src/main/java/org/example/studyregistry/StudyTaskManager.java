@@ -1,22 +1,19 @@
 package org.example.studyregistry;
 
-import org.example.studymaterial.Reference;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StudyTaskManager {
     private static StudyTaskManager instance;
     private StudyMaterial studyMaterial = StudyMaterial.getStudyMaterial();
-    List<Registry> registryList;
-    List<String> weekResponsibilities = List.of();
+    private List<Registry> registryList;
+    private List<String> weekResponsibilities = List.of();
 
-    private StudyTaskManager(){
-        this.registryList = new ArrayList<Registry>();
+    private StudyTaskManager() {
+        this.registryList = new ArrayList<>();
     }
 
-    public static StudyTaskManager getStudyTaskManager(){
+    public static StudyTaskManager getStudyTaskManager() {
         if (instance == null) {
             instance = new StudyTaskManager();
         }
@@ -27,39 +24,70 @@ public class StudyTaskManager {
         return weekResponsibilities;
     }
 
-    public void setUpWeek(String planName, String objectiveTitle, String objectiveDescription, String materialTopic,
-                          String materialFormat, String goal, String reminderTitle, String reminderDescription,
-                          String mainTaskTitle, String mainHabit, String mainCardStudy){
-        this.weekResponsibilities = new ArrayList<>();
-        this.weekResponsibilities.addAll(Arrays.asList(planName, objectiveTitle, objectiveDescription, materialTopic, materialFormat, goal, reminderTitle, reminderDescription, mainTaskTitle, mainHabit, mainCardStudy));
+    public void setUpWeek(WeekSetupParams params) {
+        this.weekResponsibilities = new ArrayList<>(params.toList());
     }
 
-    public void handleSetUpWeek(List<String> stringProperties){
-        setUpWeek(stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3),
-                stringProperties.get(4), stringProperties.get(5), stringProperties.get(6), stringProperties.get(7),
-                stringProperties.get(8), stringProperties.get(9), stringProperties.get(10));
+    public void handleSetUpWeek(List<String> stringProperties) {
+        WeekSetupParams params = createWeekSetupParams(stringProperties);
+        setUpWeek(params);
     }
 
+    private WeekSetupParams createWeekSetupParams(List<String> properties) {
+        return new WeekSetupParams(
+                properties.get(0), // planName
+                properties.get(1), // objectiveTitle
+                properties.get(2), // objectiveDescription
+                properties.get(3), // materialTopic
+                properties.get(4), // materialFormat
+                properties.get(5), // goal
+                properties.get(6), // reminderTitle
+                properties.get(7), // reminderDescription
+                properties.get(8), // mainTaskTitle
+                properties.get(9), // mainHabit
+                properties.get(10) // mainCardStudy
+        );
+    }
 
-    public void addRegistry(Registry registry){
+    public void addRegistry(Registry registry) {
         registryList.add(registry);
     }
-    public void removeRegistry(Registry registry){
+
+    public void removeRegistry(Registry registry) {
         registryList.remove(registry);
     }
-    public List<Registry> getRegistryList(){
+
+    public List<Registry> getRegistryList() {
         return registryList;
     }
 
-    public List<String> searchInRegistries(String text){
-        List<String> response = new ArrayList<>();
-        for(Registry registry : registryList){
-            String mix = (registry.getName() != null ? registry.getName() : "");
-            if (mix.toLowerCase().contains(text.toLowerCase())){
-                response.add(registry.getName());
-            }
-        }
-        return response;
+    public List<String> searchInRegistries(String text) {
+        return registryList.stream()
+                .filter(registry -> registry.matchesSearchCriteria(text))
+                .map(Registry::getName)
+                .toList();
     }
 
+    public record WeekSetupParams(
+            String planName,
+            String objectiveTitle,
+            String objectiveDescription,
+            String materialTopic,
+            String materialFormat,
+            String goal,
+            String reminderTitle,
+            String reminderDescription,
+            String mainTaskTitle,
+            String mainHabit,
+            String mainCardStudy
+    ) {
+
+        public List<String> toList() {
+            return List.of(
+                    planName, objectiveTitle, objectiveDescription,
+                    materialTopic, materialFormat, goal, reminderTitle,
+                    reminderDescription, mainTaskTitle, mainHabit, mainCardStudy
+            );
+        }
+    }
 }
