@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LeitnerSystem extends StudyMethod {
+public class LeitnerSystem extends StudyMethod{
     List<Box> boxes = null;
-    private CardManager cardManager; // Add CardManager instance
-
     public LeitnerSystem(String methodName) {
         super(methodName);
         boxes = new ArrayList<>(Arrays.asList(new Box(), new Box(), new Box(), new Box(), new Box()));
-        cardManager = CardManager.getCardManager(); // Initialize CardManager
     }
 
     @Override
@@ -25,17 +22,17 @@ public class LeitnerSystem extends StudyMethod {
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         StringBuilder response = new StringBuilder();
         int index = 0;
-        for (Box box : boxes) {
+        for(Box box : boxes){
             response.append("Box ").append(index).append(": ").append(box.toString()).append("\n");
             index++;
         }
         return response.toString();
     }
 
-    public void clearBoxes() {
+    public void clearBoxes(){
         boxes.clear();
         boxes = new ArrayList<>(Arrays.asList(new Box(), new Box(), new Box(), new Box(), new Box()));
     }
@@ -49,11 +46,18 @@ public class LeitnerSystem extends StudyMethod {
             return null;
         }
 
-        Box allBoxes = collectCardsFromBoxes(otherBoxes);
-        return retrieveAndFormatCard(allBoxes);
+        Box allBoxes = getAllCardsFromBoxes(otherBoxes);
+        Integer randomCard = allBoxes.getRandomCard();
+
+        if (randomCard == null) {
+            return "No card found";
+        }
+
+        Card card = getCardFromManager(randomCard);
+        return card.buildCardResponse(randomCard);
     }
 
-    private Box collectCardsFromBoxes(List<Box> otherBoxes) {
+    private Box getAllCardsFromBoxes(List<Box> otherBoxes) {
         Box allBoxes = new Box();
         for (Box box : otherBoxes) {
             allBoxes.addCards(box.getCards());
@@ -61,21 +65,10 @@ public class LeitnerSystem extends StudyMethod {
         return allBoxes;
     }
 
-    private String retrieveAndFormatCard(Box allBoxes) {
-        Integer randomCardId = allBoxes.getRandomCard();
-        if (randomCardId == null) {
-            return "No card found";
-        }
-
-        Card card = cardManager.getCard(randomCardId);
-        return formatCardResponse(randomCardId, card);
+    private Card getCardFromManager(Integer randomCard) {
+        CardManager manager = CardManager.getCardManager();
+        return manager.getCard(randomCard);
     }
-
-    private String formatCardResponse(Integer cardId, Card card) {
-        return String.format("[%d] The random question was: %s | The answer is: %s",
-                cardId, card.getQuestion(), card.getAnswer());
-    }
-
 
     public void addCardToBox(Integer id, Integer boxId) {
         this.boxes.get(boxId).addCard(id);
@@ -85,45 +78,53 @@ public class LeitnerSystem extends StudyMethod {
         this.boxes.get(boxId).removeCard(id);
     }
 
-    public Card takeCardFromBox(Integer boxId) {
+    public Card takeCardFromBox(Integer boxId){
         Integer cardId = boxes.get(boxId).getRandomCard();
         return this.cardManager.getCard(cardId);
     }
 
     public void boxIdValidation(Integer boxId) throws Exception {
-        if (boxId == null || boxId > (boxes.size() - 1) || boxId < 0) { // Corrected condition
+        if(boxId == null || boxId > (boxes.size()-1) || boxId <= 0){
             throw new Exception("Invalid box ID");
         }
     }
 
     public void upgradeCard(Integer cardId, Integer boxId) throws Exception {
         boxIdValidation(boxId);
-        moveCardToNextBox(cardId, boxId);
-    }
 
-    private void moveCardToNextBox(Integer cardId, Integer boxId) throws Exception {
         Box refBox = boxes.get(boxId);
-        if (!refBox.hasCard(cardId)) { // Corrected condition
+        if(refBox.hasCard(cardId)){
             throw new Exception("No card Found");
         }
         refBox.removeCard(cardId);
-        int nextBoxId = Math.min(boxId + 1, 4);
-        boxes.get(nextBoxId).addCard(cardId);
+        boxes.get(Math.min(boxId + 1, 4)).addCard(cardId);
     }
 
     public void downgradeCard(Integer cardId, Integer boxId) throws Exception {
         boxIdValidation(boxId);
-        moveCardToPreviousBox(cardId, boxId);
-    }
 
-    private void moveCardToPreviousBox(Integer cardId, Integer boxId) throws Exception {
         Box refBox = boxes.get(boxId);
-        if (!refBox.hasCard(cardId)) { // Corrected condition
+        if(refBox.hasCard(cardId)){
             throw new Exception("No card Found");
         }
         refBox.removeCard(cardId);
-        int previousBoxId = Math.max(boxId - 1, 0);
-        boxes.get(previousBoxId).addCard(cardId);
+        boxes.get(Math.max(boxId - 1, 0)).addCard(cardId);
+    }
+
+    public String getRandomCardFromBox() {
+        if (boxes == null || boxes.isEmpty()) {
+            return null;
+        }
+
+        Box allBoxes = getAllCardsFromBoxes(boxes);
+        Integer randomCard = allBoxes.getRandomCard();
+
+        if (randomCard == null) {
+            return "No card found";
+        }
+
+        Card card = getCardFromManager(randomCard);
+        return card.buildCardResponse(randomCard);
     }
 
 }

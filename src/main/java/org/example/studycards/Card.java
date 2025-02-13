@@ -44,6 +44,13 @@ public class Card {
         return this.answer.equalsIgnoreCase(providedAnswer);
     }
 
+    public String buildCardResponse(Integer randomCard) {
+        String response = "[" + randomCard + "] ";
+        response += "The random question was: " + this.question + " | ";
+        response += "The answer is: " + this.answer;
+        return response;
+    }
+
     @Override
     public String toString() {
         return "Question: " + question + "\nAnswer: " + answer;
