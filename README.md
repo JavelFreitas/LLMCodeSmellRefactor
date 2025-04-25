@@ -1,10 +1,18 @@
-# LLMCodeSmellRefactor
+# Evaluating LLMs-Driven Java Code Refactoring from a Developer’s Perspective
 
-The objective of this repository is to study the refactoring capabilities of LLMs. 
+> Code smells are code structures that can hinder software evolution and maintenance. To counter the negative effects, developers can use refactoring techniques to improve software design, enhancing understandability and maintainability, which can reduce modification costs. Large Language Models (LLMs) are computational models trained on vast amounts of data, allowing them to perform downstream tasks such as summarization, code generation, and refactoring. Most studies have investigated LLMs in code generation and code smell refactoring, examining different prompts, training techniques, models, and suggestion strategies. However, we need to move forward in understanding developers’ perspectives regarding LLM-driven code refactoring. This paper aims to investigate how LMMs support code smell refactoring from the developers’ perceptions and its influence on code quality. To this end, we conducted an empirical study with 48 developers who applied pair refactoring in 535 instances of the following code smells: Data Class, Long Method, Feature Envy, and Long Parameter List. We assigned each team to one LLM: ChatGPT (GPT-4o), Github Copilot (Claude 3.5 Sonnet), and Gemini (1.5 Flash).
 
-It was design to have both good and bad java practices. 
+## Repository Structure
 
-The code can be faulty, and it is supposed to be
+- ``src/`` Source code of the project.
+- ``questionnaires/`` Questionnaires used in the study.
+- ``data/`` Data used in the study.
+  - ``pre-questionnaire_responses.xlsx``: Responses to the pre-questionnaire.
+  - ``post-questionnaire_responses.xlsx``: Responses to the post-questionnaire.
+  - ``project_metrics.xlsx``: Base project and refactored project metrics.
+  - ``qualitative_analysis.xlsx``: Qualitative analysis of the questionnaire responses.
+- ``rules.xml``: PMD rules used to identify code smells.
+
 
 ## Identifying code smells
 
