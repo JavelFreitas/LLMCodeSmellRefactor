@@ -88,4 +88,26 @@ public class CardManager {
         return responseCards;
     }
 
+    public void handleViewCards() {
+        Map<Integer, Card> cards = getCardsMap();
+        List<Integer> keys = new ArrayList<>(cards.keySet());
+        StringBuilder response = new StringBuilder();
+        for(Integer key : keys) {
+            Card card = cards.get(key);
+            response.append("[id: ").append(key).append("] Question: ")
+                    .append(card.getQuestion()).append(", Answer: ")
+                    .append(card.getAnswer()).append("\n");
+        }
+        System.out.println(response.toString().isEmpty() ? "No cards" : response.toString());
+    }
+
+    public void handleRemoveCard(String input) {
+        int id = Integer.parseInt(input);
+        removeCard(id);
+    }
+
+    public void handleCreateCard(String question, String answer) {
+        addCard(question, answer);
+    }
+
 }

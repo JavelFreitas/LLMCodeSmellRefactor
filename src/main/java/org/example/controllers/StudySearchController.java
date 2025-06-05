@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import org.example.studyregistry.StudyTaskManager;
 import org.example.studysearch.GeneralSearch;
 import org.example.studysearch.MaterialSearch;
 import org.example.studysearch.RegistrySearch;
@@ -15,7 +16,7 @@ import static org.example.controllers.MainController.validateInput;
 public class StudySearchController {
     GeneralSearch generalSearch = new GeneralSearch();
     MaterialSearch materialSearch = new MaterialSearch();
-    RegistrySearch registrySearch = new RegistrySearch();
+    RegistrySearch registrySearch = new RegistrySearch(StudyTaskManager.getStudyTaskManager());
 
     private Map<String, Runnable> actions = new HashMap<>();
 
@@ -69,7 +70,7 @@ public class StudySearchController {
     private void handleGetGeneralSearchLog(){
         handleMethodHeader("(Get Search Log)");
         SearchLog generalLog = generalSearch.getSearchLog();
-        String response = generalLog.getLogName() + " was used: " + generalLog.getNumUsages() + " times\nSearch Log\n";
+        String response = generalLog.getLogName() + " was used: " + generalLog.getTotalSearches() + " times\nSearch Log\n";
         response += String.join(", ", generalLog.getSearchHistory());
         System.out.println(response);
     }
@@ -77,7 +78,7 @@ public class StudySearchController {
     private void handleGetMaterialSearchLog(){
         handleMethodHeader("(Get Search Log)");
         SearchLog materialLog = materialSearch.getSearchLog();
-        String response = materialLog.getLogName() + " was used: " + materialLog.getNumUsages() + " times\nSearch Log\n";
+        String response = materialLog.getLogName() + " was used: " + materialLog.getTotalSearches() + " times\nSearch Log\n";
         response += String.join(", ", materialLog.getSearchHistory());
         System.out.println(response);
     }
@@ -85,7 +86,7 @@ public class StudySearchController {
     private void handleGetRegistrySearchLog(){
         handleMethodHeader("(Get Search Log)");
         SearchLog registryLog = registrySearch.getSearchLog();
-        String response = registryLog.getLogName() + " was used: " + registryLog.getNumUsages() + " times\nSearch Log\n";
+        String response = registryLog.getLogName() + " was used: " + registryLog.getTotalSearches() + " times\nSearch Log\n";
         response += String.join(", ", registryLog.getSearchHistory());
         System.out.println(response);
     }
