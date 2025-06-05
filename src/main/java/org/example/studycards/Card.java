@@ -9,6 +9,10 @@ public class Card {
         this.answer = answer;
     }
 
+    public String buildResponseString(int cardId) {
+        return "[" + cardId + "] " + "The random question was: " + question + " | " + "The answer is: " + answer;
+    }
+
     public String getQuestion() {
         return question;
     }
@@ -28,5 +32,9 @@ public class Card {
     public void edit(String question, String answer) {
         setQuestion(question);
         setAnswer(answer);
+    }
+
+    public boolean isCorrectAnswer(String userAnswer) {
+        return answer.equalsIgnoreCase(userAnswer);
     }
 }
