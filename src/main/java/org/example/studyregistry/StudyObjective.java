@@ -3,7 +3,7 @@ package org.example.studyregistry;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class StudyObjective extends Registry{
+public class StudyObjective extends Registry {
     private String title;
     private String description;
     private String topic;
@@ -48,49 +48,65 @@ public class StudyObjective extends Registry{
     private String motivation;
 
     @Override
-    public String toString(){
-        return "StudyObjective [title:" + title + ", description:" + description + (topic != null ? ", topic:" + topic : "")
-                + (practicedDays != null ? ", practicedDays:" + practicedDays : "") + (duration != null ? ", duration:" + duration : "")
-                + (objectiveInOneLine != null ? ", objective summary:" + objectiveInOneLine : "") + (objectiveFullDescription != null ? ", objective full description:" + objectiveFullDescription : "")
+    public String toString() {
+        return "StudyObjective [title:" + title + ", description:" + description
+                + (topic != null ? ", topic:" + topic : "")
+                + (practicedDays != null ? ", practicedDays:" + practicedDays : "")
+                + (duration != null ? ", duration:" + duration : "")
+                + (objectiveInOneLine != null ? ", objective summary:" + objectiveInOneLine : "")
+                + (objectiveFullDescription != null ? ", objective full description:" + objectiveFullDescription : "")
                 + (motivation != null ? ", motivation:" + motivation : "") + "]";
     }
+
     public StudyObjective(String title, String description) {
         this.title = title;
         this.description = description;
         this.name = title;
     }
 
-    public void handleSetRegistry(Integer id, String name, Integer priority, boolean isActive){
-        this.id=id;
-        this.name=name;
-        this.priority=priority;
-        this.isActive=isActive;
+    public void handleSetRegistry(RegistryProperties properties) {
+        this.id = properties.id;
+        this.name = properties.name;
+        this.priority = properties.priority;
+        this.isActive = properties.isActive;
     }
 
-    public void handleSetTextualInfo(String title, String description, String topic,String objectiveInOneLine, String objectiveFullDescription, String motivation){
-        this.title=title;
-        this.description=description;
-        this.topic=topic;
-        this.objectiveInOneLine=objectiveInOneLine;
-        this.objectiveFullDescription=objectiveFullDescription;
-        this.motivation=motivation;
+    public void handleSetTextualInfo(TextualProperties properties) {
+        this.title = properties.title;
+        this.description = properties.description;
+        this.topic = properties.topic;
+        this.objectiveInOneLine = properties.objectiveInOneLine;
+        this.objectiveFullDescription = properties.objectiveFullDescription;
+        this.motivation = properties.motivation;
     }
 
-    public void handleSetTime(Integer practicedDays, int day, int month, int year, Double duration){
-        this.practicedDays=practicedDays;
-        this.duration=duration;
-        this.startDate= LocalDateTime.of(year, month, day, 0, 0);
+    public void handleSetTime(TimeProperties properties) {
+        this.practicedDays = properties.practicedDays;
+        this.duration = properties.duration;
+        this.startDate = LocalDateTime.of(properties.year, properties.month, properties.day, 0, 0);
     }
 
-    public void handleSetObjective(Integer id, Integer priority, Integer practicedDays, int day, int month, int year, String name, String title, String description, String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, Double duration, boolean isActive){
-        handleSetRegistry(id, name, priority, isActive);
-        handleSetTextualInfo(title, description, topic, objectiveInOneLine, objectiveFullDescription, motivation);
-        handleSetTime(practicedDays, day, month, year, duration);
+    public void handleSetObjective(RegistryProperties registryProps, TextualProperties textualProps,
+            TimeProperties timeProps) {
+        handleSetRegistry(registryProps);
+        handleSetTextualInfo(textualProps);
+        handleSetTime(timeProps);
     }
 
-    public int handleSetObjectiveAdapter(List<Integer> intProperties, List<String> stringProperties, Double duration, boolean isActive){
-        handleSetObjective(intProperties.get(0), intProperties.get(1), intProperties.get(2), intProperties.get(3), intProperties.get(4), intProperties.get(5),
-                stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3), stringProperties.get(4), stringProperties.get(5), stringProperties.get(6), duration, isActive);
+    public int handleSetObjectiveAdapter(List<Integer> intProperties, List<String> stringProperties, Double duration,
+            boolean isActive) {
+        RegistryProperties registryProps = RegistryProperties.builder().id(intProperties.get(0))
+                .name(stringProperties.get(0)).priority(intProperties.get(1)).isActive(isActive).build();
+        TextualProperties textualProps = TextualProperties.builder().title(stringProperties.get(1))
+                .description(stringProperties.get(2)).topic(stringProperties.get(3))
+                .objectiveInOneLine(stringProperties.get(4)).objectiveFullDescription(stringProperties.get(5))
+                .motivation(stringProperties.get(6)).build();
+        TimeProperties timeProps = TimeProperties.builder().practicedDays(intProperties.get(2))
+                .day(intProperties.get(3)).month(intProperties.get(4)).year(intProperties.get(5)).duration(duration)
+                .build();
+                
+        handleSetObjective(registryProps, textualProps, timeProps);
+
         return intProperties.get(0);
     }
 
