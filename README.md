@@ -44,5 +44,35 @@ refactoring only alters the internal structure without altering the external beh
 ### 5 Long Parameter List
 - AudioReference, HabitTracker, StudyObjective, StudyPlan, StudyTaskManager
 
+## Internal quality metrics analyzed
 
+| Metrics | Description |
+|---|---|
+| **McCabe Cyclomatic Complexity (CC)** | Equal to the number of decision points contained in a program plus one. Higher values indicate a more complex code structure [[1](#reference-1)]. |
+| **Sum Cyclomatic Complexity (SCC)** | Sum of the cyclomatic complexity of all nested functions or methods. Higher values indicate a more complex code structure [[1](#reference-1)]. |
+| **Average Cyclomatic Complexity (ACC)** | Average cyclomatic complexity of all nested functions or methods. Higher values indicate a more complex code structure [[1](#reference-1)]. |
+| **Nesting (MaxNest)** | Maximum nesting level of control constructs (e.g., if, while, for, switch) within a function. Higher values indicate a more complex code structure [[2](#reference-2)]. |
+| **CountDeclFunction** | Number of declared functions. Higher values indicate a larger system size [[3](#reference-3)]. |
+| **CountLine** | Number of physical lines of code. Higher values indicate a larger system size [[3](#reference-3)]. |
+| **Comment Lines of Code (CLOC)** | Number of lines containing comments. Higher values indicate a larger system size [[2](#reference-2)]. |
+| **Lack of Cohesion of Methods (LCOM2)** | Measures the percentage of class methods that use a given class instance variable. Higher values indicate lower class cohesion [[4](#reference-4)]. |
+| **Coupling Between Objects (CBO)** | Number of classes to which a class is coupled. Higher values indicate higher coupling between classes and methods [[4](#reference-4)]. |
+| **Depth of Inheritance Tree (DIT)** | Maximum depth of a class in the inheritance hierarchy. Higher values indicate a greater degree of inheritance in the system [[4](#reference-4)]. |
+| **Number of Children (NOC)** | Number of immediate subclasses of a class. Higher values indicate a greater degree of inheritance in the system [[4](#reference-4)]. |
 
+## References
+<a id="reference-1"></a>
+
+[1] T.J. McCabe. 1976. A Complexity Measure. IEEE Transactions on Software Engineering SE-2, 4 (1976), 308–320. https://doi.org/10.1109/TSE.1976.233837
+
+<a id="reference-2"></a>
+
+[2] Mark Lorenz and Jeff Kidd. 1994. Object-oriented software metrics: a practical guide. Prentice-Hall, Inc., USA.
+
+<a id="reference-3"></a>
+
+[3] Scitools. 2023. What Metrics Does Understand Have? https://support.scitools.com/support/solutions/articles/70000582223-what-metrics-does-understand-have-
+
+<a id="reference-4"></a>
+
+[4] Shyam R Chidamber and Chris F Kemerer. 1994. A metrics suite for object oriented design. IEEE Transactions on Software Engineering 20, 6 (1994), 476–493. https://doi.org/10.1109/32.295895
