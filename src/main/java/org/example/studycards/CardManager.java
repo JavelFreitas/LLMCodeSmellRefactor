@@ -24,7 +24,7 @@ public class CardManager {
 
     public String formatCard(Integer id) {
         Card card = this.getCard(id);
-        return "[id: " + id + "] " + "Question: " + card.getQuestion() + " Answer: " + card.getAnswer();
+        return card.format(id);
     }
 
     public Map<Integer, Card> getCardsMap(){
@@ -51,9 +51,6 @@ public class CardManager {
     }
 
     public Integer addCard(String question, String answer) {
-        if(validateCard(question, answer)) {
-            throw new IllegalArgumentException("Invalid question or answer");
-        }
         Card card = new Card(question, answer);
         Integer response = nextID;
         cards.put(nextID, card);
@@ -66,26 +63,18 @@ public class CardManager {
     }
 
     public void updateCard(Integer id, String question, String answer) {
-        if(validateCard(question, answer)) {
-            throw new IllegalArgumentException("Invalid question or answer");
-        }
         Card card = cards.get(id);
         card.edit(question, answer);
-    }
-
-    private boolean validateCard(String question, String answer) {
-        return question == null || question.isEmpty() || answer == null || answer.isEmpty();
     }
 
     public List<String> searchInCards(String search){
         List<String> responseCards = new ArrayList<>();
         for (int id : cards.keySet()) {
             Card card = cards.get(id);
-            if(card.getQuestion().contains(search) || card.getAnswer().contains(search)){
+            if(card.contains(search)){
                 responseCards.add(formatCard(id));
             }
         }
         return responseCards;
     }
-
 }

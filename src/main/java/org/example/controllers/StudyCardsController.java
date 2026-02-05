@@ -112,20 +112,15 @@ public class StudyCardsController {
             System.out.println(e.getMessage());
         }
     }
-
     public String getRandomCardFromBox() {
-        String response = "";
-        response += leitnerSystem.getMethodName();
-        List<Box> boxes = leitnerSystem.getBoxes();
-        response += leitnerSystem.getRandomCard(boxes);
-        return response;
+        return leitnerSystem.getRandomCardFromBoxFormatted();
     }
 
     public void handleGetRandomCardFromBox() {
-        try{
+        try {
             String response = getRandomCardFromBox();
             System.out.println(response);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
