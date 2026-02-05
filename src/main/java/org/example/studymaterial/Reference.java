@@ -1,103 +1,98 @@
 package org.example.studymaterial;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class Reference {
-    private String title;
-    private String description;
-    private String link;
-    private String accessRights;
-    private String license;
-    private boolean isDownloadable;
-    private int rating;
-    private String language;
-    private int viewCount;
-    private int downloadCount;
-    private int shareCount;
+    private Map<String, Object> fields = new HashMap<>();
 
+    // Setters
     public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
+        fields.put("title", title);
     }
 
     public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
+        fields.put("description", description);
     }
 
     public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public String getAccessRights() {
-        return accessRights;
+        fields.put("link", link);
     }
 
     public void setAccessRights(String accessRights) {
-        this.accessRights = accessRights;
-    }
-
-    public String getLicense() {
-        return license;
+        fields.put("accessRights", accessRights);
     }
 
     public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public boolean getIsDownloadable() {
-        return isDownloadable;
+        fields.put("license", license);
     }
 
     public void setDownloadable(boolean downloadable) {
-        isDownloadable = downloadable;
-    }
-
-    public int getRating() {
-        return rating;
+        fields.put("isDownloadable", downloadable);
     }
 
     public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public String getLanguage() {
-        return language;
+        fields.put("rating", rating);
     }
 
     public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public int getViewCount() {
-        return viewCount;
+        fields.put("language", language);
     }
 
     public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
-    }
-
-    public int getDownloadCount() {
-        return downloadCount;
+        fields.put("viewCount", viewCount);
     }
 
     public void setDownloadCount(int downloadCount) {
-        this.downloadCount = downloadCount;
-    }
-
-    public int getShareCount() {
-        return shareCount;
+        fields.put("downloadCount", downloadCount);
     }
 
     public void setShareCount(int shareCount) {
-        this.shareCount = shareCount;
+        fields.put("shareCount", shareCount);
+    }
+
+    // Getters
+    public String getTitle() {
+        return (String) fields.get("title");
+    }
+
+    public String getDescription() {
+        return (String) fields.get("description");
+    }
+
+    public String getLink() {
+        return (String) fields.get("link");
+    }
+
+    public String getAccessRights() {
+        return (String) fields.get("accessRights");
+    }
+
+    public String getLicense() {
+        return (String) fields.get("license");
+    }
+
+    public boolean getIsDownloadable() {
+        return (boolean) fields.get("isDownloadable");
+    }
+
+    public int getRating() {
+        return (int) fields.get("rating");
+    }
+
+    public String getLanguage() {
+        return (String) fields.get("language");
+    }
+
+    public int getViewCount() {
+        return (int) fields.get("viewCount");
+    }
+
+    public int getDownloadCount() {
+        return (int) fields.get("downloadCount");
+    }
+
+    public int getShareCount() {
+        return (int) fields.get("shareCount");
     }
 }

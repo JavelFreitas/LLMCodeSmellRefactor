@@ -70,7 +70,7 @@ public class CardManager {
             throw new IllegalArgumentException("Invalid question or answer");
         }
         Card card = cards.get(id);
-        card.edit(question, answer);
+        card.updateContent(question, answer);
     }
 
     private boolean validateCard(String question, String answer) {

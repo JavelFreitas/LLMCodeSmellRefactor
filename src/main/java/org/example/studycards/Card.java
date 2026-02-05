@@ -13,20 +13,34 @@ public class Card {
         return question;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
     public String getAnswer() {
         return answer;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void updateQuestion(String newQuestion) {
+        if (newQuestion == null || newQuestion.trim().isEmpty()) {
+            throw new IllegalArgumentException("Question cannot be null or empty.");
+        }
+        this.question = newQuestion;
     }
 
-    public void edit(String question, String answer) {
-        setQuestion(question);
-        setAnswer(answer);
+    public void updateAnswer(String newAnswer) {
+        if (newAnswer == null || newAnswer.trim().isEmpty()) {
+            throw new IllegalArgumentException("Answer cannot be null or empty.");
+        }
+        this.answer = newAnswer;
+    }
+
+    public void updateContent (String newQuestion, String newAnswer) {
+        updateQuestion(newQuestion);
+        updateAnswer(newAnswer);
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                '}';
     }
 }

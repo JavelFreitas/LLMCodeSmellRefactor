@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import org.example.studyplanner.*;
+import org.example.studyplanner.dtos.HabitProperties;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -116,8 +117,10 @@ public class StudyPlannerController {
         String motivation = Objects.requireNonNull(this.getInput().trim());
         Integer dailyMinutesDedication = Integer.parseInt(Objects.requireNonNull(this.getInput().trim()));
         Integer dailyHoursDedication = Integer.parseInt(Objects.requireNonNull(this.getInput().trim()));
-        LocalDateTime start =  handleGetStartDate();
-        habitTracker.addHabit(name, motivation, dailyMinutesDedication, dailyHoursDedication, start.getYear(), start.getMonthValue(), start.getDayOfMonth(), start.getHour(), start.getMinute(), start.getSecond(), false);
+        LocalDateTime start = handleGetStartDate();
+
+        HabitProperties habitProperties = new HabitProperties(name, motivation, dailyMinutesDedication, dailyHoursDedication, start, false);
+        habitTracker.addHabit(habitProperties);
     }
 
     private String viewToDoHeader(){
@@ -194,7 +197,7 @@ public class StudyPlannerController {
     private void handleViewTimeline() throws Exception {
         try{
             handleMethodHeader("Timeline view: ");
-            System.out.println(timelineView.habitDateViewAll(habitTracker));
+            System.out.println(timelineView.viewAllHabitRecords(habitTracker));
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
