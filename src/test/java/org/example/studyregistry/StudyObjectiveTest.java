@@ -28,6 +28,9 @@ class StudyObjectiveTest {
         assertEquals("SetObjectiveObjectiveInOneLine", studyObjective.getObjectiveInOneLine());
         assertEquals("SetObjectiveObjectiveFullDescription", studyObjective.getObjectiveFullDescription());
         assertEquals("SetObjectiveMotivation", studyObjective.getMotivation());
+        StudyObjective objective = new StudyObjective("SetObjectiveNameTest", "Sample Description");
+        assertEquals("SetObjectiveNameTest", objective.getTitle());
+        assertEquals("Sample Description", objective.getDescription());
     }
 
     void verifyIntegerProperties(){

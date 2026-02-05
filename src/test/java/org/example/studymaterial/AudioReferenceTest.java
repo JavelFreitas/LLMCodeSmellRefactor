@@ -18,9 +18,25 @@ class AudioReferenceTest {
     }
 
     void editAudioReferenceTest(List<String> properties, List<Integer> intProperties, AudioReference.AudioQuality quality, boolean isDownloadable) {
+        // Create an AudioBuilder and populate it with provided values
+        AudioReference.AudioBuilder builder = new AudioReference.AudioBuilder()
+                .setAudioQuality(quality)
+                .setDownloadable(isDownloadable)
+                .setTitle(properties.get(0))       // Title
+                .setDescription(properties.get(1)) // Description
+                .setLink(properties.get(2))        // Link
+                .setAccessRights(properties.get(3)) // Access Rights
+                .setLicense(properties.get(4))     // License
+                .setLanguage(properties.get(5))    // Language
+                .setRating(intProperties.get(0))   // Rating
+                .setViewCount(intProperties.get(1)) // View Count
+                .setShareCount(intProperties.get(2)) // Share Count
+                .build();
 
-        this.audioReference.editAudioAdapter(properties, intProperties, quality, isDownloadable);
+        // Apply the changes to the audioReference instance
+        this.audioReference.editAudio(builder);
     }
+
 
     @Test
     @Order(1)

@@ -1,0 +1,144 @@
+[33mcommit 3e9cbc79535b21c6ae5b12932208fd4422f33447[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m)[m
+Author: paulo vitor <paulov14@alu.ufc.br>
+Date:   Fri Jan 10 16:02:26 2025 -0300
+
+    fix: refactor code smell data class using encapsulate behavior refactorign technique
+
+[33mcommit ac1c357ab0e8fec93996546657a43181d9190d1e[m
+Author: paulo vitor <paulov14@alu.ufc.br>
+Date:   Fri Jan 10 15:54:14 2025 -0300
+
+    fix: refactor code smell data class using encapsulate behavior refactorign technique
+
+[33mcommit 5819c37f76595daef32bd6f23497710ee1d4ed97[m
+Author: paulo vitor <paulov14@alu.ufc.br>
+Date:   Fri Jan 10 10:30:27 2025 -0300
+
+    fix: refactor code smell data class using encapsulate behavior  refactorign technique
+
+[33mcommit e31a1d735851f048a84c6454328fafb99e0a6a69[m
+Author: paulo vitor <paulov14@alu.ufc.br>
+Date:   Fri Jan 10 09:12:17 2025 -0300
+
+    fix: refactor code smell Data Class using encapsulate behavior refactoring technique
+
+[33mcommit d9c41f6a7e57fe2ada8349854a9a4d8b0e130ed5[m
+Author: paulo vitor <paulov14@alu.ufc.br>
+Date:   Fri Jan 10 08:56:17 2025 -0300
+
+    fix: refactor code smell Envy Feature using Move Method refactoring technique
+
+[33mcommit 6699fefa31060cd410c7f2e0cc2dd6de14479410[m
+Author: paulo vitor <paulov14@alu.ufc.br>
+Date:   Fri Jan 10 08:53:07 2025 -0300
+
+    fix: refactor code smell Envy Feature using Move Method refactoring technique
+
+[33mcommit 3e2c9d9987a0cd9554af6326012f4b5484f365a9[m
+Author: paulo vitor <paulov14@alu.ufc.br>
+Date:   Fri Jan 10 08:16:17 2025 -0300
+
+    fix: refactor code smell Envy Feature using Move Method refactoring technique
+
+[33mcommit b471dde1cc81591a24ea322dc1aeaa61dc12939a[m
+Author: paulo vitor <paulov14@alu.ufc.br>
+Date:   Thu Jan 9 22:19:51 2025 -0300
+
+    fix: refactor code smell Feature Envy using move method refactoring technique
+
+[33mcommit abd7dc2c3fc3a298fe3bef47bfa979f8f31ce2e2[m
+Author: paulo vitor <paulov14@alu.ufc.br>
+Date:   Sun Jan 5 20:22:37 2025 -0300
+
+    fix: refactor code smell Feature Envy using move method refactoring technique
+
+[33mcommit 8cd18bceecbb0549eea9aad4f8c104b9952ad45f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: cb6b23e 5344490
+Author: Javel Queiroz Freitas <42359787+JavelFreitas@users.noreply.github.com>
+Date:   Mon Dec 30 16:15:48 2024 -0300
+
+    Merge pull request #2 from JavelFreitas/develop
+    
+    Merge branch develop with branch main
+
+[33mcommit 5344490989699e5a1364372713a4c9e04b78daf1[m
+Merge: cb6b23e 0b92b1e
+Author: Javel Queiroz Freitas <42359787+JavelFreitas@users.noreply.github.com>
+Date:   Mon Dec 30 16:14:04 2024 -0300
+
+    Merge pull request #1 from JoseEdSouza/develop2
+    
+    test: make habitEmptyView test work properly in unix based systems
+
+[33mcommit 0b92b1e1e1157a03a7a9b438c64dff9a2eaee5cf[m
+Author: José Souza <joseedsouza.dev@gmail.com>
+Date:   Mon Dec 30 15:59:18 2024 -0300
+
+    test: make habitEmptyView test work properly in unix based systems
+
+[33mcommit cb6b23e689cc346636ce4c6d96ed5e9ca71bd234[m
+Author: javelfreitas <javelqueiroz@outlook.com.br>
+Date:   Tue Dec 17 15:09:22 2024 -0300
+
+    feat: add controllers interaction with classes
+
+[33mcommit 7f91ea934c6158e14b159f4ab483a3bce4a6a60e[m
+Author: javelfreitas <javelqueiroz@outlook.com.br>
+Date:   Mon Dec 16 22:36:38 2024 -0300
+
+    test: add last unitary tests
+
+[33mcommit 57ebc4f5ef7cc10728f339b329c5840b43451941[m
+Author: javelfreitas <javelqueiroz@outlook.com.br>
+Date:   Sun Dec 15 23:24:50 2024 -0300
+
+    chore: remove unused imports
+    
+    intellij ctrl alt O, run on java folder and java test folder
+
+[33mcommit 566186ff1a3dfd24b17bd6e552ba814a678c5b8f[m
+Author: javelfreitas <javelqueiroz@outlook.com.br>
+Date:   Sun Dec 15 23:21:08 2024 -0300
+
+    test: implement tests for system functionalities
+    
+    tests of: RegistrySearch
+
+[33mcommit 5b76fa49d0448e218c5c722dd893431af4851058[m
+Author: javelfreitas <javelqueiroz@outlook.com.br>
+Date:   Sun Dec 15 23:12:23 2024 -0300
+
+    test: implement tests for system functionalities
+    
+    tests of: GeneralSearch, MaterialSearch, StudyCardsController
+
+[33mcommit 9d2bb8ffce661dd1cd33b9f678ee761020cdf738[m
+Author: javelfreitas <javelqueiroz@outlook.com.br>
+Date:   Sun Dec 15 22:26:10 2024 -0300
+
+    test: implement tests for system functionalities
+
+[33mcommit e1280a93373f7f62a1c3cf68f0bac6f4f519f217[m
+Merge: 17691f2 56176b4
+Author: javelfreitas <javelqueiroz@outlook.com.br>
+Date:   Thu Dec 5 15:58:03 2024 -0300
+
+    chore: merge remote with local
+
+[33mcommit 56176b4b1df52560de3e83c91af504ae1772e51b[m
+Author: Javel Queiroz Freitas <42359787+JavelFreitas@users.noreply.github.com>
+Date:   Thu Dec 5 15:50:24 2024 -0300
+
+    Initial commit
+
+[33mcommit 17691f23fd8fd5d8d3f1d5c0dc5a0822d6d4bb96[m
+Author: javelfreitas <javelqueiroz@outlook.com.br>
+Date:   Thu Dec 5 15:47:42 2024 -0300
+
+    chore: add code smells
+
+[33mcommit f65c9a868dd87897ed3b4c6ed9777c68588b7afb[m
+Author: javelfreitas <javelqueiroz@outlook.com.br>
+Date:   Wed Dec 4 16:44:20 2024 -0300
+
+    chore: project start

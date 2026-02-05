@@ -20,13 +20,34 @@ class TimelineViewTest {
         addHabits();
     }
 
-    static void addHabits(){
-        int habit1 = habitTracker.addHabit("Test 1", "Test 1 Motivation");
-        int habit2 = habitTracker.addHabit("Test 2", "Test 2 Motivation");
-        habitTracker.addHabit("Test 3", "Test 3 Motivation");
+    static void addHabits() {
+        // Creating and adding habits using HabitBuilder
+        int habit1 = habitTracker.addHabit(
+                new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                        .withName("Test 1")
+                        .withMotivation("Test 1 Motivation")
+                        .withIsConcluded(false)
+        );
+
+        int habit2 = habitTracker.addHabit(
+                new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                        .withName("Test 2")
+                        .withMotivation("Test 2 Motivation")
+                        .withIsConcluded(false)
+        );
+
+        habitTracker.addHabit(
+                new HabitTracker.HabitBuilder(habitTracker.getTrackerKeys().size() + 1)
+                        .withName("Test 3")
+                        .withMotivation("Test 3 Motivation")
+                        .withIsConcluded(false)
+        );
+
+        // Adding habit records
         addHabitRecord(habit1);
         addHabitRecord(habit2);
     }
+
 
     static void addHabitRecord(int id){
         habitTracker.addHabitRecord(id);

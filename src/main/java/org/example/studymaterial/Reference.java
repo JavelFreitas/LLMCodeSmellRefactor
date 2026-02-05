@@ -100,4 +100,77 @@ public abstract class Reference {
     public void setShareCount(int shareCount) {
         this.shareCount = shareCount;
     }
+
+    // New Behavior: Calculate popularity based on interaction counts
+    public double calculatePopularity() {
+        return (viewCount * 0.5) + (downloadCount * 0.3) + (shareCount * 0.2);
+    }
+
+    // New Behavior: Determine if the reference is highly rated
+    public boolean isHighlyRated() {
+        return rating >= 4;
+    }
+
+    // New Behavior: Generate a brief summary of the reference
+    public String generateSummary() {
+        return String.format(
+                "Reference Summary:\nTitle: %s\nDescription: %s\nRating: %d\nLanguage: %s\nPopularity: %.2f",
+                title, description, rating, language, calculatePopularity()
+        );
+    }
+
+    // New Behavior: Check if the reference is shareable
+    public boolean isShareable() {
+        return shareCount > 0;
+    }
+
+    // New Behavior: Increment view count and track
+    public void incrementView() {
+        this.viewCount++;
+    }
+
+    // New Behavior: Increment download count with validation
+    public void download() {
+        if (!isDownloadable) {
+            throw new UnsupportedOperationException("This reference is not downloadable.");
+        }
+        this.downloadCount++;
+    }
+
+    // New Behavior: Share the reference and track share count
+    public void share() {
+        this.shareCount++;
+    }
+
+    // Additional Behavior: Update multiple attributes together
+    public void updateReference(String title, String description, String link, boolean isDownloadable) {
+        setTitle(title);
+        setDescription(description);
+        setLink(link);
+        setDownloadable(isDownloadable);
+    }
+
+    // Additional Behavior: Reset all counters
+    public void resetCounters() {
+        this.viewCount = 0;
+        this.downloadCount = 0;
+        this.shareCount = 0;
+    }
+
+    // Additional Behavior: Combine and summarize interactions
+    public String interactionSummary() {
+        return String.format(
+                "Interactions Summary:\nViews: %d\nDownloads: %d\nShares: %d\nPopularity Score: %.2f",
+                viewCount, downloadCount, shareCount, calculatePopularity()
+        );
+    }
+
+    // Additional Behavior: Evaluate overall performance based on interactions and rating
+    public String evaluatePerformance() {
+        String performance = isHighlyRated() ? "Highly Rated" : "Needs Improvement";
+        return String.format(
+                "Performance Evaluation:\n%s\nPopularity Score: %.2f",
+                performance, calculatePopularity()
+        );
+    }
 }

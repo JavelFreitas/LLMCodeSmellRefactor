@@ -1,14 +1,12 @@
 package org.example.studymaterial;
 
-import java.util.List;
-
 public class AudioReference extends Reference {
     public enum AudioQuality {
         LOW, MEDIUM, HIGH, VERY_HIGH;
     }
     private AudioQuality audioQuality;
 
-    public AudioReference(AudioQuality quality){
+    public AudioReference(AudioQuality quality) {
         this.audioQuality = quality;
     }
 
@@ -16,7 +14,7 @@ public class AudioReference extends Reference {
         return audioQuality;
     }
 
-    public static AudioQuality audioQualityAdapter(String quality){
+    public static AudioQuality audioQualityAdapter(String quality) {
         return switch (quality.toLowerCase()) {
             case "low" -> AudioQuality.LOW;
             case "medium" -> AudioQuality.MEDIUM;
@@ -30,30 +28,94 @@ public class AudioReference extends Reference {
         this.audioQuality = audioQuality;
     }
 
-     public void editAudio(AudioQuality audioQuality, boolean isDownloadable, String title, String description, String link, String accessRights, String license, String language, int rating,  int viewCount, int shareCount){
-        editBasic(title, description, link);
-        this.setAccessRights(accessRights);
-        this.setLicense(license);
-        this.setAudioQuality(audioQuality);
-        editVideoAttributes(rating, language, viewCount, shareCount, isDownloadable);
-     }
+    public void editAudio(AudioBuilder builder) {
+        editBasic(builder.title, builder.description, builder.link);
+        this.setAccessRights(builder.accessRights);
+        this.setLicense(builder.license);
+        this.setAudioQuality(builder.audioQuality);
+        this.setLanguage(builder.language);
+        this.setRating(builder.rating);
+        this.setViewCount(builder.viewCount);
+        this.setShareCount(builder.shareCount);
+        this.setDownloadable(builder.isDownloadable);
+    }
 
-     public void editAudioAdapter(List<String> properties, List<Integer> intProperties, AudioQuality audioQuality, boolean isDownloadable){
-         this.editAudio(audioQuality, isDownloadable, properties.get(0), properties.get(1), properties.get(2), properties.get(3), properties.get(4), properties.get(5), intProperties.get(0),  intProperties.get(1), intProperties.get(2));
-     }
+    public void editBasic(String title, String description, String link) {
+        this.setTitle(title);
+        this.setDescription(description);
+        this.setLink(link);
+    }
 
-     private void editVideoAttributes(int rating, String language, int viewCount, int shareCount,boolean isDownloadable){
-         this.setRating(rating);
-         this.setShareCount(shareCount);
-         this.setViewCount(viewCount);
-         this.setDownloadable(isDownloadable);
-         this.setLanguage(language);
-     }
+    public static class AudioBuilder {
+        private AudioQuality audioQuality;
+        private boolean isDownloadable;
+        private String title;
+        private String description;
+        private String link;
+        private String accessRights;
+        private String license;
+        private String language;
+        private int rating;
+        private int viewCount;
+        private int shareCount;
 
-     public void editBasic(String title, String description, String link){
-         this.setTitle(title);
-         this.setDescription(description);
-         this.setLink(link);
-     }
+        public AudioBuilder setAudioQuality(AudioQuality audioQuality) {
+            this.audioQuality = audioQuality;
+            return this;
+        }
 
+        public AudioBuilder setDownloadable(boolean isDownloadable) {
+            this.isDownloadable = isDownloadable;
+            return this;
+        }
+
+        public AudioBuilder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public AudioBuilder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public AudioBuilder setLink(String link) {
+            this.link = link;
+            return this;
+        }
+
+        public AudioBuilder setAccessRights(String accessRights) {
+            this.accessRights = accessRights;
+            return this;
+        }
+
+        public AudioBuilder setLicense(String license) {
+            this.license = license;
+            return this;
+        }
+
+        public AudioBuilder setLanguage(String language) {
+            this.language = language;
+            return this;
+        }
+
+        public AudioBuilder setRating(int rating) {
+            this.rating = rating;
+            return this;
+        }
+
+        public AudioBuilder setViewCount(int viewCount) {
+            this.viewCount = viewCount;
+            return this;
+        }
+
+        public AudioBuilder setShareCount(int shareCount) {
+            this.shareCount = shareCount;
+            return this;
+        }
+
+        public AudioBuilder build() {
+            return this;
+        }
+    }
 }

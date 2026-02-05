@@ -29,31 +29,34 @@ public class TodoTracker {
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (ToDo toDo : toDos) {
-            String todoInfo = toDo.toString();
-            str.append(todoInfo);
-            str.append("\n");
-            Integer id = toDo.getId();
-            List<LocalDateTime> todosDate = this.tracker.get(id);
-            if(todosDate == null){
-                str.append("No tracks found\n");
-            }else{
-                for (LocalDateTime ldt : todosDate) {
-                    String pattern = "yyyy-MM-dd HH:mm:ss";
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                    String formattedDate = formatter.format(ldt);
-                    str.append(formattedDate);
-                    str.append("\n");
-                }
-            }
+            appendToDoDetails(str, toDo);
         }
-        String response = str.toString();
-        if(response.isEmpty()){
-            return "No ToDos found";
-        }
-        return response;
+        return str.length() > 0 ? str.toString() : "No ToDos found";
     }
 
-    public void addToDoExecutionTime(Integer id){
+    private void appendToDoDetails(StringBuilder str, ToDo toDo) {
+        str.append(toDo.toString()).append("\n");
+        List<LocalDateTime> todosDate = tracker.get(toDo.getId());
+        appendExecutionTimes(str, todosDate);
+    }
+
+    private void appendExecutionTimes(StringBuilder str, List<LocalDateTime> todosDate) {
+        if (todosDate == null) {
+            str.append("No tracks found\n");
+        } else {
+            for (LocalDateTime ldt : todosDate) {
+                str.append(formatDate(ldt)).append("\n");
+            }
+        }
+    }
+
+    private String formatDate(LocalDateTime ldt) {
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return formatter.format(ldt);
+    }
+
+    public void addToDoExecutionTime(Integer id) {
         List<LocalDateTime> et = tracker.computeIfAbsent(id, k -> new ArrayList<>());
         LocalDateTime now = LocalDateTime.now();
         et.add(now);

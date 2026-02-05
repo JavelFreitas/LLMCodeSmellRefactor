@@ -2,7 +2,7 @@ package org.example.studyplanner;
 
 import java.text.MessageFormat;
 
-public class ToDo implements PlannerMaterial{
+public class ToDo implements PlannerMaterial {
     private Integer id;
     private String title;
     private String description;
@@ -20,7 +20,32 @@ public class ToDo implements PlannerMaterial{
         return MessageFormat.format("[(Priority:{3}) ToDo {0}: {1}, {2}]", id, title, description, priority);
     }
 
-    public int getId() {
+    // Encapsulated behavior: Increase priority
+    public void increasePriority() {
+        if (priority > 1) {
+            priority--;
+        }
+    }
+
+    // Encapsulated behavior: Decrease priority
+    public void decreasePriority() {
+        if (priority < 10) {
+            priority++;
+        }
+    }
+
+    // Encapsulated behavior: Check if high priority
+    public boolean isHighPriority() {
+        return priority == 1;
+    }
+
+    // Encapsulated behavior: Summarize ToDo details
+    public String summarize() {
+        return MessageFormat.format("ToDo Summary: [{0}] {1} - {2} (Priority: {3})",
+                id, title, description, priority);
+    }
+
+    public Integer getId() {
         return id;
     }
 

@@ -51,15 +51,28 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(task);
     }
 
-    private void handleSetObjective(StudyObjective objective){
+    private void handleSetObjective(StudyObjective objective) {
         handleMethodHeader("(Study Objective Edit)");
         System.out.println("Type the following info: Integer id, Integer priority " +
                 "Integer practicedDays, int day, int month, int year, String name, String title, String description, " +
                 "String topic, String objectiveInOneLine, String objectiveFullDescription, String motivation, " +
                 "Double duration, boolean isActive  \n");
-        objective.handleSetObjective(Integer.parseInt(getInput()), Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),Integer.parseInt(getInput()),
-                Integer.parseInt(getInput()), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Double.parseDouble(getInput()), Boolean.parseBoolean(getInput()));
+
+        // Criação de um objeto StudyObjective com o builder
+        StudyObjective newObjective = new StudyObjective.StudyObjectiveBuilder()
+                .setTitle(getInput())
+                .setDescription(getInput())
+                .setTopic(getInput())
+                .setObjectiveInOneLine(getInput())
+                .setObjectiveFullDescription(getInput())
+                .setMotivation(getInput())
+                .setPracticedDays(Integer.parseInt(getInput()))
+                .setStartDate(LocalDateTime.of(Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()), 0, 0))
+                .setDuration(Double.parseDouble(getInput()))
+                .build();
+
+        // Agora, você chama o método handleSetObjective com o novo objeto
+        objective.handleSetObjective(newObjective);
     }
 
     private StudyObjective getStudyObjectiveInfo(){
@@ -83,16 +96,36 @@ public class StudyRegistryController {
         return plan;
     }
 
-    private void handleSetSteps(StudyPlan studyPlan){
+    private void handleSetSteps(StudyPlan studyPlan) {
         handleMethodHeader("(Study Plan Edit)");
         System.out.println("Type the following info: String firstStep, String resetStudyMechanism, String consistentStep, " +
                 "String seasonalSteps, String basicSteps, String mainObjectiveTitle, String mainGoalTitle, String mainMaterialTopic, " +
-                "String mainTask, @NotNull  Integer numberOfSteps, boolean isImportant. " +
+                "String mainTask, @NotNull Integer numberOfSteps, boolean isImportant. " +
                 "The Date to start is today, the date to end is x days from now, type the quantity of days\n");
+
         LocalDateTime createdAT = LocalDateTime.now();
-        studyPlan.assignSteps(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                Integer.parseInt(getInput()), Boolean.parseBoolean(getInput()), createdAT, createdAT.plusDays(Long.parseLong(getInput())));
+        LocalDateTime endDate = createdAT.plusDays(Long.parseLong(getInput())); // Lê o número de dias para calcular o endDate
+
+        // Criação do Builder para encapsular os parâmetros
+        StudyPlan.AssignStepsBuilder builder = new StudyPlan.AssignStepsBuilder()
+                .setFirstStep(getInput())
+                .setResetStudyMechanism(getInput())
+                .setConsistentStep(getInput())
+                .setSeasonalSteps(getInput())
+                .setBasicSteps(getInput())
+                .setMainObjectiveTitle(getInput())
+                .setMainGoalTitle(getInput())
+                .setMainMaterialTopic(getInput())
+                .setMainTask(getInput())
+                .setNumberOfSteps(Integer.parseInt(getInput()))
+                .setIsImportant(Boolean.parseBoolean(getInput()))
+                .setStartDate(createdAT)
+                .setEndDate(endDate);
+
+        // Chamada ao método assignSteps com o builder
+        studyPlan.assignSteps(builder);
     }
+
 
     private StudyGoal getStudyGoalInfo(){
         handleMethodHeader("(Study Goal Creation)");
@@ -109,15 +142,30 @@ public class StudyRegistryController {
         studyTaskManager.addRegistry(goal);
     }
 
-    private void editAudio(AudioReference audioReference){
+    private void editAudio(AudioReference audioReference) {
         handleMethodHeader("(Audio Edit)");
-        System.out.println("Type the following info:  AudioReference. AudioQuality audioQuality, boolean isDownloadable, " +
-                "String title, String description, String link, String accessRights, String license, String language, int rating, " +
-                "int viewCount, int shareCount \n");
-        AudioReference.AudioQuality quality =AudioReference.audioQualityAdapter(getInput());
-        audioReference.editAudio(quality, Boolean.parseBoolean(getInput()), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), Integer.parseInt(getInput()), Integer.parseInt(getInput()), Integer.parseInt(getInput()));
+        System.out.println("Type the following info: AudioReference. AudioQuality (LOW, MEDIUM, HIGH, VERY_HIGH), boolean isDownloadable, "
+                + "String title, String description, String link, String accessRights, String license, String language, "
+                + "int rating, int viewCount, int shareCount\n");
+
+        // Collect inputs to create the AudioBuilder
+        AudioReference.AudioBuilder builder = new AudioReference.AudioBuilder()
+                .setAudioQuality(AudioReference.audioQualityAdapter(getInput()))
+                .setDownloadable(Boolean.parseBoolean(getInput()))
+                .setTitle(getInput())
+                .setDescription(getInput())
+                .setLink(getInput())
+                .setAccessRights(getInput())
+                .setLicense(getInput())
+                .setLanguage(getInput())
+                .setRating(Integer.parseInt(getInput()))
+                .setViewCount(Integer.parseInt(getInput()))
+                .setShareCount(Integer.parseInt(getInput()));
+
+        // Apply changes using the builder
+        audioReference.editAudio(builder);
     }
+
 
     private AudioReference addAudioReference(){
         handleMethodHeader("(Audio Reference Creation)");
@@ -170,12 +218,29 @@ public class StudyRegistryController {
         System.out.println("Study Plan Added");
     }
 
-    private void getWeekInfo(){
-        System.out.println("(Study Task Manager Week Set Up) Type the following info: String planName, String objectiveTitle, " +
-                "String objectiveDescription, String materialTopic, String materialFormat, String goal, String reminderTitle, " +
-                "String reminderDescription, String mainTaskTitle, String mainHabit, String mainCardStudy");
-        studyTaskManager.setUpWeek(getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(), getInput(),
-                getInput(), getInput(), getInput());
+    private void getWeekInfo() {
+        System.out.println("(Study Task Manager Week Set Up) Please provide the following info:");
+
+        StudyTaskManager.WeekSetup.Builder builder = new StudyTaskManager.WeekSetup.Builder()
+                .setPlanName(promptUser("Plan Name"))
+                .setObjectiveTitle(promptUser("Objective Title"))
+                .setObjectiveDescription(promptUser("Objective Description"))
+                .setMaterialTopic(promptUser("Material Topic"))
+                .setMaterialFormat(promptUser("Material Format"))
+                .setGoal(promptUser("Goal"))
+                .setReminderTitle(promptUser("Reminder Title"))
+                .setReminderDescription(promptUser("Reminder Description"))
+                .setMainTaskTitle(promptUser("Main Task Title"))
+                .setMainHabit(promptUser("Main Habit"))
+                .setMainCardStudy(promptUser("Main Card Study"));
+
+        StudyTaskManager.WeekSetup weekSetup = builder.build();
+        studyTaskManager.setUpWeek(weekSetup);
+    }
+
+    private String promptUser(String prompt) {
+        System.out.println(prompt + ":");
+        return getInput();
     }
 
     private void handleSetUpWeek(){
