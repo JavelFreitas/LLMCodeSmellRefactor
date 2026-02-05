@@ -1,5 +1,8 @@
 package org.example.studymaterial;
 
+import org.example.studymaterial.dtos.AudioMetadata;
+import org.example.studymaterial.dtos.AudioStatistics;
+
 import java.util.List;
 
 public class AudioReference extends Reference {
@@ -30,17 +33,26 @@ public class AudioReference extends Reference {
         this.audioQuality = audioQuality;
     }
 
-     public void editAudio(AudioQuality audioQuality, boolean isDownloadable, String title, String description, String link, String accessRights, String license, String language, int rating,  int viewCount, int shareCount){
-        editBasic(title, description, link);
-        this.setAccessRights(accessRights);
-        this.setLicense(license);
+    public void editAudio(AudioQuality audioQuality, boolean isDownloadable, AudioMetadata metadata, AudioStatistics statistics) {
+        editBasic(metadata.getTitle(), metadata.getDescription(), metadata.getLink());
+        this.setAccessRights(metadata.getAccessRights());
+        this.setLicense(metadata.getLicense());
         this.setAudioQuality(audioQuality);
-        editVideoAttributes(rating, language, viewCount, shareCount, isDownloadable);
-     }
+        editVideoAttributes(statistics.getRating(), metadata.getLanguage(), statistics.getViewCount(), statistics.getShareCount(), isDownloadable);
+    }
 
-     public void editAudioAdapter(List<String> properties, List<Integer> intProperties, AudioQuality audioQuality, boolean isDownloadable){
-         this.editAudio(audioQuality, isDownloadable, properties.get(0), properties.get(1), properties.get(2), properties.get(3), properties.get(4), properties.get(5), intProperties.get(0),  intProperties.get(1), intProperties.get(2));
-     }
+    public void editAudioAdapter(List<String> properties, List<Integer> intProperties, AudioQuality audioQuality, boolean isDownloadable) {
+        AudioMetadata metadata = new AudioMetadata(
+                properties.get(0), properties.get(1), properties.get(2),
+                properties.get(3), properties.get(4), properties.get(5)
+        );
+
+        AudioStatistics statistics = new AudioStatistics(
+                intProperties.get(0), intProperties.get(1), intProperties.get(2)
+        );
+
+        this.editAudio(audioQuality, isDownloadable, metadata, statistics);
+    }
 
      private void editVideoAttributes(int rating, String language, int viewCount, int shareCount,boolean isDownloadable){
          this.setRating(rating);

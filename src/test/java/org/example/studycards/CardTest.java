@@ -45,7 +45,7 @@ class CardTest {
     @Order(2)
     void setQuestion() {
         Card card = manager.getCard(cardId1);
-        card.setQuestion("Question 3");
+        card.updateQuestion("Question 3");
         assertEquals("Question 3", card.getQuestion());
     }
 
@@ -62,7 +62,7 @@ class CardTest {
     @Order(4)
     void setAnswer() {
         Card card = manager.getCard(cardId1);
-        card.setAnswer("Answer 3");
+        card.updateAnswer("Answer 3");
         assertEquals("Answer 3", card.getAnswer());
     }
 
@@ -71,7 +71,7 @@ class CardTest {
     @Order(5)
     void edit() {
         Card card = manager.getCard(cardId1);
-        card.edit("Question 4", "Answer 4");
+        card.updateContent("Question 4", "Answer 4");
         assertEquals("Question 4", card.getQuestion());
         assertEquals("Answer 4", card.getAnswer());
     }
