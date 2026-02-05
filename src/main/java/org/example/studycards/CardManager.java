@@ -87,5 +87,8 @@ public class CardManager {
         }
         return responseCards;
     }
+    public List<String> handleSearch(String text) {
+        return searchInCards(text); // Delegar a busca ao método já existente
+    }
 
 }

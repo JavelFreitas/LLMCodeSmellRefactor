@@ -19,6 +19,15 @@ public class SearchLog {
         numUsages = 0;
         isLocked = false;
     }
+    public List<String> logSearchAndSummary(String text) {
+        logSearch(text); // Registrar busca
+        return getSearchSummary(); // Retornar resumo
+    }
+    public List<String> getSearchSummary() {
+        List<String> summary = new ArrayList<>();
+        summary.add("Logged in: " + logName);
+        return summary;
+    }
     public void addSearchHistory(String searchHistory) {
         this.searchHistory.add(searchHistory);
     }
@@ -58,4 +67,19 @@ public class SearchLog {
     public void setLogName(String logName) {
         this.logName = logName;
     }
+    public void logSearch(String text) {
+        addSearchHistory(text);
+        setNumUsages(getNumUsages() + 1);
+    }
+    public String generateLogEntry(String text) {
+        logSearch(text);
+        return "\nLogged in: " + getLogName();
+    }
+    public String updateAndGetName(String text) {
+        addSearchHistory(text);
+        setNumUsages(getNumUsages() + 1);
+        return getLogName();
+    }
+
+
 }
