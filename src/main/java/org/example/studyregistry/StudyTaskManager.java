@@ -1,6 +1,7 @@
 package org.example.studyregistry;
 
 import org.example.studymaterial.Reference;
+import org.example.studyregistry.dto.WeekSetupInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,21 +24,40 @@ public class StudyTaskManager {
         return instance;
     }
 
+    public List<String> handleSearch(String text) {
+        return searchInRegistries(text);
+    }
+
+
     public List<String> getWeekResponsibilities() {
         return weekResponsibilities;
     }
 
-    public void setUpWeek(String planName, String objectiveTitle, String objectiveDescription, String materialTopic,
-                          String materialFormat, String goal, String reminderTitle, String reminderDescription,
-                          String mainTaskTitle, String mainHabit, String mainCardStudy){
+    public void setUpWeek(WeekSetupInfo weekSetupInfo) {
         this.weekResponsibilities = new ArrayList<>();
-        this.weekResponsibilities.addAll(Arrays.asList(planName, objectiveTitle, objectiveDescription, materialTopic, materialFormat, goal, reminderTitle, reminderDescription, mainTaskTitle, mainHabit, mainCardStudy));
+
+        this.weekResponsibilities.addAll(Arrays.asList(
+                weekSetupInfo.planName(),
+                weekSetupInfo.objectiveTitle(),
+                weekSetupInfo.objectiveDescription(),
+                weekSetupInfo.materialTopic(),
+                weekSetupInfo.materialFormat(),
+                weekSetupInfo.goal(),
+                weekSetupInfo.reminderTitle(),
+                weekSetupInfo.reminderDescription(),
+                weekSetupInfo.mainTaskTitle(),
+                weekSetupInfo.mainHabit(),
+                weekSetupInfo.mainCardStudy()
+        ));
     }
 
-    public void handleSetUpWeek(List<String> stringProperties){
-        setUpWeek(stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3),
+        public void handleSetUpWeek(List<String> stringProperties) {
+            WeekSetupInfo weekSetupInfo = new WeekSetupInfo(
+                    stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3),
                 stringProperties.get(4), stringProperties.get(5), stringProperties.get(6), stringProperties.get(7),
-                stringProperties.get(8), stringProperties.get(9), stringProperties.get(10));
+                    stringProperties.get(8), stringProperties.get(9), stringProperties.get(10)
+            );
+            setUpWeek(weekSetupInfo);
     }
 
 
