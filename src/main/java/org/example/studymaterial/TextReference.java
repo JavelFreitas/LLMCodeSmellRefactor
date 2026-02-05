@@ -5,11 +5,21 @@ public class TextReference extends Reference{
     private String format;
 
     public TextReference(String title, String language, int wordCount, String format, String accessRights) {
+        super(new ReferenceMetadata(
+                title,
+                null, // Assuming description is optional
+                null, // Assuming link is optional
+                accessRights,
+                null, // Assuming license is optional
+                false, // Assuming downloadable is optional
+                0, // Assuming rating is optional
+                language,
+                0, // Assuming viewCount is optional
+                0, // Assuming downloadCount is optional
+                0 // Assuming shareCount is optional
+        ));
         this.wordCount = wordCount;
         this.format = format;
-        this.setTitle(title);
-        this.setLanguage(language);
-        this.setAccessRights(accessRights);
     }
 
     public void editAccess(String accessRights, String format, int wordCount) {

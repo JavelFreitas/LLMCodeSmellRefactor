@@ -8,7 +8,33 @@ public class AudioReference extends Reference {
     }
     private AudioQuality audioQuality;
 
-    public AudioReference(AudioQuality quality){
+    public AudioReference(AudioQuality quality,
+                          String title,
+                          String description,
+                          String link,
+                          String accessRights,
+                          String license,
+                          boolean isDownloadable,
+                          int rating,
+                          String language,
+                          int viewCount,
+                          int downloadCount,
+                          int shareCount) {
+
+        super(new ReferenceMetadata(
+                title,
+                description,
+                link,
+                accessRights,
+                license,
+                isDownloadable,
+                rating,
+                language,
+                viewCount,
+                downloadCount,
+                shareCount
+        ));
+
         this.audioQuality = quality;
     }
 
