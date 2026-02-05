@@ -29,4 +29,9 @@ public class TextReference extends Reference{
         return true;
     }
 
+    @Override
+    public boolean shouldBeCounted() {
+        return handleTextAccess();
+    }
+
 }

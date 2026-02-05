@@ -33,6 +33,10 @@ public class VideoReference extends Reference {
             return false;
         }
         return true;
+    }
 
+    @Override
+    public boolean shouldBeCounted() {
+        return isAvailable;
     }
 }
