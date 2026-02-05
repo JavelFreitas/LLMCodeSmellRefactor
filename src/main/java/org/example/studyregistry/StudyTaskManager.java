@@ -5,15 +5,14 @@ import org.example.studymaterial.Reference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 public class StudyTaskManager {
     private static StudyTaskManager instance;
     private StudyMaterial studyMaterial = StudyMaterial.getStudyMaterial();
     List<Registry> registryList;
-    List<String> weekResponsibilities = List.of();
+    private WeekSetupData currentWeekSetup;
 
     private StudyTaskManager(){
-        this.registryList = new ArrayList<Registry>();
+        this.registryList = new ArrayList<>();
     }
 
     public static StudyTaskManager getStudyTaskManager(){
@@ -23,23 +22,27 @@ public class StudyTaskManager {
         return instance;
     }
 
-    public List<String> getWeekResponsibilities() {
-        return weekResponsibilities;
+    public WeekSetupData getCurrentWeekSetup() {
+        return this.currentWeekSetup ;
     }
 
-    public void setUpWeek(String planName, String objectiveTitle, String objectiveDescription, String materialTopic,
-                          String materialFormat, String goal, String reminderTitle, String reminderDescription,
-                          String mainTaskTitle, String mainHabit, String mainCardStudy){
-        this.weekResponsibilities = new ArrayList<>();
-        this.weekResponsibilities.addAll(Arrays.asList(planName, objectiveTitle, objectiveDescription, materialTopic, materialFormat, goal, reminderTitle, reminderDescription, mainTaskTitle, mainHabit, mainCardStudy));
+    public void setUpWeek(WeekSetupData weekSetupData){
+        this.currentWeekSetup = weekSetupData;
     }
 
     public void handleSetUpWeek(List<String> stringProperties){
-        setUpWeek(stringProperties.get(0), stringProperties.get(1), stringProperties.get(2), stringProperties.get(3),
-                stringProperties.get(4), stringProperties.get(5), stringProperties.get(6), stringProperties.get(7),
-                stringProperties.get(8), stringProperties.get(9), stringProperties.get(10));
-    }
+        if (stringProperties.size() != 11) {
+            throw new IllegalArgumentException("Invalid number of properties for week setup.");
+        }
 
+        WeekSetupData weekSetupData = new WeekSetupData(
+                stringProperties.get(0), stringProperties.get(1), stringProperties.get(2),
+                stringProperties.get(3), stringProperties.get(4), stringProperties.get(5),
+                stringProperties.get(6), stringProperties.get(7), stringProperties.get(8),
+                stringProperties.get(9), stringProperties.get(10)
+        );
+        setUpWeek(weekSetupData);
+    }
 
     public void addRegistry(Registry registry){
         registryList.add(registry);
@@ -61,5 +64,4 @@ public class StudyTaskManager {
         }
         return response;
     }
-
 }

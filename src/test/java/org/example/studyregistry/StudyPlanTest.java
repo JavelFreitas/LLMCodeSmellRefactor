@@ -22,14 +22,13 @@ class StudyPlanTest {
     }
 
     void assignSteps(){
-        List<String> stringProperties = List.of("firstStep", "resetStudyMechanism", "consistentStep", "seasonalSteps",
-                "basicSteps", "mainObjectiveTitle", "mainGoalTitle", "mainMaterialTopic", "mainTask");
+        StudyPlanProperties properties = new StudyPlanProperties();
         Integer numberOfSteps = 20;
         boolean isImportant = true;
         startDateTest = LocalDateTime.now();
         LocalDateTime startDate = startDateTest;
         LocalDateTime endDate = startDate.plusDays(10);
-        studyPlan.handleAssignSteps(stringProperties, numberOfSteps, isImportant, startDate, endDate);
+        studyPlan.handleAssignSteps(properties, numberOfSteps, isImportant, startDate, endDate);
     }
 
     boolean verifyStepsResponse(String step, List<String> response) {
