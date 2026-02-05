@@ -25,6 +25,65 @@ public class HabitTracker {
         this.nextId = 1;
     }
 
+    public static class HabitBuilder {
+        private String name;
+        private String motivation;
+        private Integer dailyMinutesDedication = 0;
+        private Integer dailyHoursDedication = 0;
+        private Integer year;
+        private Integer month;
+        private Integer day;
+        private Integer hour;
+        private Integer minute;
+        private Integer seconds;
+        private Boolean isConcluded = false;
+
+        public HabitBuilder(String name) {
+            this.name = name;
+        }
+
+        public HabitBuilder motivation(String motivation) {
+            this.motivation = motivation;
+            return this;
+        }
+
+        public HabitBuilder dailyDedication(int hours, int minutes) {
+            this.dailyHoursDedication = hours;
+            this.dailyMinutesDedication = minutes;
+            return this;
+        }
+
+        public HabitBuilder startDate(int year, int month, int day, int hour, int minute, int seconds) {
+            this.year = year;
+            this.month = month;
+            this.day = day;
+            this.hour = hour;
+            this.minute = minute;
+            this.seconds = seconds;
+            return this;
+        }
+
+        public HabitBuilder concluded(boolean concluded) {
+            this.isConcluded = concluded;
+            return this;
+        }
+    }
+
+    public String habitDateViewAll() {
+        StringBuilder response = new StringBuilder();
+        for(Habit habit : habits) {
+            response.append("[ Habit: ")
+                    .append(habit.getName())
+                    .append(". Records: ");
+            List<LocalDateTime> records = getHabitRecords(habit.getId());
+            for(LocalDateTime record : records) {
+                response.append(formatHabitDate(record)).append(", ");
+            }
+            response.append("]");
+        }
+        return response.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder response = new StringBuilder();
@@ -54,10 +113,20 @@ public class HabitTracker {
         return this.tracker.keySet().stream().toList();
     }
 
-    public int addHabit(String name, String motivation, Integer dailyMinutesDedication, Integer dailyHoursDedication, Integer year, Integer month, Integer day, Integer hour, Integer minute, Integer seconds, Boolean isConcluded) {
-        LocalTime lt = LocalTime.of(dailyHoursDedication, dailyMinutesDedication);
-        LocalDateTime startDate = LocalDateTime.of(year, month, day, hour, minute, seconds);
-        Habit habit = new Habit(name, motivation, lt, this.nextId, startDate, isConcluded);
+    public int addHabit(HabitBuilder builder) {
+        LocalTime lt = LocalTime.of(builder.dailyHoursDedication, builder.dailyMinutesDedication);
+        LocalDateTime startDate = LocalDateTime.of(
+                builder.year, builder.month, builder.day,
+                builder.hour, builder.minute, builder.seconds
+        );
+        Habit habit = new Habit(
+                builder.name,
+                builder.motivation,
+                lt,
+                this.nextId,
+                startDate,
+                builder.isConcluded
+        );
         this.habits.add(habit);
         int response = nextId;
         this.tracker.put(nextId, new ArrayList<>());
@@ -65,8 +134,21 @@ public class HabitTracker {
         return response;
     }
 
-    public int handleAddHabitAdapter(List<String> stringProperties, List<Integer> intProperties, boolean isConcluded){
-        return addHabit(stringProperties.get(0), stringProperties.get(1), intProperties.get(0), intProperties.get(1), intProperties.get(2), intProperties.get(3), intProperties.get(4), intProperties.get(5), intProperties.get(6), intProperties.get(7), isConcluded);
+    public int handleAddHabitAdapter(List<String> stringProperties, List<Integer> intProperties, boolean isConcluded) {
+        HabitBuilder builder = new HabitBuilder(stringProperties.get(0))
+                .motivation(stringProperties.get(1))
+                .dailyDedication(intProperties.get(1), intProperties.get(0))
+                .startDate(
+                        intProperties.get(2),
+                        intProperties.get(3),
+                        intProperties.get(4),
+                        intProperties.get(5),
+                        intProperties.get(6),
+                        intProperties.get(7)
+                )
+                .concluded(isConcluded);
+
+        return addHabit(builder);
     }
 
 

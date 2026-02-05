@@ -110,14 +110,28 @@ public class StudyPlannerController {
         return LocalDateTime.of(year, month, day, hour, minute, seconds);
     }
 
-    private void handleAddHabit(){
+    private void handleAddHabit() {
         System.out.println("Separate the input with enter, type: name, motivation, daily Minutes Dedication, daily Hours Dedication, year, month, day, hour, minute, seconds");
         String name = Objects.requireNonNull(this.getInput().trim());
         String motivation = Objects.requireNonNull(this.getInput().trim());
         Integer dailyMinutesDedication = Integer.parseInt(Objects.requireNonNull(this.getInput().trim()));
         Integer dailyHoursDedication = Integer.parseInt(Objects.requireNonNull(this.getInput().trim()));
-        LocalDateTime start =  handleGetStartDate();
-        habitTracker.addHabit(name, motivation, dailyMinutesDedication, dailyHoursDedication, start.getYear(), start.getMonthValue(), start.getDayOfMonth(), start.getHour(), start.getMinute(), start.getSecond(), false);
+        LocalDateTime start = handleGetStartDate();
+
+        HabitTracker.HabitBuilder builder = new HabitTracker.HabitBuilder(name)
+                .motivation(motivation)
+                .dailyDedication(dailyHoursDedication, dailyMinutesDedication)
+                .startDate(
+                        start.getYear(),
+                        start.getMonthValue(),
+                        start.getDayOfMonth(),
+                        start.getHour(),
+                        start.getMinute(),
+                        start.getSecond()
+                )
+                .concluded(false);
+
+        habitTracker.addHabit(builder);
     }
 
     private String viewToDoHeader(){
